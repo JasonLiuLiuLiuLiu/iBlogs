@@ -28,7 +28,7 @@ public class Generator {
         Configuration config = cp.parseConfiguration(is);
         is.close();
 
-        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+        DefaultShellCallback callback = new DefaultShellCallback(true);
         //创建 MBG
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         //执行生成代码
