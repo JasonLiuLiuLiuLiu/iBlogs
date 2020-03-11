@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.iblogs.portal.mbg.mapper.AttachmentsMapper">
+  <resultMap id="BaseResultMap" type="site.iblogs.portal.mbg.model.Attachments">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="AuthorId" jdbcType="INTEGER" property="authorid" />
+    <result column="Created" jdbcType="TIMESTAMP" property="created" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.portal.mbg.model.Attachments">
+    <result column="FName" jdbcType="LONGVARCHAR" property="fname" />
+    <result column="FType" jdbcType="LONGVARCHAR" property="ftype" />
+    <result column="FKey" jdbcType="LONGVARCHAR" property="fkey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, AuthorId, Created, Deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    FName, FType, FKey
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.portal.mbg.model.AttachmentsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Attachments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="site.iblogs.portal.mbg.model.AttachmentsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Attachments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Attachments
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Attachments
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="site.iblogs.portal.mbg.model.AttachmentsExample">
+    delete from Attachments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="site.iblogs.portal.mbg.model.Attachments">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Attachments (AuthorId, Created, Deleted, 
+      FName, FType, FKey
+      )
+    values (#{authorid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{fname,jdbcType=LONGVARCHAR}, #{ftype,jdbcType=LONGVARCHAR}, #{fkey,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="site.iblogs.portal.mbg.model.Attachments">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Attachments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorid != null">
+        AuthorId,
+      </if>
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
+      <if test="fname != null">
+        FName,
+      </if>
+      <if test="ftype != null">
+        FType,
+      </if>
+      <if test="fkey != null">
+        FKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorid != null">
+        #{authorid,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="fname != null">
+        #{fname,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftype != null">
+        #{ftype,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fkey != null">
+        #{fkey,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="site.iblogs.portal.mbg.model.AttachmentsExample" resultType="java.lang.Integer">
+    select count(*) from Attachments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Attachments
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorid != null">
+        AuthorId = #{record.authorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null">
+        Created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        Deleted = #{record.deleted,jdbcType=BIT},
+      </if>
+      <if test="record.fname != null">
+        FName = #{record.fname,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.ftype != null">
+        FType = #{record.ftype,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.fkey != null">
+        FKey = #{record.fkey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update Attachments
+    set Id = #{record.id,jdbcType=INTEGER},
+      AuthorId = #{record.authorid,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      FName = #{record.fname,jdbcType=LONGVARCHAR},
+      FType = #{record.ftype,jdbcType=LONGVARCHAR},
+      FKey = #{record.fkey,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Attachments
+    set Id = #{record.id,jdbcType=INTEGER},
+      AuthorId = #{record.authorid,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.portal.mbg.model.Attachments">
+    update Attachments
+    <set>
+      <if test="authorid != null">
+        AuthorId = #{authorid,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        Created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        Deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="fname != null">
+        FName = #{fname,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftype != null">
+        FType = #{ftype,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fkey != null">
+        FKey = #{fkey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.portal.mbg.model.Attachments">
+    update Attachments
+    set AuthorId = #{authorid,jdbcType=INTEGER},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      FName = #{fname,jdbcType=LONGVARCHAR},
+      FType = #{ftype,jdbcType=LONGVARCHAR},
+      FKey = #{fkey,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.iblogs.portal.mbg.model.Attachments">
+    update Attachments
+    set AuthorId = #{authorid,jdbcType=INTEGER},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
