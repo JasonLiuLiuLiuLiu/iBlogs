@@ -6,7 +6,7 @@ package site.iblogs.portal.common.api;
  * @author Liu Zhenyu on 3/12/2020
  */
 
-public enum ResultCode implements IErrorCode {
+public enum ResponseCode implements IErrorCode {
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
     VALIDATE_FAILED(404, "参数检验失败"),
@@ -15,7 +15,7 @@ public enum ResultCode implements IErrorCode {
     private long code;
     private String message;
 
-    ResultCode(long code, String message) {
+    ResponseCode(long code, String message) {
         this.code = code;
         this.message = message;
     }

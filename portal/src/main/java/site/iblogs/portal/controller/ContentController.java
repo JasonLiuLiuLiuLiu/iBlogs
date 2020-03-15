@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import site.iblogs.portal.common.api.CommonPage;
-import site.iblogs.portal.common.api.CommonResult;
+import site.iblogs.portal.common.api.PageResponse;
+import site.iblogs.portal.common.api.ApiResponse;
 import site.iblogs.portal.mbg.model.Contents;
 import site.iblogs.portal.service.ContentService;
 
@@ -34,15 +34,15 @@ public class ContentController {
     @ApiOperation("获取所有内容")
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<Contents>> listContent() {
-        return CommonResult.success(contentService.listAllContent());
+    public ApiResponse<List<Contents>> listContent() {
+        return ApiResponse.success(contentService.listAllContent());
     }
 
     @ApiOperation("分页获取所有内容")
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<Contents>> pagedContent(Integer pageNum, Integer pageSize) {
-        return CommonResult.success(CommonPage.restPage(contentService.listContent(pageNum, pageSize)));
+    public ApiResponse<PageResponse<Contents>> pagedContent(Integer pageNum, Integer pageSize) {
+        return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize)));
     }
 
 }

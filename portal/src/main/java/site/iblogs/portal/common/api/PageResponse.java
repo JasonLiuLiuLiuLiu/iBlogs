@@ -10,7 +10,7 @@ import java.util.List;
  * @author Liu Zhenyu on 3/12/2020
  */
 
-public class CommonPage<T> {
+public class PageResponse<T> {
     private Integer pageNum;
     private Integer pageSize;
     private Integer totalPage;
@@ -20,8 +20,8 @@ public class CommonPage<T> {
     /**
      * 将PageHelper分页后的list转为分页信息
      */
-    public static <T> CommonPage<T> restPage(List<T> list) {
-        CommonPage<T> result = new CommonPage<T>();
+    public static <T> PageResponse<T> restPage(List<T> list) {
+        PageResponse<T> result = new PageResponse<T>();
         PageInfo<T> pageInfo = new PageInfo<T>(list);
         result.setTotalPage(pageInfo.getPages());
         result.setPageNum(pageInfo.getPageNum());
