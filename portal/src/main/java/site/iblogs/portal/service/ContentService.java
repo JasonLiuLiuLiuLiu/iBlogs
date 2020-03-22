@@ -1,5 +1,6 @@
 package site.iblogs.portal.service;
 
+import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.mbg.model.Contents;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 public interface ContentService {
 
     List<Contents> listAllContent();
+
+    List<Contents> findArticles(ArticleParam param);
 
     List<Contents> listContent(int pageNum,int pageSize);
 }

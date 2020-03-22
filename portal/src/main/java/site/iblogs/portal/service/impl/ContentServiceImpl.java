@@ -3,6 +3,7 @@ package site.iblogs.portal.service.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.mbg.mapper.ContentsMapper;
 import site.iblogs.portal.mbg.model.Contents;
 import site.iblogs.portal.mbg.model.ContentsExample;
@@ -24,6 +25,12 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public List<Contents> listAllContent() {
        return contentsMapper.selectByExample(new ContentsExample());
+    }
+
+    @Override
+    public List<Contents> FindArticles(ArticleParam param) {
+        // TODO
+        return null;
     }
 
     @Override
