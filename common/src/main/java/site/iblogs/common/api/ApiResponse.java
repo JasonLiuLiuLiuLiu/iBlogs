@@ -1,4 +1,4 @@
-package site.iblogs.portal.common.api;
+package site.iblogs.common.api;
 
 /**
  * Api通用返回对象

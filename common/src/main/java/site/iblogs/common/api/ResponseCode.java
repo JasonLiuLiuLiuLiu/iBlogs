@@ -1,4 +1,4 @@
-package site.iblogs.portal.common.api;
+package site.iblogs.common.api;
 
 /**
  * 常用API操作码

@@ -1,4 +1,4 @@
-package site.iblogs.portal.common.api;
+package site.iblogs.common.api;
 
 public interface IErrorCode {
     long getCode();
