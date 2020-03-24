@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.iblogs.mapper.BlogsyncrelationshipsMapper">
+  <resultMap id="BaseResultMap" type="site.iblogs.model.Blogsyncrelationships">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Created" jdbcType="TIMESTAMP" property="created" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
+    <result column="ContentId" jdbcType="INTEGER" property="contentid" />
+    <result column="Target" jdbcType="INTEGER" property="target" />
+    <result column="SyncData" jdbcType="TIMESTAMP" property="syncdata" />
+    <result column="Successful" jdbcType="BIT" property="successful" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Blogsyncrelationships">
+    <result column="TargetPostId" jdbcType="LONGVARCHAR" property="targetpostid" />
+    <result column="Message" jdbcType="LONGVARCHAR" property="message" />
+    <result column="ExtensionProperty" jdbcType="LONGVARCHAR" property="extensionproperty" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, Created, Deleted, ContentId, Target, SyncData, Successful
+  </sql>
+  <sql id="Blob_Column_List">
+    TargetPostId, Message, ExtensionProperty
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.BlogsyncrelationshipsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BlogSyncRelationships
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="site.iblogs.model.BlogsyncrelationshipsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BlogSyncRelationships
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from BlogSyncRelationships
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BlogSyncRelationships
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="site.iblogs.model.BlogsyncrelationshipsExample">
+    delete from BlogSyncRelationships
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="site.iblogs.model.Blogsyncrelationships">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into BlogSyncRelationships (Created, Deleted, ContentId, 
+      Target, SyncData, Successful, 
+      TargetPostId, Message, ExtensionProperty
+      )
+    values (#{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{contentid,jdbcType=INTEGER}, 
+      #{target,jdbcType=INTEGER}, #{syncdata,jdbcType=TIMESTAMP}, #{successful,jdbcType=BIT}, 
+      #{targetpostid,jdbcType=LONGVARCHAR}, #{message,jdbcType=LONGVARCHAR}, #{extensionproperty,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="site.iblogs.model.Blogsyncrelationships">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into BlogSyncRelationships
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
+      <if test="contentid != null">
+        ContentId,
+      </if>
+      <if test="target != null">
+        Target,
+      </if>
+      <if test="syncdata != null">
+        SyncData,
+      </if>
+      <if test="successful != null">
+        Successful,
+      </if>
+      <if test="targetpostid != null">
+        TargetPostId,
+      </if>
+      <if test="message != null">
+        Message,
+      </if>
+      <if test="extensionproperty != null">
+        ExtensionProperty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="contentid != null">
+        #{contentid,jdbcType=INTEGER},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=INTEGER},
+      </if>
+      <if test="syncdata != null">
+        #{syncdata,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successful != null">
+        #{successful,jdbcType=BIT},
+      </if>
+      <if test="targetpostid != null">
+        #{targetpostid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extensionproperty != null">
+        #{extensionproperty,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="site.iblogs.model.BlogsyncrelationshipsExample" resultType="java.lang.Long">
+    select count(*) from BlogSyncRelationships
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BlogSyncRelationships
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null">
+        Created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        Deleted = #{record.deleted,jdbcType=BIT},
+      </if>
+      <if test="record.contentid != null">
+        ContentId = #{record.contentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.target != null">
+        Target = #{record.target,jdbcType=INTEGER},
+      </if>
+      <if test="record.syncdata != null">
+        SyncData = #{record.syncdata,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.successful != null">
+        Successful = #{record.successful,jdbcType=BIT},
+      </if>
+      <if test="record.targetpostid != null">
+        TargetPostId = #{record.targetpostid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.message != null">
+        Message = #{record.message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.extensionproperty != null">
+        ExtensionProperty = #{record.extensionproperty,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update BlogSyncRelationships
+    set Id = #{record.id,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      ContentId = #{record.contentid,jdbcType=INTEGER},
+      Target = #{record.target,jdbcType=INTEGER},
+      SyncData = #{record.syncdata,jdbcType=TIMESTAMP},
+      Successful = #{record.successful,jdbcType=BIT},
+      TargetPostId = #{record.targetpostid,jdbcType=LONGVARCHAR},
+      Message = #{record.message,jdbcType=LONGVARCHAR},
+      ExtensionProperty = #{record.extensionproperty,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BlogSyncRelationships
+    set Id = #{record.id,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      ContentId = #{record.contentid,jdbcType=INTEGER},
+      Target = #{record.target,jdbcType=INTEGER},
+      SyncData = #{record.syncdata,jdbcType=TIMESTAMP},
+      Successful = #{record.successful,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Blogsyncrelationships">
+    update BlogSyncRelationships
+    <set>
+      <if test="created != null">
+        Created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        Deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="contentid != null">
+        ContentId = #{contentid,jdbcType=INTEGER},
+      </if>
+      <if test="target != null">
+        Target = #{target,jdbcType=INTEGER},
+      </if>
+      <if test="syncdata != null">
+        SyncData = #{syncdata,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successful != null">
+        Successful = #{successful,jdbcType=BIT},
+      </if>
+      <if test="targetpostid != null">
+        TargetPostId = #{targetpostid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="message != null">
+        Message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extensionproperty != null">
+        ExtensionProperty = #{extensionproperty,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Blogsyncrelationships">
+    update BlogSyncRelationships
+    set Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      ContentId = #{contentid,jdbcType=INTEGER},
+      Target = #{target,jdbcType=INTEGER},
+      SyncData = #{syncdata,jdbcType=TIMESTAMP},
+      Successful = #{successful,jdbcType=BIT},
+      TargetPostId = #{targetpostid,jdbcType=LONGVARCHAR},
+      Message = #{message,jdbcType=LONGVARCHAR},
+      ExtensionProperty = #{extensionproperty,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Blogsyncrelationships">
+    update BlogSyncRelationships
+    set Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      ContentId = #{contentid,jdbcType=INTEGER},
+      Target = #{target,jdbcType=INTEGER},
+      SyncData = #{syncdata,jdbcType=TIMESTAMP},
+      Successful = #{successful,jdbcType=BIT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
