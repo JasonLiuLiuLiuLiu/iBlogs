@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import site.iblogs.portal.common.api.PageResponse;
-import site.iblogs.portal.common.api.ApiResponse;
-import site.iblogs.portal.mbg.model.Contents;
+import site.iblogs.common.api.ApiResponse;
+import site.iblogs.common.api.PageResponse;
+import site.iblogs.model.Contents;
 import site.iblogs.portal.service.ContentService;
 
 import java.util.List;

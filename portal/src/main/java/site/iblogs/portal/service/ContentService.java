@@ -1,7 +1,7 @@
 package site.iblogs.portal.service;
 
+import site.iblogs.model.Contents;
 import site.iblogs.portal.model.params.ArticleParam;
-import site.iblogs.portal.mbg.model.Contents;
 
 import java.util.List;
 
