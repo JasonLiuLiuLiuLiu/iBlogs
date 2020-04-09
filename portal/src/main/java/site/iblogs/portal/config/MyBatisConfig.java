@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@MapperScan({"site.iblogs.mbg.mapper","site.iblogs.portal.dao"})
+@MapperScan({"site.iblogs.mapper","site.iblogs.portal.dao"})
 public class MyBatisConfig {
 
 }

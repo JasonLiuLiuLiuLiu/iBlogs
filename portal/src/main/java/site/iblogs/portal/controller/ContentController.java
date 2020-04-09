@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
+import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -45,4 +47,7 @@ public class ContentController {
         return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize)));
     }
 
+    public ApiResponse<ContentResponse> Index(String url){
+        throw new NotImplementedException();
+    }
 }
