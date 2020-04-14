@@ -13,6 +13,7 @@ import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
 import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.portal.model.response.IndexContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -48,6 +49,34 @@ public class ContentController {
     }
 
     public ApiResponse<ContentResponse> Index(String url){
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Index(int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Hot(int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Random(int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Tag(String tag, int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Category(String category, int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Archive(int index) {
+        throw new NotImplementedException();
+    }
+
+    public ApiResponse<IndexContentResponse> Search(String keyword, int index) {
         throw new NotImplementedException();
     }
 }
