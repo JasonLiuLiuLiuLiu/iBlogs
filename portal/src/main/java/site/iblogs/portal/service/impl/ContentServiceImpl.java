@@ -7,6 +7,7 @@ import site.iblogs.mapper.ContentsMapper;
 import site.iblogs.model.Contents;
 import site.iblogs.model.ContentsExample;
 import site.iblogs.portal.model.params.ArticleParam;
+import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public List<Contents> listAllContent() {
-       return contentsMapper.selectByExample(new ContentsExample());
+        return contentsMapper.selectByExample(new ContentsExample());
     }
 
     @Override
@@ -34,8 +35,9 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<Contents> listContent(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        return contentsMapper.selectByExample(new ContentsExample());
+    public List<ContentResponse> listContent(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Contents> contents = contentsMapper.selectByExample(new ContentsExample());
+
     }
 }
