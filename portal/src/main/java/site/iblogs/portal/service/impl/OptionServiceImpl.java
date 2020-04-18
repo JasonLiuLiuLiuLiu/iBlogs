@@ -19,6 +19,27 @@ public class OptionServiceImpl implements OptionService {
     @Autowired
     private RedisService redisService;
 
+    private static boolean initializedOptionsToRedis=false;
+    private static String optionsPreKey="IBLOGS.SITE.OPTIONS";
+
+    public OptionServiceImpl(){
+        if(!initializedOptionsToRedis){
+            InitOptionsToRedis();
+        }
+    }
+
+    private void InitOptionsToRedis()
+    {
+        if(initializedOptionsToRedis){
+            return;
+        }
+        List<Options> allOptions=getAllOption();
+        allOptions.forEach(u->{
+            redisService.set(optionsPreKey+u.getName(),u.getValue());
+        });
+        initializedOptionsToRedis=true;
+    }
+
     @Override
     public List<Options> getAllOption() {
         return optionsMapper.selectByExample(new OptionsExample());
