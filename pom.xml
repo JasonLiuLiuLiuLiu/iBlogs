@@ -41,6 +41,7 @@
         <logstash-logback.version>4.8</logstash-logback.version>
         <common.version>1.0-SNAPSHOT</common.version>
         <mbg.version>1.0-SNAPSHOT</mbg.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
     </properties>
 
     <dependencies>
