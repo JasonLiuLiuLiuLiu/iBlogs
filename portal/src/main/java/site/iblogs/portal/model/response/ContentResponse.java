@@ -1,6 +1,9 @@
 package site.iblogs.portal.model.response;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import site.iblogs.portal.model.params.ContentStatus;
 import site.iblogs.portal.model.params.ContentType;
 
@@ -11,6 +14,9 @@ import java.util.Date;
  *
  * @author Liu Zhenyu on 3/22/2020
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class ContentResponse {
     private Integer id;
     private String title;

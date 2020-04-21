@@ -1,8 +1,15 @@
 package site.iblogs.portal.model.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class CommentResponse {
     private int Id;
     private boolean IsAuthor;
