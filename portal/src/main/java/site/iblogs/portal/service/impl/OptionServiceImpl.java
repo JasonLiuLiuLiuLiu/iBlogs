@@ -1,7 +1,6 @@
 package site.iblogs.portal.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.model.ConfigKey;
 import site.iblogs.mapper.OptionsMapper;
@@ -15,16 +14,16 @@ import java.util.List;
 @Service
 public class OptionServiceImpl implements OptionService {
 
-    @Autowired
     private OptionsMapper optionsMapper;
 
-    @Autowired
     private RedisService redisService;
 
     private static boolean initializedOptionsToRedis = false;
     private static String optionsPreKey = "IBLOGS.SITE.OPTIONS";
 
-    public OptionServiceImpl() {
+    public OptionServiceImpl(OptionsMapper optionsMapper, RedisService redisService) {
+        this.optionsMapper = optionsMapper;
+        this.redisService = redisService;
         if (!initializedOptionsToRedis) {
             InitOptionsToRedis();
         }
@@ -36,7 +35,9 @@ public class OptionServiceImpl implements OptionService {
         }
         List<Options> allOptions = getAllOption();
         allOptions.forEach(u -> {
-            redisService.set(optionsPreKey + u.getName(), u.getValue());
+            if (!StringUtils.isEmpty(u.getValue())) {
+                redisService.set(optionsPreKey + u.getName(), u.getValue());
+            }
         });
         initializedOptionsToRedis = true;
     }
@@ -46,7 +47,7 @@ public class OptionServiceImpl implements OptionService {
         String value = redisService.get(key.name());
         if (StringUtils.isEmpty(value)) {
             OptionsExample example = new OptionsExample();
-            List<Options> options = optionsMapper.selectByExample(example);
+            List<Options> options = optionsMapper.selectByExampleWithBLOBs(example);
             if (options.size() > 0) {
                 redisService.set(optionsPreKey + options.get(0).getName(), options.get(0).getValue());
             } else {
@@ -58,6 +59,6 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public List<Options> getAllOption() {
-        return optionsMapper.selectByExample(new OptionsExample());
+        return optionsMapper.selectByExampleWithBLOBs(new OptionsExample());
     }
 }

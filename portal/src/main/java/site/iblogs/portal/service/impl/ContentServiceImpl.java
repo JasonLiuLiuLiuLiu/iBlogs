@@ -42,7 +42,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public List<ContentResponse> listContent(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Contents> contents = contentsMapper.selectByExample(new ContentsExample());
+        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(new ContentsExample());
         return contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList());
     }
 }
