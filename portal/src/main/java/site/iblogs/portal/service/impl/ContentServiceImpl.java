@@ -1,6 +1,7 @@
 package site.iblogs.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.model.ConfigKey;
@@ -53,13 +54,14 @@ public class ContentServiceImpl implements ContentService {
             try {
                 length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount));
             } catch (Exception e) {
-                length = 1000;
+                length = 200;
             }
             final int lengthFinal = length;
             return contents.stream().peek(u -> {
-                int contentLength = u.getContent().length();
+                String contentText= Jsoup.parse(u.getContent()).body().text();
+                int contentLength = contentText.length();
                 contentLength = Math.min(lengthFinal, contentLength);
-                u.setContent(u.getContent().substring(0, contentLength - 1));
+                u.setContent(contentText.substring(0, contentLength - 1));
             }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList());
         }
         return contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList());
