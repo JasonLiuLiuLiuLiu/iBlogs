@@ -18,5 +18,5 @@ public interface ContentService {
 
     List<Contents> findArticles(ArticleParam param);
 
-    List<ContentResponse> listContent(int pageNum, int pageSize);
+    List<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary);
 }
