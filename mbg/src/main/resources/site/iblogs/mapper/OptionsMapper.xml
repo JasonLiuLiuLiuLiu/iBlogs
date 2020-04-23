@@ -3,14 +3,12 @@
 <mapper namespace="site.iblogs.mapper.OptionsMapper">
   <resultMap id="BaseResultMap" type="site.iblogs.model.Options">
     <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Value" jdbcType="VARCHAR" property="value" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="Editable" jdbcType="BIT" property="editable" />
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Options">
-    <result column="Name" jdbcType="LONGVARCHAR" property="name" />
-    <result column="Value" jdbcType="LONGVARCHAR" property="value" />
-    <result column="Description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,27 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Editable, Created, Deleted
+    Id, Name, Value, Description, Editable, Created, Deleted
   </sql>
-  <sql id="Blob_Column_List">
-    Name, Value, Description
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.OptionsExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Options
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="site.iblogs.model.OptionsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -106,11 +85,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from Options
     where Id = #{id,jdbcType=INTEGER}
   </select>
@@ -128,11 +105,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into Options (Editable, Created, Deleted, 
-      Name, Value, Description
+    insert into Options (Name, Value, Description, 
+      Editable, Created, Deleted
       )
-    values (#{editable,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{name,jdbcType=LONGVARCHAR}, #{value,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
+    values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{editable,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="site.iblogs.model.Options">
@@ -141,15 +118,6 @@
     </selectKey>
     insert into Options
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="editable != null">
-        Editable,
-      </if>
-      <if test="created != null">
-        Created,
-      </if>
-      <if test="deleted != null">
-        Deleted,
-      </if>
       <if test="name != null">
         Name,
       </if>
@@ -159,8 +127,26 @@
       <if test="description != null">
         Description,
       </if>
+      <if test="editable != null">
+        Editable,
+      </if>
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
       <if test="editable != null">
         #{editable,jdbcType=BIT},
       </if>
@@ -169,15 +155,6 @@
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="value != null">
-        #{value,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -193,6 +170,15 @@
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        Value = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
       <if test="record.editable != null">
         Editable = #{record.editable,jdbcType=BIT},
       </if>
@@ -202,29 +188,7 @@
       <if test="record.deleted != null">
         Deleted = #{record.deleted,jdbcType=BIT},
       </if>
-      <if test="record.name != null">
-        Name = #{record.name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.value != null">
-        Value = #{record.value,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.description != null">
-        Description = #{record.description,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update Options
-    set Id = #{record.id,jdbcType=INTEGER},
-      Editable = #{record.editable,jdbcType=BIT},
-      Created = #{record.created,jdbcType=TIMESTAMP},
-      Deleted = #{record.deleted,jdbcType=BIT},
-      Name = #{record.name,jdbcType=LONGVARCHAR},
-      Value = #{record.value,jdbcType=LONGVARCHAR},
-      Description = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -232,6 +196,9 @@
   <update id="updateByExample" parameterType="map">
     update Options
     set Id = #{record.id,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Value = #{record.value,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
       Editable = #{record.editable,jdbcType=BIT},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT}
@@ -242,6 +209,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Options">
     update Options
     <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        Value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
       <if test="editable != null">
         Editable = #{editable,jdbcType=BIT},
       </if>
@@ -251,31 +227,15 @@
       <if test="deleted != null">
         Deleted = #{deleted,jdbcType=BIT},
       </if>
-      <if test="name != null">
-        Name = #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="value != null">
-        Value = #{value,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="description != null">
-        Description = #{description,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Options">
-    update Options
-    set Editable = #{editable,jdbcType=BIT},
-      Created = #{created,jdbcType=TIMESTAMP},
-      Deleted = #{deleted,jdbcType=BIT},
-      Name = #{name,jdbcType=LONGVARCHAR},
-      Value = #{value,jdbcType=LONGVARCHAR},
-      Description = #{description,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Options">
     update Options
-    set Editable = #{editable,jdbcType=BIT},
+    set Name = #{name,jdbcType=VARCHAR},
+      Value = #{value,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Editable = #{editable,jdbcType=BIT},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT}
     where Id = #{id,jdbcType=INTEGER}

@@ -47,6 +47,7 @@ public class ContentController {
         return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize,true)));
     }
 
+
     public ApiResponse<ContentResponse> Index(String url){
         throw new NotImplementedException();
     }
