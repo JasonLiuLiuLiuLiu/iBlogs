@@ -15,6 +15,7 @@ import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -58,12 +59,25 @@ public class ContentServiceImpl implements ContentService {
             }
             final int lengthFinal = length;
             return contents.stream().peek(u -> {
-                String contentText= Jsoup.parse(u.getContent()).body().text();
+                String contentText = Jsoup.parse(u.getContent()).body().text();
                 int contentLength = contentText.length();
                 contentLength = Math.min(lengthFinal, contentLength);
                 u.setContent(contentText.substring(0, contentLength - 1));
             }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList());
         }
         return contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList());
+    }
+
+    public ContentResponse getByUrl(String url) {
+        ContentsExample example = new ContentsExample();
+        example.createCriteria().andSlugEqualTo(url);
+        try {
+            int id = Integer.parseInt(url);
+            example.or().andIdEqualTo(id);
+        } catch (NumberFormatException ignored) {
+
+        }
+        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().findFirst();
+        return contents.map(value -> contentResponseConverter.domain2dto(value)).orElse(null);
     }
 }

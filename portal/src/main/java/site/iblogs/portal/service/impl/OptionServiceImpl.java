@@ -47,7 +47,7 @@ public class OptionServiceImpl implements OptionService {
         String value = redisService.get(key.name());
         if (StringUtils.isEmpty(value)) {
             OptionsExample example = new OptionsExample();
-            List<Options> options = optionsMapper.selectByExampleWithBLOBs(example);
+            List<Options> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
                 redisService.set(optionsPreKey + options.get(0).getName(), options.get(0).getValue());
             } else {
@@ -59,6 +59,6 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public List<Options> getAllOption() {
-        return optionsMapper.selectByExampleWithBLOBs(new OptionsExample());
+        return optionsMapper.selectByExample(new OptionsExample());
     }
 }

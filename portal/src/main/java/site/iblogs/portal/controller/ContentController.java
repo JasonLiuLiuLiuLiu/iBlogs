@@ -47,9 +47,12 @@ public class ContentController {
         return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize,true)));
     }
 
-
+    @ApiOperation("通过链接或者ID获取文章")
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @ResponseBody
     public ApiResponse<ContentResponse> Index(String url){
-        throw new NotImplementedException();
+        ContentResponse response=contentService.getByUrl(url);
+        return response==null?ApiResponse.failed():ApiResponse.success(response);
     }
 
     public ApiResponse<ContentResponse> Index(int index) {

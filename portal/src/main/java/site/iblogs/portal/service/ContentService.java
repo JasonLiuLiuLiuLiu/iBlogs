@@ -19,4 +19,6 @@ public interface ContentService {
     List<Contents> findArticles(ArticleParam param);
 
     List<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary);
+
+    ContentResponse getByUrl(String url);
 }
