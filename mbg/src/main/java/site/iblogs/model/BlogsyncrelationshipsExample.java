@@ -405,6 +405,66 @@ public class BlogsyncrelationshipsExample {
             return (Criteria) this;
         }
 
+        public Criteria andTargetpostidIsNull() {
+            addCriterion("TargetPostId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidIsNotNull() {
+            addCriterion("TargetPostId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidEqualTo(Integer value) {
+            addCriterion("TargetPostId =", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidNotEqualTo(Integer value) {
+            addCriterion("TargetPostId <>", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidGreaterThan(Integer value) {
+            addCriterion("TargetPostId >", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TargetPostId >=", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidLessThan(Integer value) {
+            addCriterion("TargetPostId <", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidLessThanOrEqualTo(Integer value) {
+            addCriterion("TargetPostId <=", value, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidIn(List<Integer> values) {
+            addCriterion("TargetPostId in", values, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidNotIn(List<Integer> values) {
+            addCriterion("TargetPostId not in", values, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidBetween(Integer value1, Integer value2) {
+            addCriterion("TargetPostId between", value1, value2, "targetpostid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetpostidNotBetween(Integer value1, Integer value2) {
+            addCriterion("TargetPostId not between", value1, value2, "targetpostid");
+            return (Criteria) this;
+        }
+
         public Criteria andSyncdataIsNull() {
             addCriterion("SyncData is null");
             return (Criteria) this;
@@ -462,6 +522,146 @@ public class BlogsyncrelationshipsExample {
 
         public Criteria andSyncdataNotBetween(Date value1, Date value2) {
             addCriterion("SyncData not between", value1, value2, "syncdata");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageIsNull() {
+            addCriterion("Message is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageIsNotNull() {
+            addCriterion("Message is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageEqualTo(String value) {
+            addCriterion("Message =", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageNotEqualTo(String value) {
+            addCriterion("Message <>", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageGreaterThan(String value) {
+            addCriterion("Message >", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageGreaterThanOrEqualTo(String value) {
+            addCriterion("Message >=", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLessThan(String value) {
+            addCriterion("Message <", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLessThanOrEqualTo(String value) {
+            addCriterion("Message <=", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLike(String value) {
+            addCriterion("Message like", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageNotLike(String value) {
+            addCriterion("Message not like", value, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageIn(List<String> values) {
+            addCriterion("Message in", values, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageNotIn(List<String> values) {
+            addCriterion("Message not in", values, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageBetween(String value1, String value2) {
+            addCriterion("Message between", value1, value2, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageNotBetween(String value1, String value2) {
+            addCriterion("Message not between", value1, value2, "message");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyIsNull() {
+            addCriterion("ExtensionProperty is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyIsNotNull() {
+            addCriterion("ExtensionProperty is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyEqualTo(String value) {
+            addCriterion("ExtensionProperty =", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyNotEqualTo(String value) {
+            addCriterion("ExtensionProperty <>", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyGreaterThan(String value) {
+            addCriterion("ExtensionProperty >", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyGreaterThanOrEqualTo(String value) {
+            addCriterion("ExtensionProperty >=", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyLessThan(String value) {
+            addCriterion("ExtensionProperty <", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyLessThanOrEqualTo(String value) {
+            addCriterion("ExtensionProperty <=", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyLike(String value) {
+            addCriterion("ExtensionProperty like", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyNotLike(String value) {
+            addCriterion("ExtensionProperty not like", value, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyIn(List<String> values) {
+            addCriterion("ExtensionProperty in", values, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyNotIn(List<String> values) {
+            addCriterion("ExtensionProperty not in", values, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyBetween(String value1, String value2) {
+            addCriterion("ExtensionProperty between", value1, value2, "extensionproperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtensionpropertyNotBetween(String value1, String value2) {
+            addCriterion("ExtensionProperty not between", value1, value2, "extensionproperty");
             return (Criteria) this;
         }
 

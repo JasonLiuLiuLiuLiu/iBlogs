@@ -15,13 +15,13 @@ public class Comments implements Serializable {
 
     private Integer cid;
 
+    private String author;
+
     private Integer ownerid;
 
     private Integer status;
 
     private Integer parent;
-
-    private String author;
 
     private String mail;
 
@@ -77,6 +77,14 @@ public class Comments implements Serializable {
         this.cid = cid;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public Integer getOwnerid() {
         return ownerid;
     }
@@ -99,14 +107,6 @@ public class Comments implements Serializable {
 
     public void setParent(Integer parent) {
         this.parent = parent;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getMail() {
@@ -168,10 +168,10 @@ public class Comments implements Serializable {
         sb.append(", created=").append(created);
         sb.append(", deleted=").append(deleted);
         sb.append(", cid=").append(cid);
+        sb.append(", author=").append(author);
         sb.append(", ownerid=").append(ownerid);
         sb.append(", status=").append(status);
         sb.append(", parent=").append(parent);
-        sb.append(", author=").append(author);
         sb.append(", mail=").append(mail);
         sb.append(", url=").append(url);
         sb.append(", ip=").append(ip);

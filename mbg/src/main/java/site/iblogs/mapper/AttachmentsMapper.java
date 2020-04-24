@@ -16,21 +16,15 @@ public interface AttachmentsMapper {
 
     int insertSelective(Attachments record);
 
-    List<Attachments> selectByExampleWithBLOBs(AttachmentsExample example);
-
     List<Attachments> selectByExample(AttachmentsExample example);
 
     Attachments selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Attachments record, @Param("example") AttachmentsExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Attachments record, @Param("example") AttachmentsExample example);
-
     int updateByExample(@Param("record") Attachments record, @Param("example") AttachmentsExample example);
 
     int updateByPrimaryKeySelective(Attachments record);
-
-    int updateByPrimaryKeyWithBLOBs(Attachments record);
 
     int updateByPrimaryKey(Attachments record);
 }

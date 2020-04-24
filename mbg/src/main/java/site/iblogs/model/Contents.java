@@ -7,6 +7,8 @@ import java.util.Date;
 public class Contents implements Serializable {
     private Integer id;
 
+    private String slug;
+
     private Date modified;
 
     private Integer hits;
@@ -31,8 +33,6 @@ public class Contents implements Serializable {
 
     private String title;
 
-    private String slug;
-
     private String content;
 
     private String fmttype;
@@ -53,6 +53,14 @@ public class Contents implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Date getModified() {
@@ -151,14 +159,6 @@ public class Contents implements Serializable {
         this.title = title;
     }
 
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public String getContent() {
         return content;
     }
@@ -214,6 +214,7 @@ public class Contents implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", slug=").append(slug);
         sb.append(", modified=").append(modified);
         sb.append(", hits=").append(hits);
         sb.append(", type=").append(type);
@@ -226,7 +227,6 @@ public class Contents implements Serializable {
         sb.append(", created=").append(created);
         sb.append(", deleted=").append(deleted);
         sb.append(", title=").append(title);
-        sb.append(", slug=").append(slug);
         sb.append(", content=").append(content);
         sb.append(", fmttype=").append(fmttype);
         sb.append(", thumbimg=").append(thumbimg);

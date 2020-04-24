@@ -225,6 +225,216 @@ public class AttachmentsExample {
             return (Criteria) this;
         }
 
+        public Criteria andFnameIsNull() {
+            addCriterion("FName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameIsNotNull() {
+            addCriterion("FName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameEqualTo(String value) {
+            addCriterion("FName =", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameNotEqualTo(String value) {
+            addCriterion("FName <>", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameGreaterThan(String value) {
+            addCriterion("FName >", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameGreaterThanOrEqualTo(String value) {
+            addCriterion("FName >=", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameLessThan(String value) {
+            addCriterion("FName <", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameLessThanOrEqualTo(String value) {
+            addCriterion("FName <=", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameLike(String value) {
+            addCriterion("FName like", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameNotLike(String value) {
+            addCriterion("FName not like", value, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameIn(List<String> values) {
+            addCriterion("FName in", values, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameNotIn(List<String> values) {
+            addCriterion("FName not in", values, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameBetween(String value1, String value2) {
+            addCriterion("FName between", value1, value2, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFnameNotBetween(String value1, String value2) {
+            addCriterion("FName not between", value1, value2, "fname");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeIsNull() {
+            addCriterion("FType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeIsNotNull() {
+            addCriterion("FType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeEqualTo(String value) {
+            addCriterion("FType =", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeNotEqualTo(String value) {
+            addCriterion("FType <>", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeGreaterThan(String value) {
+            addCriterion("FType >", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeGreaterThanOrEqualTo(String value) {
+            addCriterion("FType >=", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeLessThan(String value) {
+            addCriterion("FType <", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeLessThanOrEqualTo(String value) {
+            addCriterion("FType <=", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeLike(String value) {
+            addCriterion("FType like", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeNotLike(String value) {
+            addCriterion("FType not like", value, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeIn(List<String> values) {
+            addCriterion("FType in", values, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeNotIn(List<String> values) {
+            addCriterion("FType not in", values, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeBetween(String value1, String value2) {
+            addCriterion("FType between", value1, value2, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFtypeNotBetween(String value1, String value2) {
+            addCriterion("FType not between", value1, value2, "ftype");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyIsNull() {
+            addCriterion("FKey is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyIsNotNull() {
+            addCriterion("FKey is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyEqualTo(String value) {
+            addCriterion("FKey =", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyNotEqualTo(String value) {
+            addCriterion("FKey <>", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyGreaterThan(String value) {
+            addCriterion("FKey >", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyGreaterThanOrEqualTo(String value) {
+            addCriterion("FKey >=", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyLessThan(String value) {
+            addCriterion("FKey <", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyLessThanOrEqualTo(String value) {
+            addCriterion("FKey <=", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyLike(String value) {
+            addCriterion("FKey like", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyNotLike(String value) {
+            addCriterion("FKey not like", value, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyIn(List<String> values) {
+            addCriterion("FKey in", values, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyNotIn(List<String> values) {
+            addCriterion("FKey not in", values, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyBetween(String value1, String value2) {
+            addCriterion("FKey between", value1, value2, "fkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkeyNotBetween(String value1, String value2) {
+            addCriterion("FKey not between", value1, value2, "fkey");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("Created is null");
             return (Criteria) this;

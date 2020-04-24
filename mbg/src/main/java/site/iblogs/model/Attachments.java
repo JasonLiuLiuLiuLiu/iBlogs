@@ -9,15 +9,15 @@ public class Attachments implements Serializable {
 
     private Integer authorid;
 
-    private Date created;
-
-    private Boolean deleted;
-
     private String fname;
 
     private String ftype;
 
     private String fkey;
+
+    private Date created;
+
+    private Boolean deleted;
 
     private static final long serialVersionUID = 1L;
 
@@ -35,22 +35,6 @@ public class Attachments implements Serializable {
 
     public void setAuthorid(Integer authorid) {
         this.authorid = authorid;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
     }
 
     public String getFname() {
@@ -77,6 +61,22 @@ public class Attachments implements Serializable {
         this.fkey = fkey;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -85,11 +85,11 @@ public class Attachments implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", authorid=").append(authorid);
-        sb.append(", created=").append(created);
-        sb.append(", deleted=").append(deleted);
         sb.append(", fname=").append(fname);
         sb.append(", ftype=").append(ftype);
         sb.append(", fkey=").append(fkey);
+        sb.append(", created=").append(created);
+        sb.append(", deleted=").append(deleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

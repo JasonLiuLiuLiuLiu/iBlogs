@@ -4,13 +4,11 @@
   <resultMap id="BaseResultMap" type="site.iblogs.model.Attachments">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="AuthorId" jdbcType="INTEGER" property="authorid" />
+    <result column="FName" jdbcType="VARCHAR" property="fname" />
+    <result column="FType" jdbcType="VARCHAR" property="ftype" />
+    <result column="FKey" jdbcType="VARCHAR" property="fkey" />
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Attachments">
-    <result column="FName" jdbcType="LONGVARCHAR" property="fname" />
-    <result column="FType" jdbcType="LONGVARCHAR" property="ftype" />
-    <result column="FKey" jdbcType="LONGVARCHAR" property="fkey" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,27 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, AuthorId, Created, Deleted
+    Id, AuthorId, FName, FType, FKey, Created, Deleted
   </sql>
-  <sql id="Blob_Column_List">
-    FName, FType, FKey
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.AttachmentsExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Attachments
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="site.iblogs.model.AttachmentsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -106,11 +85,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from Attachments
     where Id = #{id,jdbcType=INTEGER}
   </select>
@@ -128,11 +105,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into Attachments (AuthorId, Created, Deleted, 
-      FName, FType, FKey
+    insert into Attachments (AuthorId, FName, FType, 
+      FKey, Created, Deleted
       )
-    values (#{authorid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{fname,jdbcType=LONGVARCHAR}, #{ftype,jdbcType=LONGVARCHAR}, #{fkey,jdbcType=LONGVARCHAR}
+    values (#{authorid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, #{ftype,jdbcType=VARCHAR}, 
+      #{fkey,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="site.iblogs.model.Attachments">
@@ -144,12 +121,6 @@
       <if test="authorid != null">
         AuthorId,
       </if>
-      <if test="created != null">
-        Created,
-      </if>
-      <if test="deleted != null">
-        Deleted,
-      </if>
       <if test="fname != null">
         FName,
       </if>
@@ -159,25 +130,31 @@
       <if test="fkey != null">
         FKey,
       </if>
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="authorid != null">
         #{authorid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null">
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null">
+        #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fkey != null">
+        #{fkey,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
-      </if>
-      <if test="fname != null">
-        #{fname,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="ftype != null">
-        #{ftype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fkey != null">
-        #{fkey,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -196,35 +173,22 @@
       <if test="record.authorid != null">
         AuthorId = #{record.authorid,jdbcType=INTEGER},
       </if>
+      <if test="record.fname != null">
+        FName = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftype != null">
+        FType = #{record.ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkey != null">
+        FKey = #{record.fkey,jdbcType=VARCHAR},
+      </if>
       <if test="record.created != null">
         Created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.deleted != null">
         Deleted = #{record.deleted,jdbcType=BIT},
       </if>
-      <if test="record.fname != null">
-        FName = #{record.fname,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.ftype != null">
-        FType = #{record.ftype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.fkey != null">
-        FKey = #{record.fkey,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update Attachments
-    set Id = #{record.id,jdbcType=INTEGER},
-      AuthorId = #{record.authorid,jdbcType=INTEGER},
-      Created = #{record.created,jdbcType=TIMESTAMP},
-      Deleted = #{record.deleted,jdbcType=BIT},
-      FName = #{record.fname,jdbcType=LONGVARCHAR},
-      FType = #{record.ftype,jdbcType=LONGVARCHAR},
-      FKey = #{record.fkey,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,6 +197,9 @@
     update Attachments
     set Id = #{record.id,jdbcType=INTEGER},
       AuthorId = #{record.authorid,jdbcType=INTEGER},
+      FName = #{record.fname,jdbcType=VARCHAR},
+      FType = #{record.ftype,jdbcType=VARCHAR},
+      FKey = #{record.fkey,jdbcType=VARCHAR},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
@@ -245,37 +212,30 @@
       <if test="authorid != null">
         AuthorId = #{authorid,jdbcType=INTEGER},
       </if>
+      <if test="fname != null">
+        FName = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null">
+        FType = #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fkey != null">
+        FKey = #{fkey,jdbcType=VARCHAR},
+      </if>
       <if test="created != null">
         Created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="deleted != null">
         Deleted = #{deleted,jdbcType=BIT},
       </if>
-      <if test="fname != null">
-        FName = #{fname,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="ftype != null">
-        FType = #{ftype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fkey != null">
-        FKey = #{fkey,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Attachments">
-    update Attachments
-    set AuthorId = #{authorid,jdbcType=INTEGER},
-      Created = #{created,jdbcType=TIMESTAMP},
-      Deleted = #{deleted,jdbcType=BIT},
-      FName = #{fname,jdbcType=LONGVARCHAR},
-      FType = #{ftype,jdbcType=LONGVARCHAR},
-      FKey = #{fkey,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Attachments">
     update Attachments
     set AuthorId = #{authorid,jdbcType=INTEGER},
+      FName = #{fname,jdbcType=VARCHAR},
+      FType = #{ftype,jdbcType=VARCHAR},
+      FKey = #{fkey,jdbcType=VARCHAR},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT}
     where Id = #{id,jdbcType=INTEGER}

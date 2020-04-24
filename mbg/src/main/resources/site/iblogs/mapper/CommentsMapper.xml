@@ -7,12 +7,12 @@
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
     <result column="Cid" jdbcType="INTEGER" property="cid" />
+    <result column="Author" jdbcType="VARCHAR" property="author" />
     <result column="OwnerId" jdbcType="INTEGER" property="ownerid" />
     <result column="Status" jdbcType="INTEGER" property="status" />
     <result column="Parent" jdbcType="INTEGER" property="parent" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Comments">
-    <result column="Author" jdbcType="LONGVARCHAR" property="author" />
     <result column="Mail" jdbcType="LONGVARCHAR" property="mail" />
     <result column="Url" jdbcType="LONGVARCHAR" property="url" />
     <result column="Ip" jdbcType="LONGVARCHAR" property="ip" />
@@ -79,10 +79,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, IsAuthor, Created, Deleted, Cid, OwnerId, Status, Parent
+    Id, IsAuthor, Created, Deleted, Cid, Author, OwnerId, Status, Parent
   </sql>
   <sql id="Blob_Column_List">
-    Author, Mail, Url, Ip, Agent, Content, Type
+    Mail, Url, Ip, Agent, Content, Type
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.CommentsExample" resultMap="ResultMapWithBLOBs">
     select
@@ -137,13 +137,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into Comments (IsAuthor, Created, Deleted, 
-      Cid, OwnerId, Status, 
-      Parent, Author, Mail, 
+      Cid, Author, OwnerId, 
+      Status, Parent, Mail, 
       Url, Ip, Agent, 
       Content, Type)
     values (#{isauthor,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{cid,jdbcType=INTEGER}, #{ownerid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{parent,jdbcType=INTEGER}, #{author,jdbcType=LONGVARCHAR}, #{mail,jdbcType=LONGVARCHAR}, 
+      #{cid,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{parent,jdbcType=INTEGER}, #{mail,jdbcType=LONGVARCHAR}, 
       #{url,jdbcType=LONGVARCHAR}, #{ip,jdbcType=LONGVARCHAR}, #{agent,jdbcType=LONGVARCHAR}, 
       #{content,jdbcType=LONGVARCHAR}, #{type,jdbcType=LONGVARCHAR})
   </insert>
@@ -165,6 +165,9 @@
       <if test="cid != null">
         Cid,
       </if>
+      <if test="author != null">
+        Author,
+      </if>
       <if test="ownerid != null">
         OwnerId,
       </if>
@@ -173,9 +176,6 @@
       </if>
       <if test="parent != null">
         Parent,
-      </if>
-      <if test="author != null">
-        Author,
       </if>
       <if test="mail != null">
         Mail,
@@ -209,6 +209,9 @@
       <if test="cid != null">
         #{cid,jdbcType=INTEGER},
       </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
       <if test="ownerid != null">
         #{ownerid,jdbcType=INTEGER},
       </if>
@@ -217,9 +220,6 @@
       </if>
       <if test="parent != null">
         #{parent,jdbcType=INTEGER},
-      </if>
-      <if test="author != null">
-        #{author,jdbcType=LONGVARCHAR},
       </if>
       <if test="mail != null">
         #{mail,jdbcType=LONGVARCHAR},
@@ -265,6 +265,9 @@
       <if test="record.cid != null">
         Cid = #{record.cid,jdbcType=INTEGER},
       </if>
+      <if test="record.author != null">
+        Author = #{record.author,jdbcType=VARCHAR},
+      </if>
       <if test="record.ownerid != null">
         OwnerId = #{record.ownerid,jdbcType=INTEGER},
       </if>
@@ -273,9 +276,6 @@
       </if>
       <if test="record.parent != null">
         Parent = #{record.parent,jdbcType=INTEGER},
-      </if>
-      <if test="record.author != null">
-        Author = #{record.author,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.mail != null">
         Mail = #{record.mail,jdbcType=LONGVARCHAR},
@@ -307,10 +307,10 @@
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT},
       Cid = #{record.cid,jdbcType=INTEGER},
+      Author = #{record.author,jdbcType=VARCHAR},
       OwnerId = #{record.ownerid,jdbcType=INTEGER},
       Status = #{record.status,jdbcType=INTEGER},
       Parent = #{record.parent,jdbcType=INTEGER},
-      Author = #{record.author,jdbcType=LONGVARCHAR},
       Mail = #{record.mail,jdbcType=LONGVARCHAR},
       Url = #{record.url,jdbcType=LONGVARCHAR},
       Ip = #{record.ip,jdbcType=LONGVARCHAR},
@@ -328,6 +328,7 @@
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT},
       Cid = #{record.cid,jdbcType=INTEGER},
+      Author = #{record.author,jdbcType=VARCHAR},
       OwnerId = #{record.ownerid,jdbcType=INTEGER},
       Status = #{record.status,jdbcType=INTEGER},
       Parent = #{record.parent,jdbcType=INTEGER}
@@ -350,6 +351,9 @@
       <if test="cid != null">
         Cid = #{cid,jdbcType=INTEGER},
       </if>
+      <if test="author != null">
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
       <if test="ownerid != null">
         OwnerId = #{ownerid,jdbcType=INTEGER},
       </if>
@@ -358,9 +362,6 @@
       </if>
       <if test="parent != null">
         Parent = #{parent,jdbcType=INTEGER},
-      </if>
-      <if test="author != null">
-        Author = #{author,jdbcType=LONGVARCHAR},
       </if>
       <if test="mail != null">
         Mail = #{mail,jdbcType=LONGVARCHAR},
@@ -389,10 +390,10 @@
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT},
       Cid = #{cid,jdbcType=INTEGER},
+      Author = #{author,jdbcType=VARCHAR},
       OwnerId = #{ownerid,jdbcType=INTEGER},
       Status = #{status,jdbcType=INTEGER},
       Parent = #{parent,jdbcType=INTEGER},
-      Author = #{author,jdbcType=LONGVARCHAR},
       Mail = #{mail,jdbcType=LONGVARCHAR},
       Url = #{url,jdbcType=LONGVARCHAR},
       Ip = #{ip,jdbcType=LONGVARCHAR},
@@ -407,6 +408,7 @@
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT},
       Cid = #{cid,jdbcType=INTEGER},
+      Author = #{author,jdbcType=VARCHAR},
       OwnerId = #{ownerid,jdbcType=INTEGER},
       Status = #{status,jdbcType=INTEGER},
       Parent = #{parent,jdbcType=INTEGER}

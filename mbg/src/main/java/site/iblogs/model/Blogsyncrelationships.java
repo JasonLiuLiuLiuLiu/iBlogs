@@ -15,15 +15,15 @@ public class Blogsyncrelationships implements Serializable {
 
     private Integer target;
 
+    private Integer targetpostid;
+
     private Date syncdata;
-
-    private Boolean successful;
-
-    private String targetpostid;
 
     private String message;
 
     private String extensionproperty;
+
+    private Boolean successful;
 
     private static final long serialVersionUID = 1L;
 
@@ -67,28 +67,20 @@ public class Blogsyncrelationships implements Serializable {
         this.target = target;
     }
 
+    public Integer getTargetpostid() {
+        return targetpostid;
+    }
+
+    public void setTargetpostid(Integer targetpostid) {
+        this.targetpostid = targetpostid;
+    }
+
     public Date getSyncdata() {
         return syncdata;
     }
 
     public void setSyncdata(Date syncdata) {
         this.syncdata = syncdata;
-    }
-
-    public Boolean getSuccessful() {
-        return successful;
-    }
-
-    public void setSuccessful(Boolean successful) {
-        this.successful = successful;
-    }
-
-    public String getTargetpostid() {
-        return targetpostid;
-    }
-
-    public void setTargetpostid(String targetpostid) {
-        this.targetpostid = targetpostid;
     }
 
     public String getMessage() {
@@ -107,6 +99,14 @@ public class Blogsyncrelationships implements Serializable {
         this.extensionproperty = extensionproperty;
     }
 
+    public Boolean getSuccessful() {
+        return successful;
+    }
+
+    public void setSuccessful(Boolean successful) {
+        this.successful = successful;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -118,11 +118,11 @@ public class Blogsyncrelationships implements Serializable {
         sb.append(", deleted=").append(deleted);
         sb.append(", contentid=").append(contentid);
         sb.append(", target=").append(target);
-        sb.append(", syncdata=").append(syncdata);
-        sb.append(", successful=").append(successful);
         sb.append(", targetpostid=").append(targetpostid);
+        sb.append(", syncdata=").append(syncdata);
         sb.append(", message=").append(message);
         sb.append(", extensionproperty=").append(extensionproperty);
+        sb.append(", successful=").append(successful);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
