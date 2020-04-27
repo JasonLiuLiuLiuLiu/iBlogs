@@ -3,27 +3,27 @@
 <mapper namespace="site.iblogs.mapper.ContentsMapper">
   <resultMap id="BaseResultMap" type="site.iblogs.model.Contents">
     <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
     <result column="Slug" jdbcType="VARCHAR" property="slug" />
     <result column="Modified" jdbcType="TIMESTAMP" property="modified" />
     <result column="Hits" jdbcType="INTEGER" property="hits" />
     <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="FmtType" jdbcType="VARCHAR" property="fmttype" />
+    <result column="ThumbImg" jdbcType="VARCHAR" property="thumbimg" />
+    <result column="Tags" jdbcType="VARCHAR" property="tags" />
+    <result column="Categories" jdbcType="VARCHAR" property="categories" />
     <result column="Status" jdbcType="INTEGER" property="status" />
     <result column="CommentsNum" jdbcType="INTEGER" property="commentsnum" />
     <result column="AllowComment" jdbcType="BIT" property="allowcomment" />
     <result column="AllowPing" jdbcType="BIT" property="allowping" />
     <result column="AllowFeed" jdbcType="BIT" property="allowfeed" />
+    <result column="Url" jdbcType="VARCHAR" property="url" />
     <result column="AuthorId" jdbcType="INTEGER" property="authorid" />
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Contents">
-    <result column="Title" jdbcType="LONGVARCHAR" property="title" />
     <result column="Content" jdbcType="LONGVARCHAR" property="content" />
-    <result column="FmtType" jdbcType="LONGVARCHAR" property="fmttype" />
-    <result column="ThumbImg" jdbcType="LONGVARCHAR" property="thumbimg" />
-    <result column="Tags" jdbcType="LONGVARCHAR" property="tags" />
-    <result column="Categories" jdbcType="LONGVARCHAR" property="categories" />
-    <result column="Url" jdbcType="LONGVARCHAR" property="url" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -84,11 +84,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Slug, Modified, Hits, Type, Status, CommentsNum, AllowComment, AllowPing, AllowFeed, 
-    AuthorId, Created, Deleted
+    Id, Title, Slug, Modified, Hits, Type, FmtType, ThumbImg, Tags, Categories, Status, 
+    CommentsNum, AllowComment, AllowPing, AllowFeed, Url, AuthorId, Created, Deleted
   </sql>
   <sql id="Blob_Column_List">
-    Title, Content, FmtType, ThumbImg, Tags, Categories, Url
+    Content
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.ContentsExample" resultMap="ResultMapWithBLOBs">
     select
@@ -142,20 +142,20 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into Contents (Slug, Modified, Hits, 
-      Type, Status, CommentsNum, 
-      AllowComment, AllowPing, AllowFeed, 
-      AuthorId, Created, Deleted, 
-      Title, Content, FmtType, 
+    insert into Contents (Title, Slug, Modified, 
+      Hits, Type, FmtType, 
       ThumbImg, Tags, Categories, 
-      Url)
-    values (#{slug,jdbcType=VARCHAR}, #{modified,jdbcType=TIMESTAMP}, #{hits,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{commentsnum,jdbcType=INTEGER}, 
-      #{allowcomment,jdbcType=BIT}, #{allowping,jdbcType=BIT}, #{allowfeed,jdbcType=BIT}, 
+      Status, CommentsNum, AllowComment, 
+      AllowPing, AllowFeed, Url, 
+      AuthorId, Created, Deleted, 
+      Content)
+    values (#{title,jdbcType=VARCHAR}, #{slug,jdbcType=VARCHAR}, #{modified,jdbcType=TIMESTAMP}, 
+      #{hits,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{fmttype,jdbcType=VARCHAR}, 
+      #{thumbimg,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{categories,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{commentsnum,jdbcType=INTEGER}, #{allowcomment,jdbcType=BIT}, 
+      #{allowping,jdbcType=BIT}, #{allowfeed,jdbcType=BIT}, #{url,jdbcType=VARCHAR}, 
       #{authorid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{title,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{fmttype,jdbcType=LONGVARCHAR}, 
-      #{thumbimg,jdbcType=LONGVARCHAR}, #{tags,jdbcType=LONGVARCHAR}, #{categories,jdbcType=LONGVARCHAR}, 
-      #{url,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="site.iblogs.model.Contents">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -163,6 +163,9 @@
     </selectKey>
     insert into Contents
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        Title,
+      </if>
       <if test="slug != null">
         Slug,
       </if>
@@ -174,6 +177,18 @@
       </if>
       <if test="type != null">
         Type,
+      </if>
+      <if test="fmttype != null">
+        FmtType,
+      </if>
+      <if test="thumbimg != null">
+        ThumbImg,
+      </if>
+      <if test="tags != null">
+        Tags,
+      </if>
+      <if test="categories != null">
+        Categories,
       </if>
       <if test="status != null">
         Status,
@@ -190,6 +205,9 @@
       <if test="allowfeed != null">
         AllowFeed,
       </if>
+      <if test="url != null">
+        Url,
+      </if>
       <if test="authorid != null">
         AuthorId,
       </if>
@@ -199,29 +217,14 @@
       <if test="deleted != null">
         Deleted,
       </if>
-      <if test="title != null">
-        Title,
-      </if>
       <if test="content != null">
         Content,
       </if>
-      <if test="fmttype != null">
-        FmtType,
-      </if>
-      <if test="thumbimg != null">
-        ThumbImg,
-      </if>
-      <if test="tags != null">
-        Tags,
-      </if>
-      <if test="categories != null">
-        Categories,
-      </if>
-      <if test="url != null">
-        Url,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
       <if test="slug != null">
         #{slug,jdbcType=VARCHAR},
       </if>
@@ -233,6 +236,18 @@
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="fmttype != null">
+        #{fmttype,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbimg != null">
+        #{thumbimg,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="categories != null">
+        #{categories,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -249,6 +264,9 @@
       <if test="allowfeed != null">
         #{allowfeed,jdbcType=BIT},
       </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
       <if test="authorid != null">
         #{authorid,jdbcType=INTEGER},
       </if>
@@ -258,26 +276,8 @@
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
-      <if test="title != null">
-        #{title,jdbcType=LONGVARCHAR},
-      </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fmttype != null">
-        #{fmttype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="thumbimg != null">
-        #{thumbimg,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="tags != null">
-        #{tags,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="categories != null">
-        #{categories,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -293,6 +293,9 @@
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.title != null">
+        Title = #{record.title,jdbcType=VARCHAR},
+      </if>
       <if test="record.slug != null">
         Slug = #{record.slug,jdbcType=VARCHAR},
       </if>
@@ -304,6 +307,18 @@
       </if>
       <if test="record.type != null">
         Type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.fmttype != null">
+        FmtType = #{record.fmttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbimg != null">
+        ThumbImg = #{record.thumbimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null">
+        Tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categories != null">
+        Categories = #{record.categories,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
         Status = #{record.status,jdbcType=INTEGER},
@@ -320,6 +335,9 @@
       <if test="record.allowfeed != null">
         AllowFeed = #{record.allowfeed,jdbcType=BIT},
       </if>
+      <if test="record.url != null">
+        Url = #{record.url,jdbcType=VARCHAR},
+      </if>
       <if test="record.authorid != null">
         AuthorId = #{record.authorid,jdbcType=INTEGER},
       </if>
@@ -329,26 +347,8 @@
       <if test="record.deleted != null">
         Deleted = #{record.deleted,jdbcType=BIT},
       </if>
-      <if test="record.title != null">
-        Title = #{record.title,jdbcType=LONGVARCHAR},
-      </if>
       <if test="record.content != null">
         Content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.fmttype != null">
-        FmtType = #{record.fmttype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.thumbimg != null">
-        ThumbImg = #{record.thumbimg,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.tags != null">
-        Tags = #{record.tags,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.categories != null">
-        Categories = #{record.categories,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.url != null">
-        Url = #{record.url,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -358,25 +358,25 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update Contents
     set Id = #{record.id,jdbcType=INTEGER},
+      Title = #{record.title,jdbcType=VARCHAR},
       Slug = #{record.slug,jdbcType=VARCHAR},
       Modified = #{record.modified,jdbcType=TIMESTAMP},
       Hits = #{record.hits,jdbcType=INTEGER},
       Type = #{record.type,jdbcType=INTEGER},
+      FmtType = #{record.fmttype,jdbcType=VARCHAR},
+      ThumbImg = #{record.thumbimg,jdbcType=VARCHAR},
+      Tags = #{record.tags,jdbcType=VARCHAR},
+      Categories = #{record.categories,jdbcType=VARCHAR},
       Status = #{record.status,jdbcType=INTEGER},
       CommentsNum = #{record.commentsnum,jdbcType=INTEGER},
       AllowComment = #{record.allowcomment,jdbcType=BIT},
       AllowPing = #{record.allowping,jdbcType=BIT},
       AllowFeed = #{record.allowfeed,jdbcType=BIT},
+      Url = #{record.url,jdbcType=VARCHAR},
       AuthorId = #{record.authorid,jdbcType=INTEGER},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT},
-      Title = #{record.title,jdbcType=LONGVARCHAR},
-      Content = #{record.content,jdbcType=LONGVARCHAR},
-      FmtType = #{record.fmttype,jdbcType=LONGVARCHAR},
-      ThumbImg = #{record.thumbimg,jdbcType=LONGVARCHAR},
-      Tags = #{record.tags,jdbcType=LONGVARCHAR},
-      Categories = #{record.categories,jdbcType=LONGVARCHAR},
-      Url = #{record.url,jdbcType=LONGVARCHAR}
+      Content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -384,15 +384,21 @@
   <update id="updateByExample" parameterType="map">
     update Contents
     set Id = #{record.id,jdbcType=INTEGER},
+      Title = #{record.title,jdbcType=VARCHAR},
       Slug = #{record.slug,jdbcType=VARCHAR},
       Modified = #{record.modified,jdbcType=TIMESTAMP},
       Hits = #{record.hits,jdbcType=INTEGER},
       Type = #{record.type,jdbcType=INTEGER},
+      FmtType = #{record.fmttype,jdbcType=VARCHAR},
+      ThumbImg = #{record.thumbimg,jdbcType=VARCHAR},
+      Tags = #{record.tags,jdbcType=VARCHAR},
+      Categories = #{record.categories,jdbcType=VARCHAR},
       Status = #{record.status,jdbcType=INTEGER},
       CommentsNum = #{record.commentsnum,jdbcType=INTEGER},
       AllowComment = #{record.allowcomment,jdbcType=BIT},
       AllowPing = #{record.allowping,jdbcType=BIT},
       AllowFeed = #{record.allowfeed,jdbcType=BIT},
+      Url = #{record.url,jdbcType=VARCHAR},
       AuthorId = #{record.authorid,jdbcType=INTEGER},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT}
@@ -403,6 +409,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Contents">
     update Contents
     <set>
+      <if test="title != null">
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
       <if test="slug != null">
         Slug = #{slug,jdbcType=VARCHAR},
       </if>
@@ -414,6 +423,18 @@
       </if>
       <if test="type != null">
         Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="fmttype != null">
+        FmtType = #{fmttype,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbimg != null">
+        ThumbImg = #{thumbimg,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        Tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="categories != null">
+        Categories = #{categories,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         Status = #{status,jdbcType=INTEGER},
@@ -430,6 +451,9 @@
       <if test="allowfeed != null">
         AllowFeed = #{allowfeed,jdbcType=BIT},
       </if>
+      <if test="url != null">
+        Url = #{url,jdbcType=VARCHAR},
+      </if>
       <if test="authorid != null">
         AuthorId = #{authorid,jdbcType=INTEGER},
       </if>
@@ -439,64 +463,52 @@
       <if test="deleted != null">
         Deleted = #{deleted,jdbcType=BIT},
       </if>
-      <if test="title != null">
-        Title = #{title,jdbcType=LONGVARCHAR},
-      </if>
       <if test="content != null">
         Content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="fmttype != null">
-        FmtType = #{fmttype,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="thumbimg != null">
-        ThumbImg = #{thumbimg,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="tags != null">
-        Tags = #{tags,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="categories != null">
-        Categories = #{categories,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="url != null">
-        Url = #{url,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Contents">
     update Contents
-    set Slug = #{slug,jdbcType=VARCHAR},
+    set Title = #{title,jdbcType=VARCHAR},
+      Slug = #{slug,jdbcType=VARCHAR},
       Modified = #{modified,jdbcType=TIMESTAMP},
       Hits = #{hits,jdbcType=INTEGER},
       Type = #{type,jdbcType=INTEGER},
+      FmtType = #{fmttype,jdbcType=VARCHAR},
+      ThumbImg = #{thumbimg,jdbcType=VARCHAR},
+      Tags = #{tags,jdbcType=VARCHAR},
+      Categories = #{categories,jdbcType=VARCHAR},
       Status = #{status,jdbcType=INTEGER},
       CommentsNum = #{commentsnum,jdbcType=INTEGER},
       AllowComment = #{allowcomment,jdbcType=BIT},
       AllowPing = #{allowping,jdbcType=BIT},
       AllowFeed = #{allowfeed,jdbcType=BIT},
+      Url = #{url,jdbcType=VARCHAR},
       AuthorId = #{authorid,jdbcType=INTEGER},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT},
-      Title = #{title,jdbcType=LONGVARCHAR},
-      Content = #{content,jdbcType=LONGVARCHAR},
-      FmtType = #{fmttype,jdbcType=LONGVARCHAR},
-      ThumbImg = #{thumbimg,jdbcType=LONGVARCHAR},
-      Tags = #{tags,jdbcType=LONGVARCHAR},
-      Categories = #{categories,jdbcType=LONGVARCHAR},
-      Url = #{url,jdbcType=LONGVARCHAR}
+      Content = #{content,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Contents">
     update Contents
-    set Slug = #{slug,jdbcType=VARCHAR},
+    set Title = #{title,jdbcType=VARCHAR},
+      Slug = #{slug,jdbcType=VARCHAR},
       Modified = #{modified,jdbcType=TIMESTAMP},
       Hits = #{hits,jdbcType=INTEGER},
       Type = #{type,jdbcType=INTEGER},
+      FmtType = #{fmttype,jdbcType=VARCHAR},
+      ThumbImg = #{thumbimg,jdbcType=VARCHAR},
+      Tags = #{tags,jdbcType=VARCHAR},
+      Categories = #{categories,jdbcType=VARCHAR},
       Status = #{status,jdbcType=INTEGER},
       CommentsNum = #{commentsnum,jdbcType=INTEGER},
       AllowComment = #{allowcomment,jdbcType=BIT},
       AllowPing = #{allowping,jdbcType=BIT},
       AllowFeed = #{allowfeed,jdbcType=BIT},
+      Url = #{url,jdbcType=VARCHAR},
       AuthorId = #{authorid,jdbcType=INTEGER},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT}

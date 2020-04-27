@@ -43,7 +43,7 @@ public class ContentController {
     @ApiOperation("分页获取所有内容")
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> pagedContent(Integer pageNum, Integer pageSize) {
+    public ApiResponse<PageResponse<ContentResponse>> pagedContent(int pageNum, int pageSize) {
         return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize,true)));
     }
 
@@ -55,23 +55,31 @@ public class ContentController {
         return response==null?ApiResponse.failed():ApiResponse.success(response);
     }
 
-    public ApiResponse<ContentResponse> Index(int index) {
+    @ApiOperation("通过标签获取文章")
+    @RequestMapping(value = "tag", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<ContentResponse> Tag(String tag, int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 
-    public ApiResponse<ContentResponse> Tag(String tag, int index) {
+    @ApiOperation("通过通过分类获取文章")
+    @RequestMapping(value = "category", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<ContentResponse> Category(String category, int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 
-    public ApiResponse<ContentResponse> Category(String category, int index) {
+    @ApiOperation("文章归档")
+    @RequestMapping(value = "archive", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<ContentResponse> Archive(int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 
-    public ApiResponse<ContentResponse> Archive(int index) {
-        throw new NotImplementedException();
-    }
-
-    public ApiResponse<ContentResponse> Search(String keyword, int index) {
+    @ApiOperation("文章查找(目前支持对标题查找)")
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<ContentResponse> Search(String keyword, int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 }

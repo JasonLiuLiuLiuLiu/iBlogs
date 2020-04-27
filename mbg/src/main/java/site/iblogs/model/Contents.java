@@ -7,6 +7,8 @@ import java.util.Date;
 public class Contents implements Serializable {
     private Integer id;
 
+    private String title;
+
     private String slug;
 
     private Date modified;
@@ -14,6 +16,14 @@ public class Contents implements Serializable {
     private Integer hits;
 
     private Integer type;
+
+    private String fmttype;
+
+    private String thumbimg;
+
+    private String tags;
+
+    private String categories;
 
     private Integer status;
 
@@ -25,25 +35,15 @@ public class Contents implements Serializable {
 
     private Boolean allowfeed;
 
+    private String url;
+
     private Integer authorid;
 
     private Date created;
 
     private Boolean deleted;
 
-    private String title;
-
     private String content;
-
-    private String fmttype;
-
-    private String thumbimg;
-
-    private String tags;
-
-    private String categories;
-
-    private String url;
 
     private static final long serialVersionUID = 1L;
 
@@ -53,6 +53,14 @@ public class Contents implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getSlug() {
@@ -85,6 +93,38 @@ public class Contents implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getFmttype() {
+        return fmttype;
+    }
+
+    public void setFmttype(String fmttype) {
+        this.fmttype = fmttype;
+    }
+
+    public String getThumbimg() {
+        return thumbimg;
+    }
+
+    public void setThumbimg(String thumbimg) {
+        this.thumbimg = thumbimg;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
     public Integer getStatus() {
@@ -127,6 +167,14 @@ public class Contents implements Serializable {
         this.allowfeed = allowfeed;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Integer getAuthorid() {
         return authorid;
     }
@@ -151,60 +199,12 @@ public class Contents implements Serializable {
         this.deleted = deleted;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getFmttype() {
-        return fmttype;
-    }
-
-    public void setFmttype(String fmttype) {
-        this.fmttype = fmttype;
-    }
-
-    public String getThumbimg() {
-        return thumbimg;
-    }
-
-    public void setThumbimg(String thumbimg) {
-        this.thumbimg = thumbimg;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @Override
@@ -214,25 +214,25 @@ public class Contents implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", title=").append(title);
         sb.append(", slug=").append(slug);
         sb.append(", modified=").append(modified);
         sb.append(", hits=").append(hits);
         sb.append(", type=").append(type);
+        sb.append(", fmttype=").append(fmttype);
+        sb.append(", thumbimg=").append(thumbimg);
+        sb.append(", tags=").append(tags);
+        sb.append(", categories=").append(categories);
         sb.append(", status=").append(status);
         sb.append(", commentsnum=").append(commentsnum);
         sb.append(", allowcomment=").append(allowcomment);
         sb.append(", allowping=").append(allowping);
         sb.append(", allowfeed=").append(allowfeed);
+        sb.append(", url=").append(url);
         sb.append(", authorid=").append(authorid);
         sb.append(", created=").append(created);
         sb.append(", deleted=").append(deleted);
-        sb.append(", title=").append(title);
         sb.append(", content=").append(content);
-        sb.append(", fmttype=").append(fmttype);
-        sb.append(", thumbimg=").append(thumbimg);
-        sb.append(", tags=").append(tags);
-        sb.append(", categories=").append(categories);
-        sb.append(", url=").append(url);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
