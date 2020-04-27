@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
+import site.iblogs.portal.model.params.MetaDataType;
 import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -44,7 +45,7 @@ public class ContentController {
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> pagedContent(int pageNum, int pageSize) {
-        return ApiResponse.success(PageResponse.restPage(contentService.listContent(pageNum, pageSize,true)));
+        return ApiResponse.success(contentService.listContent(pageNum, pageSize,true));
     }
 
     @ApiOperation("通过链接或者ID获取文章")
@@ -58,28 +59,28 @@ public class ContentController {
     @ApiOperation("通过标签获取文章")
     @RequestMapping(value = "tag", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<ContentResponse> Tag(String tag, int pageNum, int pageSize) {
-        throw new NotImplementedException();
+    public ApiResponse<PageResponse<ContentResponse>> Tag(String tag, int pageNum, int pageSize) {
+        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(),tag,pageNum,pageSize));
     }
 
     @ApiOperation("通过通过分类获取文章")
     @RequestMapping(value = "category", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<ContentResponse> Category(String category, int pageNum, int pageSize) {
-        throw new NotImplementedException();
+    public ApiResponse<PageResponse<ContentResponse>> Category(String category, int pageNum, int pageSize) {
+        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(),category,pageNum,pageSize));
     }
 
     @ApiOperation("文章归档")
     @RequestMapping(value = "archive", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<ContentResponse> Archive(int pageNum, int pageSize) {
+    public ApiResponse<PageResponse<ContentResponse>> Archive(int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 
     @ApiOperation("文章查找(目前支持对标题查找)")
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<ContentResponse> Search(String keyword, int pageNum, int pageSize) {
+    public ApiResponse<PageResponse<ContentResponse>> Search(String keyword, int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 }

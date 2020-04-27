@@ -1,5 +1,6 @@
 package site.iblogs.portal.service;
 
+import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
 import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ContentResponse;
@@ -18,7 +19,9 @@ public interface ContentService {
 
     List<Contents> findArticles(ArticleParam param);
 
-    List<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary);
+    PageResponse<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary);
 
     ContentResponse getByUrl(String url);
+
+    PageResponse<ContentResponse> getContentByMetaData(int type,String name,int pageNum, int pageSize);
 }

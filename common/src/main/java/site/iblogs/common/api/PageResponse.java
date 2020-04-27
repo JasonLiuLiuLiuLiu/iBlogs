@@ -22,12 +22,24 @@ public class PageResponse<T> {
      */
     public static <T> PageResponse<T> restPage(List<T> list) {
         PageResponse<T> result = new PageResponse<T>();
-        PageInfo<T> pageInfo = new PageInfo<T>(list);
+        PageInfo<T> pageInfo=new PageInfo<>(list);
         result.setTotalPage(pageInfo.getPages());
         result.setPageNum(pageInfo.getPageNum());
         result.setPageSize(pageInfo.getPageSize());
         result.setTotal(pageInfo.getTotal());
         result.setList(pageInfo.getList());
+        return result;
+    }
+    /**
+     * 将PageHelper分页后的list转为分页信息
+     */
+    public static <T> PageResponse<T> restPage(List<T> list,PageInfo pageInfo) {
+        PageResponse<T> result = new PageResponse<T>();
+        result.setTotalPage(pageInfo.getPages());
+        result.setPageNum(pageInfo.getPageNum());
+        result.setPageSize(pageInfo.getPageSize());
+        result.setTotal(pageInfo.getTotal());
+        result.setList(list);
         return result;
     }
 

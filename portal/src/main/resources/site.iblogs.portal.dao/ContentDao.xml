@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.iblogs.portal.dao.ContentDao">
+    <select id="getContentByMetaData" resultMap="site.iblogs.mapper.ContentsMapper.ResultMapWithBLOBs">
+		SELECT
+			c.*
+		FROM
+			Contents c
+			LEFT JOIN Relationships r ON c.id = r.Cid
+			LEFT JOIN Metas m ON r.Mid = m.Id
+		WHERE
+			m.`Name` = #{name}
+			AND m.Type = #{type}
+		ORDER BY
+			c.Created DESC
+	</select>
+</mapper>

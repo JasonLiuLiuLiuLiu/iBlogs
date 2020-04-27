@@ -21,8 +21,9 @@ spring:
 
 mybatis:
   mapper-locations:
-    - classpath:mapper/*.xml
-    - classpath*:com/**/mapper/*.xml
+    - classpath:site.iblogs.portal.dao/*.xml
+    - classpath*:site/**/mapper/*.xml
+
 
 # 自定义redis key
 redis:
@@ -32,6 +33,12 @@ redis:
     expire:
       authCode: 120 # 验证码超期时间
 
-
-
-
+logging:
+  level:
+    site.iblogs.portal.dao.ContentDao:
+      debug
+    site:
+      iblogs:
+        mapper:
+          ContentsMapper:
+            debug
