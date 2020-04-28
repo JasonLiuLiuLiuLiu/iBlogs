@@ -3,6 +3,7 @@ package site.iblogs.portal.model.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import site.iblogs.portal.model.params.CommentStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CommentResponse {
     private String Ip;
     private String Agent;
     private String Content;
-    private String Status;
+    private CommentStatus Status;
     private int Parent;
     private List<CommentResponse> Children;
 }

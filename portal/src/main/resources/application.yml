@@ -42,3 +42,5 @@ logging:
         mapper:
           ContentsMapper:
             debug
+          CommentsMapper:
+            debug
