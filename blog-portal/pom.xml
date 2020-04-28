@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>portal</artifactId>
+    <artifactId>blog-portal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>portal</name>
+    <name>blog-portal</name>
     <description>https://iblogs.site/</description>
 
     <parent>
@@ -22,7 +22,7 @@
 
         <dependency>
             <groupId>site.iblogs</groupId>
-            <artifactId>mbg</artifactId>
+            <artifactId>blog-mbg</artifactId>
         </dependency>
 
         <!--redis依赖配置-->

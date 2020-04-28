@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>portal</module>
-        <module>common</module>
-        <module>admin</module>
-        <module>mbg</module>
+        <module>blog-portal</module>
+        <module>blog-common</module>
+        <module>blog-admin</module>
+        <module>blog-mbg</module>
     </modules>
 
     <parent>
@@ -78,13 +78,13 @@
             <!--mall通用模块-->
             <dependency>
                 <groupId>site.iblogs</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>blog-common</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!--mall中MBG生成模块-->
             <dependency>
                 <groupId>site.iblogs</groupId>
-                <artifactId>mbg</artifactId>
+                <artifactId>blog-mbg</artifactId>
                 <version>${mbg.version}</version>
             </dependency>
             <!--MyBatis分页插件starter-->

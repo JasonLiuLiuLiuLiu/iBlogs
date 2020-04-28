@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>admin</artifactId>
+    <artifactId>blog-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>admin</name>
+    <name>blog-admin</name>
     <description>https://iblogs.site/admin/</description>
 
     <parent>
