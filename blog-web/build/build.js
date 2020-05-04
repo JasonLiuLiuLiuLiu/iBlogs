@@ -1,49 +1,41 @@
-"use strict";
-//node for loading
-const ora = require("ora");
-// rm-rf for node
-const rm = require("rimraf");
-//console for node
-const chalk = require("chalk");
-//path for node
-const path = require("path");
-//webpack
-const webpack = require("webpack");
-//webpack production setting
-const config = require("./webpack.prod.conf");
-//指定删除的文件
-const rmFile = path.resolve(__dirname, "../public/static");
-//build start loading
-const spinner = ora("building for production...");
-spinner.start();
+'use strict'
+require('./check-versions')()
 
-//构建全量压缩包！
-rm(rmFile, function(err) {
-  if (err) throw err;
-  webpack(config, function(err, stats) {
-    spinner.stop();
-    if (err) throw err;
-    process.stdout.write(
-      stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-      }) + "\n\n"
-    );
+process.env.NODE_ENV = 'production'
+
+const ora = require('ora')
+const rm = require('rimraf')
+const path = require('path')
+const chalk = require('chalk')
+const webpack = require('webpack')
+const config = require('../config')
+const webpackConfig = require('./webpack.prod.conf')
+
+const spinner = ora('building for production...')
+spinner.start()
+
+rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
+  if (err) throw err
+  webpack(webpackConfig, (err, stats) => {
+    spinner.stop()
+    if (err) throw err
+    process.stdout.write(stats.toString({
+      colors: true,
+      modules: false,
+      children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
+      chunks: false,
+      chunkModules: false
+    }) + '\n\n')
 
     if (stats.hasErrors()) {
-      console.log(chalk.red("  Build failed with errors.\n"));
-      process.exit(1);
+      console.log(chalk.red('  Build failed with errors.\n'))
+      process.exit(1)
     }
 
-    console.log(chalk.cyan("  Build complete.\n"));
-    console.log(
-      chalk.yellow(
-        "  Tip: built files are meant to be served over an HTTP server.\n" +
-          "  Opening index.html over file:// won't work.\n"
-      )
-    );
-  });
-});
+    console.log(chalk.cyan('  Build complete.\n'))
+    console.log(chalk.yellow(
+      '  Tip: built files are meant to be served over an HTTP server.\n' +
+      '  Opening index.html over file:// won\'t work.\n'
+    ))
+  })
+})
