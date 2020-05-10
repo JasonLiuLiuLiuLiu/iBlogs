@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+/* Layout */
+import Layout from '../views/layout/Layout'
+
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -16,13 +19,18 @@ Vue.use(Router)
   }
  **/
 export const constantRouterMap = [
-  {path:'/',component:()=>import('@/views/login/index')},
-  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
-  {path: '/404', component: () => import('@/views/404'), hidden: true}
-]
-
-export const asyncRouterMap = [
-  {path: '*', redirect: '/404', hidden: true}
+  {path: '/404', component: () => import('@/views/404'), hidden: true},
+  {
+    path: '',
+    component: Layout,
+    redirect: '/home',
+    children: [{
+      path: 'home',
+      name: 'home',
+      component: () => import('@/views/home/index'),
+      meta: {title: '首页', icon: 'home'}
+    }]
+  }
 ]
 
 export default new Router({
