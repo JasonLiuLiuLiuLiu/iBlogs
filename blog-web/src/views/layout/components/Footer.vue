@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" class="footer bg-white">
+  <div id="footer" class="footer bg-white">
     <div class="footer-social">
       <div class="footer-container clearfix">
         <div class="social-list">
@@ -63,9 +63,12 @@
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 </template>
 <script>
+  export default {
+    name:"footer"
+  }
 
 </script>
 <style>
