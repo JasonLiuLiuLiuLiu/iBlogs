@@ -29,7 +29,13 @@ export const constantRouterMap = [
       name: 'home',
       component: () => import('@/views/home/index'),
       meta: {title: '首页', icon: 'home'}
-    }]
+    },
+      {
+        path: 'article',
+        name: 'article',
+        component: () => import('@/views/article/index'),
+        meta: {title: '首页', icon: 'article'}
+      }]
   }
 ]
 

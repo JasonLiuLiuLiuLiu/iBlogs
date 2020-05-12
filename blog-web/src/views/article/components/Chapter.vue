@@ -102,4 +102,7 @@
       unpinned: "unpinned"
     }
   });
+  export default {
+    name:'Chapter'
+  }
 </script>

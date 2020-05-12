@@ -5,7 +5,7 @@
         <Blog></Blog>
         <WeChat id="WeChat" style="display: none"></WeChat>
         <Menu></Menu>
-        <Notice></Notice>
+        <v-notice></v-notice>
         <SiteInfo></SiteInfo>
         <Category></Category>
         <tag></tag>

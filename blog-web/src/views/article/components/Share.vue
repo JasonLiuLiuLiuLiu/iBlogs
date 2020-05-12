@@ -18,7 +18,9 @@
   </div>
 </template>
 <script>
-
+export default {
+  name:'Share'
+}
 </script>
 <style>
 
