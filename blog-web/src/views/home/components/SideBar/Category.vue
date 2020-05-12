@@ -10,8 +10,7 @@
           </svg><span class="GlobalSideBar-navText">热门分类</span>
         </a>
       </li>
-      @foreach (var category in Model.Categories)
-      {
+
       <li class="GlobalSideBar-navItem GlobalSideBar-questionListItem">
         <a type="button" class="Button GlobalSideBar-navLink Button--plain" href="/category/@category.Key">
           <svg class="Zi Zi--HelpBubble GlobalSideBar-navIcon"
@@ -22,12 +21,13 @@
           </svg><span class="GlobalSideBar-navText">@category.Key</span><span class="GlobalSideBar-navNumber">@category.Value</span>
         </a>
       </li>
-      }
     </ul>
   </div>
 </template>
 <script>
-
+  export default {
+    name:'Category'
+  }
 </script>
 <style>
 

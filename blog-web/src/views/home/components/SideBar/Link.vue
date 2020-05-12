@@ -7,8 +7,7 @@
           <span class="GlobalSideBar-navText">友情链接</span>
         </a>
       </li>
-      @foreach (var tag in Model.Tags)
-      {
+
       <li class="GlobalSideBar-navItem GlobalSideBar-questionListItem">
         <a type="button" class="Button GlobalSideBar-navLink Button--plain" href="/tag/@tag.Key">
           <svg class="Zi Zi--Star GlobalSideBar-navIcon" fill="currentColor" width="15" height="15" viewBox="0 0 54.971 54.971">
@@ -17,12 +16,13 @@
           <span class="GlobalSideBar-navText">@tag.Key</span>
         </a>
       </li>
-      }
     </ul>
   </div>
 </template>
 <script>
-
+  export default {
+    name:'Link'
+  }
 </script>
 <style>
 

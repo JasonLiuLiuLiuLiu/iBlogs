@@ -23,9 +23,6 @@
       </div>
     </div>
   </div>
-  <div id="WeChat" class="Pc-card Card" style="display: none">
-    <img class="Banner-image" src="https://disk.iblogs.site/pic/coderayu.png" alt="码农阿宇">
-  </div>
 </template>
 <script>
   function WeChatShow() {
@@ -34,6 +31,9 @@
 
   function WeChatHide() {
     document.getElementById("WeChat").style.display = "none";
+  }
+  export default {
+    name:'Blog'
   }
 </script>
 <style>

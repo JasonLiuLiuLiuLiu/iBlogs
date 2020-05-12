@@ -47,7 +47,9 @@
   </div>
 </template>
 <script>
-
+  export default {
+    name:'ContentCard'
+  }
 </script>
 <style>
 

@@ -10,8 +10,7 @@
           </svg><span class="GlobalSideBar-navText">热门标签</span>
         </a>
       </li>
-      @foreach (var tag in Model.Tags)
-      {
+
       <li class="GlobalSideBar-navItem GlobalSideBar-questionListItem">
         <a type="button" class="Button GlobalSideBar-navLink Button--plain" href="/tag/@tag.Key">
           <svg class="Zi Zi--HelpBubble GlobalSideBar-navIcon" fill="currentColor" viewBox="0 0 425.7 425.7" width="18" height="18">
@@ -22,12 +21,13 @@
           </svg><span class="GlobalSideBar-navText">@tag.Key</span><span class="GlobalSideBar-navNumber">@tag.Value</span>
         </a>
       </li>
-      }
     </ul>
   </div>
 </template>
 <script>
-
+  export default {
+    name:'Tag'
+  }
 </script>
 <style>
 
