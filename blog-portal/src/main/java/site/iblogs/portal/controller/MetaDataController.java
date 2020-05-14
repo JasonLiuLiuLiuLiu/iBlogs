@@ -22,14 +22,14 @@ public class MetaDataController {
     private MetadataService metadataService;
 
     @ApiOperation("获取分类")
-    @RequestMapping(value = "categories", method = RequestMethod.POST)
+    @RequestMapping(value = "categories", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<MetaDataResponse>> Categories(int pageNum, int pageSize) {
         return ApiResponse.success(metadataService.getMetadata(MetaDataType.Category,pageNum,pageSize));
     }
 
     @ApiOperation("获取标签")
-    @RequestMapping(value = "tags", method = RequestMethod.POST)
+    @RequestMapping(value = "tags", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<MetaDataResponse>> Tags(int pageNum, int pageSize) {
         return ApiResponse.success(metadataService.getMetadata(MetaDataType.Tag,pageNum,pageSize));

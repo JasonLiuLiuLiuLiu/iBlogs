@@ -23,7 +23,7 @@ public class CommentController {
     private CommentService commentService;
 
     @ApiOperation("通过文章Id获取评论")
-    @RequestMapping(value = "getComments", method = RequestMethod.POST)
+    @RequestMapping(value = "getComments", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<CommentResponse>> GetComments(int cid, int pageNum, int pageSize){
         return ApiResponse.success(commentService.getComment(cid,pageNum,pageSize));
