@@ -49,7 +49,7 @@ export function page(pageNum, pageSize) {
   return request({
     url: '/content/page',
     method: 'get',
-    data: {
+    params: {
       pageNum,
       pageSize
     }
@@ -60,7 +60,7 @@ export function search(keyword, pageNum, pageSize) {
   return request({
     url: '/content/search',
     method: 'get',
-    data: {
+    params: {
       keyword,
       pageNum,
       pageSize

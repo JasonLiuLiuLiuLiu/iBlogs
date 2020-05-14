@@ -4,7 +4,7 @@ export function getComments(cid, pageNum, pageSize) {
   return request({
     url: '/comment/getComments',
     method: 'get',
-    data: {
+    params: {
       cid,
       pageNum,
       pageSize
