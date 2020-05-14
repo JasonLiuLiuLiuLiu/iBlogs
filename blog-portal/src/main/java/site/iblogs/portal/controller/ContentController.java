@@ -35,21 +35,21 @@ public class ContentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContentController.class);
 
     @ApiOperation("获取所有内容")
-    @RequestMapping(value = "all", method = RequestMethod.GET)
+    @RequestMapping(value = "all", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<List<Contents>> listContent() {
         return ApiResponse.success(contentService.listAllContent());
     }
 
     @ApiOperation("分页获取所有内容")
-    @RequestMapping(value = "page", method = RequestMethod.GET)
+    @RequestMapping(value = "page", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> pagedContent(int pageNum, int pageSize) {
         return ApiResponse.success(contentService.listContent(pageNum, pageSize,true));
     }
 
     @ApiOperation("通过链接或者ID获取文章")
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<ContentResponse> Index(String url){
         ContentResponse response=contentService.getByUrl(url);
@@ -57,28 +57,28 @@ public class ContentController {
     }
 
     @ApiOperation("通过标签获取文章")
-    @RequestMapping(value = "tag", method = RequestMethod.GET)
+    @RequestMapping(value = "tag", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> Tag(String tag, int pageNum, int pageSize) {
         return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(),tag,pageNum,pageSize));
     }
 
     @ApiOperation("通过通过分类获取文章")
-    @RequestMapping(value = "category", method = RequestMethod.GET)
+    @RequestMapping(value = "category", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> Category(String category, int pageNum, int pageSize) {
         return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(),category,pageNum,pageSize));
     }
 
     @ApiOperation("文章归档")
-    @RequestMapping(value = "archive", method = RequestMethod.GET)
+    @RequestMapping(value = "archive", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> Archive(int pageNum, int pageSize) {
         throw new NotImplementedException();
     }
 
     @ApiOperation("文章查找(目前支持对标题查找)")
-    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @RequestMapping(value = "search", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> Search(String keyword, int pageNum, int pageSize) {
         throw new NotImplementedException();
