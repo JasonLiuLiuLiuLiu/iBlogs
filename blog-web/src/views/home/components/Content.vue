@@ -81,9 +81,9 @@
     </div>
     <div class="lists-navigator clearfix">
       <ol class="page-navigator">
-        <li class="prev"><a href="/index@pageInfo.PrevPage">←</a></li>
-        <li class=""><a href="/index@navIndex">@navIndex</a></li>
-        <li class="next"><a href="/index@pageInfo.NextPage">→</a></li>
+        <li class="prev" v-if="data.pageNum-1>0"><a :href="'/index/'+data.pageNum-1">←</a></li>
+        <li :class="index==data.pageNum?'current':''" v-for="index in data.totalPage"><a :href="'/index/'+index">{{index}}</a></li>
+        <li class="next" v-if="data.pageNum<data.totalPage"><a :href="'/index/'+data.pageNum+1">→</a></li>
       </ol>
     </div>
   </div>

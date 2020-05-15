@@ -5,7 +5,7 @@
         <Blog></Blog>
         <WeChat id="WeChat" style="display: none"></WeChat>
         <Menu></Menu>
-        <v-notice></v-notice>
+        <notice></notice>
         <SiteInfo></SiteInfo>
         <Category></Category>
         <tag></tag>
@@ -26,7 +26,7 @@
 
   export default {
     name:"SideBar",
-    components: {Link, Tag, Category, SiteInfo, Menu, Blog, WeChat},
+    components: {Notice, Link, Tag, Category, SiteInfo, Menu, Blog, WeChat},
     comments: {Blog, Menu, Notice, SiteInfo, Tag, Category, Link, WeChat}
   }
 </script>
