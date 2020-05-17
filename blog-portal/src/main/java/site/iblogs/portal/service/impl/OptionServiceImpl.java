@@ -9,6 +9,8 @@ import site.iblogs.model.OptionsExample;
 import site.iblogs.portal.service.OptionService;
 import site.iblogs.portal.service.RedisService;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 @Service
@@ -16,12 +18,12 @@ public class OptionServiceImpl implements OptionService {
 
     private OptionsMapper optionsMapper;
 
-    private RedisService redisService;
+    private RedisService<Options> redisService;
 
     private static boolean initializedOptionsToRedis = false;
     private static String optionsPreKey = "IBLOGS.SITE.OPTIONS";
 
-    public OptionServiceImpl(OptionsMapper optionsMapper, RedisService redisService) {
+    public OptionServiceImpl(OptionsMapper optionsMapper, RedisService<Options> redisService) {
         this.optionsMapper = optionsMapper;
         this.redisService = redisService;
         if (!initializedOptionsToRedis) {
@@ -36,25 +38,48 @@ public class OptionServiceImpl implements OptionService {
         List<Options> allOptions = getAllOption();
         allOptions.forEach(u -> {
             if (!StringUtils.isEmpty(u.getValue())) {
-                redisService.set(optionsPreKey + u.getName(), u.getValue());
+                redisService.set(optionsPreKey + u.getName(), u);
             }
         });
         initializedOptionsToRedis = true;
     }
 
     @Override
-    public String getOption(ConfigKey key) {
-        String value = redisService.get(key.name());
-        if (StringUtils.isEmpty(value)) {
+    public Options getOption(ConfigKey key) {
+        Options value = redisService.get(key.name());
+        if (value==null||StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
             List<Options> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
-                redisService.set(optionsPreKey + options.get(0).getName(), options.get(0).getValue());
+                redisService.set(optionsPreKey + options.get(0).getName(), options.get(0));
             } else {
                 return null;
             }
         }
         return value;
+    }
+
+    @Override
+    public Hashtable<String, String> getOptions(ArrayList<String> keys) {
+        Hashtable<String, String> result = new Hashtable<>();
+        if (keys == null) {
+            return null;
+        }
+
+        for (String s : keys) {
+            try {
+                ConfigKey key = ConfigKey.valueOf(s);
+                Options option=getOption(key);
+                if(!option.getVisible()){
+                    result.put(s,"NULL");
+                }else {
+                    result.put(s,option.getValue());
+                }
+            } catch (IllegalArgumentException ex) {
+                result.put(s, "NULL");
+            }
+        }
+        return result;
     }
 
     @Override

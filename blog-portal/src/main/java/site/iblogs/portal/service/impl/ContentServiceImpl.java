@@ -60,7 +60,7 @@ public class ContentServiceImpl implements ContentService {
         if (summary) {
             int length;
             try {
-                length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount));
+                length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());
             } catch (Exception e) {
                 length = 200;
             }

@@ -6,21 +6,21 @@ package site.iblogs.portal.service;
  * @author Liu Zhenyu on 3/15/2020
  */
 
-public interface RedisService {
+public interface RedisService<T> {
     /**
      * 存储数据
      */
-    void set(String key, String value);
+    void set(String key, T value);
 
     /**
      * 获取数据
      */
-    String get(String key);
+    T get(String key);
 
     /**
      * 设置超期时间
      */
-    boolean expire(String key, long expire);
+    Boolean expire(String key, long expire);
 
     /**
      * 删除数据
