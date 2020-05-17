@@ -23,18 +23,17 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/home',
-    children: [{
-      path: 'home',
-      name: 'home',
-      component: () => import('@/views/home/index'),
-      meta: {title: '首页', icon: 'home'}
-    },
+    redirect: '/index/1',
+    children: [
+      {
+        path: 'index/:id',
+        name: 'index',
+        component: () => import('@/views/home/index')
+      },
       {
         path: 'article',
         name: 'article',
-        component: () => import('@/views/article/index'),
-        meta: {title: '首页', icon: 'article'}
+        component: () => import('@/views/article/index')
       }]
   }
 ]
