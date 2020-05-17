@@ -6,6 +6,7 @@
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Value" jdbcType="VARCHAR" property="value" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="Visible" jdbcType="BIT" property="visible" />
     <result column="Editable" jdbcType="BIT" property="editable" />
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, Value, Description, Editable, Created, Deleted
+    Id, Name, Value, Description, Visible, Editable, Created, Deleted
   </sql>
   <select id="selectByExample" parameterType="site.iblogs.model.OptionsExample" resultMap="BaseResultMap">
     select
@@ -106,11 +107,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into Options (Name, Value, Description, 
-      Editable, Created, Deleted
-      )
+      Visible, Editable, Created, 
+      Deleted)
     values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{editable,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
+      #{visible,jdbcType=BIT}, #{editable,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="site.iblogs.model.Options">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -126,6 +127,9 @@
       </if>
       <if test="description != null">
         Description,
+      </if>
+      <if test="visible != null">
+        Visible,
       </if>
       <if test="editable != null">
         Editable,
@@ -146,6 +150,9 @@
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=BIT},
       </if>
       <if test="editable != null">
         #{editable,jdbcType=BIT},
@@ -179,6 +186,9 @@
       <if test="record.description != null">
         Description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.visible != null">
+        Visible = #{record.visible,jdbcType=BIT},
+      </if>
       <if test="record.editable != null">
         Editable = #{record.editable,jdbcType=BIT},
       </if>
@@ -199,6 +209,7 @@
       Name = #{record.name,jdbcType=VARCHAR},
       Value = #{record.value,jdbcType=VARCHAR},
       Description = #{record.description,jdbcType=VARCHAR},
+      Visible = #{record.visible,jdbcType=BIT},
       Editable = #{record.editable,jdbcType=BIT},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT}
@@ -218,6 +229,9 @@
       <if test="description != null">
         Description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="visible != null">
+        Visible = #{visible,jdbcType=BIT},
+      </if>
       <if test="editable != null">
         Editable = #{editable,jdbcType=BIT},
       </if>
@@ -235,6 +249,7 @@
     set Name = #{name,jdbcType=VARCHAR},
       Value = #{value,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR},
+      Visible = #{visible,jdbcType=BIT},
       Editable = #{editable,jdbcType=BIT},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT}

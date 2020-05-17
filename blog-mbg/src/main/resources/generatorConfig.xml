@@ -30,12 +30,12 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="site.iblogs.model" targetProject="mbg\src\main\java"/>
+        <javaModelGenerator targetPackage="site.iblogs.model" targetProject="blog-mbg\src\main\java"/>
 
-        <sqlMapGenerator targetPackage="site.iblogs.mapper" targetProject="mbg\src\main\resources"/>
+        <sqlMapGenerator targetPackage="site.iblogs.mapper" targetProject="blog-mbg\src\main\resources"/>
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="site.iblogs.mapper"
-                             targetProject="mbg\src\main\java"/>
+                             targetProject="blog-mbg\src\main\java"/>
         <!--生成全部表tableName设为%-->
         <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>

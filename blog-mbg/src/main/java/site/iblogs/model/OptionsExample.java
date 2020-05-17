@@ -375,6 +375,66 @@ public class OptionsExample {
             return (Criteria) this;
         }
 
+        public Criteria andVisibleIsNull() {
+            addCriterion("Visible is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleIsNotNull() {
+            addCriterion("Visible is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleEqualTo(Boolean value) {
+            addCriterion("Visible =", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleNotEqualTo(Boolean value) {
+            addCriterion("Visible <>", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleGreaterThan(Boolean value) {
+            addCriterion("Visible >", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("Visible >=", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleLessThan(Boolean value) {
+            addCriterion("Visible <", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleLessThanOrEqualTo(Boolean value) {
+            addCriterion("Visible <=", value, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleIn(List<Boolean> values) {
+            addCriterion("Visible in", values, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleNotIn(List<Boolean> values) {
+            addCriterion("Visible not in", values, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleBetween(Boolean value1, Boolean value2) {
+            addCriterion("Visible between", value1, value2, "visible");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisibleNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("Visible not between", value1, value2, "visible");
+            return (Criteria) this;
+        }
+
         public Criteria andEditableIsNull() {
             addCriterion("Editable is null");
             return (Criteria) this;

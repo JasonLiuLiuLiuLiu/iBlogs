@@ -13,6 +13,8 @@ public class Options implements Serializable {
 
     private String description;
 
+    private Boolean visible;
+
     private Boolean editable;
 
     private Date created;
@@ -53,6 +55,14 @@ public class Options implements Serializable {
         this.description = description;
     }
 
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
     public Boolean getEditable() {
         return editable;
     }
@@ -87,6 +97,7 @@ public class Options implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", value=").append(value);
         sb.append(", description=").append(description);
+        sb.append(", visible=").append(visible);
         sb.append(", editable=").append(editable);
         sb.append(", created=").append(created);
         sb.append(", deleted=").append(deleted);
