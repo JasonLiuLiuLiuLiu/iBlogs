@@ -12,7 +12,7 @@
       <li>
         <div style="padding: 10px 10px 10px">
                                 <span class="GlobalSideBar-navText">
-                                    @Html.Raw(Model.Announcement)
+                                  <span v-html="Options.Announcement"></span>
                                 </span>
         </div>
       </li>
@@ -20,8 +20,28 @@
   </div>
 </template>
 <script>
+  import { getOptions} from '@/api/option';
+
+  const keys = ['Announcement'];
   export default {
-    name:'Notice'
+    name: 'Notice',
+    data() {
+      return {
+        Options:{
+          Announcement:"通知公告"
+        }
+      }
+    },
+    created() {
+      this.getOptions();
+    },
+    methods: {
+      getOptions() {
+        getOptions(keys).then(response => {
+          this.Options = response.data;
+        });
+      }
+    }
   }
 </script>
 <style>

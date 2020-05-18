@@ -90,7 +90,7 @@
 </template>
 <script>
   import {archive, category, tag, page, search} from '@/api/content'
-  import {formatDate} from "../../../utils/formatDate";
+  import {dateFormat} from "../../../utils/dateUtils";
 
   const defaultPageQuery = {
     pageNum: 1,
@@ -109,7 +109,7 @@
     filters: {
       formatDate(time) {
         const date = new Date(time);
-        return formatDate(date, 'yyyy-MM-dd');
+        return dateFormat(date, 'yyyy-MM-dd');
       }
     },
     created() {

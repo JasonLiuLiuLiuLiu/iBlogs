@@ -13,8 +13,8 @@
     name: 'layout',
     components: {
       AppMain,
-      vHeader:Header,
-      vFooter:footer
+      vHeader: Header,
+      vFooter: footer
     },
     computed: {
       device() {
