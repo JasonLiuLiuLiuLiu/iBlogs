@@ -12,7 +12,7 @@
       <li>
         <div style="padding: 10px 10px 10px">
                                 <span class="GlobalSideBar-navText">
-                                  <span v-html="Options.Announcement"></span>
+                                  <span v-html="this.$store.getters.options.Announcement"></span>
                                 </span>
         </div>
       </li>
@@ -20,28 +20,9 @@
   </div>
 </template>
 <script>
-  import { getOptions} from '@/api/option';
 
-  const keys = ['Announcement'];
   export default {
-    name: 'Notice',
-    data() {
-      return {
-        Options:{
-          Announcement:"通知公告"
-        }
-      }
-    },
-    created() {
-      this.getOptions();
-    },
-    methods: {
-      getOptions() {
-        getOptions(keys).then(response => {
-          this.Options = response.data;
-        });
-      }
-    }
+    name: 'Notice'
   }
 </script>
 <style>

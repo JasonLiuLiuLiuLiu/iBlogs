@@ -73,7 +73,11 @@ public class OptionServiceImpl implements OptionService {
                 if (option == null || !option.getVisible()) {
                     result.put(s, "NULL");
                 } else {
-                    result.put(s, option.getValue());
+                    String value = option.getValue();
+                    if (value == null) {
+                        value = "NULL";
+                    }
+                    result.put(s, value);
                 }
             } catch (IllegalArgumentException ex) {
                 result.put(s, "NULL");

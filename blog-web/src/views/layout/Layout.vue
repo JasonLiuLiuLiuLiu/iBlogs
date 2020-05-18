@@ -16,6 +16,9 @@
       vHeader: Header,
       vFooter: footer
     },
+    created() {
+      this.$store.dispatch('getOptions');
+    },
     computed: {
       device() {
         return this.$store.state.app.device

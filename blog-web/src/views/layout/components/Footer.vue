@@ -37,41 +37,19 @@
         </div>
 
         <div class="meta-item meta-posts">
-          <span v-html="Options.FootContent1"></span>
+          <span v-html="this.$store.getters.options.FootContent1"></span>
         </div>
 
         <div class="meta-item meta-comments">
-          <span v-html="Options.FootContent2"></span>
+          <span v-html="this.$store.getters.options.FootContent2"></span>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import {getOptions} from '@/api/option'
-
-  const keys = ['FootContent1', 'FootContent2'];
-
   export default {
-    name: "footer",
-    data() {
-      return {
-        Options: {
-          FootContent1: "页脚1",
-          FootContent2: "页脚2"
-        }
-      }
-    },
-    created() {
-      this.getOptions();
-    },
-    methods: {
-      getOptions() {
-        getOptions(keys).then(response => {
-          this.Options = response.data;
-        });
-      }
-    }
+    name: "footer"
   }
 </script>
 <style>
