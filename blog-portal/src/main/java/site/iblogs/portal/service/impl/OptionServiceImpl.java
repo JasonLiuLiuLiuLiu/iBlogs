@@ -46,7 +46,7 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public Options getOption(ConfigKey key) {
-        Options value = redisService.get(key.name());
+        Options value = redisService.get(optionsPreKey + key.name());
         if (value == null || StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
             example.createCriteria().andNameEqualTo(key.toString());
