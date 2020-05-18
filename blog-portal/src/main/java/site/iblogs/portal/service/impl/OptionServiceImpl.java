@@ -47,13 +47,13 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public Options getOption(ConfigKey key) {
         Options value = redisService.get(key.name());
-        if (value==null||StringUtils.isEmpty(value.getValue())) {
+        if (value == null || StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
+            example.createCriteria().andNameEqualTo(key.toString());
             List<Options> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
-                redisService.set(optionsPreKey + options.get(0).getName(), options.get(0));
-            } else {
-                return null;
+                value = options.get(0);
+                redisService.set(optionsPreKey + value.getName(), value);
             }
         }
         return value;
@@ -69,11 +69,11 @@ public class OptionServiceImpl implements OptionService {
         for (String s : keys) {
             try {
                 ConfigKey key = ConfigKey.valueOf(s);
-                Options option=getOption(key);
-                if(!option.getVisible()){
-                    result.put(s,"NULL");
-                }else {
-                    result.put(s,option.getValue());
+                Options option = getOption(key);
+                if (option == null || !option.getVisible()) {
+                    result.put(s, "NULL");
+                } else {
+                    result.put(s, option.getValue());
                 }
             } catch (IllegalArgumentException ex) {
                 result.put(s, "NULL");
