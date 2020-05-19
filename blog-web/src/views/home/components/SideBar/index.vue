@@ -3,7 +3,7 @@
     <div>
       <div class="Sticky">
         <Blog></Blog>
-        <WeChat id="WeChat" style="display: none"></WeChat>
+        <WeChat id="WeChat" :style="{display:this.$store.state.app.sidebar.weChatOpen?'':'none'}"></WeChat>
         <Menu></Menu>
         <notice></notice>
         <SiteInfo></SiteInfo>

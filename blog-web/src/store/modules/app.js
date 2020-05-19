@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 const app = {
   state: {
     sidebar: {
+      weChatOpen: false,
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
@@ -17,6 +18,9 @@ const app = {
       }
       state.sidebar.opened = !state.sidebar.opened
     },
+    TOGGLE_WECHAT: (state, open) => {
+      state.sidebar.weChatOpen = open
+    },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
       Cookies.set('sidebarStatus', 1)
       state.sidebar.opened = false
@@ -27,13 +31,16 @@ const app = {
     }
   },
   actions: {
-    ToggleSideBar: ({ commit }) => {
+    ToggleSideBar: ({commit}) => {
       commit('TOGGLE_SIDEBAR')
     },
-    CloseSideBar({ commit }, { withoutAnimation }) {
+    ToggleWeChat: ({commit},open) => {
+      commit('TOGGLE_WECHAT',open)
+    },
+    CloseSideBar({commit}, {withoutAnimation}) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
     },
-    ToggleDevice({ commit }, device) {
+    ToggleDevice({commit}, device) {
       commit('TOGGLE_DEVICE', device)
     }
   }
