@@ -12,7 +12,6 @@ import site.iblogs.portal.model.params.MetaDataType;
 import site.iblogs.portal.model.response.MetaDataResponse;
 import site.iblogs.portal.service.MetadataService;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +25,10 @@ public class MetadataServiceImpl implements MetadataService {
         PageHelper.startPage(pageNum, pageSize);
         MetasExample example = new MetasExample();
         example.createCriteria().andTypeEqualTo(type.ordinal());
+        example.createCriteria().andDeletedEqualTo(false);
+        example.setOrderByClause("count desc");
         List<Metas> metas = metasMapper.selectByExampleWithBLOBs(example);
         PageInfo<Metas> pageInfo=new PageInfo<>(metas);
-        return PageResponse.restPage(metas.stream().sorted(Comparator.comparing(Metas::getCount).reversed()).map(u->new MetaDataResponse(u.getName(),u.getCount())).collect(Collectors.toList()),pageInfo);
+        return PageResponse.restPage(metas.stream().map(u->new MetaDataResponse(u.getName(),u.getCount())).collect(Collectors.toList()),pageInfo);
     }
 }

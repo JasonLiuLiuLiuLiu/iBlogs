@@ -49,6 +49,7 @@ public class OptionServiceImpl implements OptionService {
         Options value = redisService.get(optionsPreKey + key.name());
         if (value == null || StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
+            example.createCriteria().andDeletedEqualTo(false);
             example.createCriteria().andNameEqualTo(key.toString());
             List<Options> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
@@ -88,6 +89,8 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public List<Options> getAllOption() {
-        return optionsMapper.selectByExample(new OptionsExample());
+        OptionsExample example=new OptionsExample();
+        example.createCriteria().andDeletedEqualTo(false);
+        return optionsMapper.selectByExample(example);
     }
 }

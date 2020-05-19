@@ -25,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
     public PageResponse<CommentResponse> getComment(int cid, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         CommentsExample example=new CommentsExample();
+        example.createCriteria().andDeletedEqualTo(false);
         example.createCriteria().andCidEqualTo(cid);
         List<Comments> comments=commentsMapper.selectByExampleWithBLOBs(example);
         PageInfo<Comments> pageInfo=new PageInfo<>(comments);

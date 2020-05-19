@@ -55,7 +55,10 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public PageResponse<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(new ContentsExample());
+        ContentsExample contentsExample=new ContentsExample();
+        contentsExample.createCriteria().andDeletedEqualTo(false);
+        contentsExample.setOrderByClause("Created desc");
+        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
         PageInfo<Contents> pageInfo=new PageInfo<>(contents);
         if (summary) {
             int length;
@@ -77,6 +80,7 @@ public class ContentServiceImpl implements ContentService {
 
     public ContentResponse getByUrl(String url) {
         ContentsExample example = new ContentsExample();
+        example.createCriteria().andDeletedEqualTo(false);
         example.createCriteria().andSlugEqualTo(url);
         try {
             int id = Integer.parseInt(url);
