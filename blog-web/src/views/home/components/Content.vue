@@ -81,9 +81,10 @@
     </div>
     <div class="lists-navigator clearfix">
       <ol class="page-navigator">
-        <li class="prev" v-if="data.pageNum-1>0"><a :href="'/index/'+data.pageNum-1">←</a></li>
-        <li :class="index==data.pageNum?'current':''" v-for="index in data.totalPage"><a :href="'/index/'+index">{{index}}</a></li>
-        <li class="next" v-if="data.pageNum<data.totalPage"><a :href="'/index/'+data.pageNum+1">→</a></li>
+        <li class="prev" v-if="data.pageNum>1"><a :href="'/index/'+(data.pageNum-1)">←</a></li>
+        <li :class="index==data.pageNum?'current':''" v-for="index in data.totalPage"><a :href="'/index/'+index">{{index}}</a>
+        </li>
+        <li class="next" v-if="data.pageNum<data.totalPage"><a :href="'/index/'+(data.pageNum+1)">→</a></li>
       </ol>
     </div>
   </div>
@@ -92,10 +93,6 @@
   import {archive, category, tag, page, search} from '@/api/content'
   import {dateFormat} from "../../../utils/dateUtils";
 
-  const defaultPageQuery = {
-    pageNum: 1,
-    pageSize: 20
-  };
   export default {
     name: 'Content',
     data() {
@@ -113,11 +110,15 @@
       }
     },
     created() {
-      this.getContents();
+      this.$store.dispatch('getOptions').then(()=>{
+        let urlSplit = this.$route.fullPath.split('/');
+        let pageNum = urlSplit[urlSplit.length - 1];
+        this.getContents(pageNum,this.$store.state.options.options.pageSize);
+      });
     },
     methods: {
-      getContents() {
-        page(defaultPageQuery.pageNum, defaultPageQuery.pageSize).then(response => {
+      getContents(pageNum, pageSize) {
+        page(pageNum, pageSize).then(response => {
           this.data = response.data;
         });
       }

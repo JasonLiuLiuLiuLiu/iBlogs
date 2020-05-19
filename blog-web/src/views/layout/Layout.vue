@@ -16,7 +16,7 @@
       vHeader: Header,
       vFooter: footer
     },
-    created() {
+    beforeCreate() {
       this.$store.dispatch('getOptions');
     },
     computed: {

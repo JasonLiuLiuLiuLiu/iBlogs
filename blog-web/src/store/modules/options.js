@@ -1,6 +1,7 @@
 import {getOptions} from '@/api/option';
 import {categories, tags} from "@/api/metadata";
 
+let loaded=false;
 const keys = [
   'FootContent1',
   'FootContent2',
@@ -54,6 +55,8 @@ const options = {
   },
   actions: {
     getOptions({commit}) {
+      if(loaded)
+        return;
       getOptions(keys).then(response => {
         commit('SET_OPTIONS', response.data);
         categories(1, response.data.SideBarCategoriesCount).then(response => {
@@ -63,6 +66,7 @@ const options = {
           commit('SET_TAGS', response.data.list)
         });
       })
+      loaded=true;
     }
   }
 }
