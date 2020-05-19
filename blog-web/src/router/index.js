@@ -31,6 +31,16 @@ export const constantRouterMap = [
         component: () => import('@/views/home/index')
       },
       {
+        path: 'allTags',
+        name: 'allTags',
+        component: () => import('@/views/home/allTags')
+      },
+      {
+        path: 'allCategories',
+        name: 'allCategories',
+        component: () => import('@/views/home/allCategories')
+      },
+      {
         path: 'article',
         name: 'article',
         component: () => import('@/views/article/index')
