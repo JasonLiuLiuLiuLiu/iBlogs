@@ -39,7 +39,7 @@ export function index(url) {
   return request({
     url: '/content/index',
     method: 'get',
-    data: {
+    params: {
       url
     }
   })

@@ -37,11 +37,11 @@
         </div>
 
         <div class="meta-item meta-posts">
-          <span v-html="this.$store.getters.options.FootContent1"></span>
+          <span v-html="this.$store.state.options.options.FootContent1"></span>
         </div>
 
         <div class="meta-item meta-comments">
-          <span v-html="this.$store.getters.options.FootContent2"></span>
+          <span v-html="this.$store.state.options.options.FootContent2"></span>
         </div>
       </div>
     </div>

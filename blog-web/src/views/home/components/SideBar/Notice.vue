@@ -12,7 +12,7 @@
       <li>
         <div style="padding: 10px 10px 10px">
                                 <span class="GlobalSideBar-navText">
-                                  <span v-html="this.$store.getters.options.Announcement"></span>
+                                  <span v-html="this.$store.state.options.options.Announcement"></span>
                                 </span>
         </div>
       </li>

@@ -11,14 +11,14 @@
         </a>
       </li>
 
-      <li class="GlobalSideBar-navItem GlobalSideBar-questionListItem">
-        <a type="button" class="Button GlobalSideBar-navLink Button--plain" href="/category/@category.Key">
+      <li class="GlobalSideBar-navItem GlobalSideBar-questionListItem" v-for="category in this.$store.state.options.hotCategories">
+        <a type="button" class="Button GlobalSideBar-navLink Button--plain" :href="'/category/'+category.name">
           <svg class="Zi Zi--HelpBubble GlobalSideBar-navIcon"
                fill="currentColor" viewBox="0 0 512 512" width="18" height="18">
             <g>
               <path d="M467,331h-15v-15c0-24.813-20.187-45-45-45H271v-30c14.095,0,30.95,0,45,0c8.284,0,15-6.716,15-15s-6.716-15-15-15h-15v-30h45c24.813,0,45-20.187,45-45V45c0-24.813-20.187-45-45-45H166c-24.813,0-45,20.187-45,45v91c0,24.813,20.187,45,45,45h45v30h-15c-8.284,0-15,6.716-15,15s6.716,15,15,15c14.05,0,30.905,0,45,0v30H105c-24.813,0-45,20.187-45,45v15H45c-24.813,0-45,20.187-45,45v30c0,24.813,20.187,45,45,45h15v31H45c-8.284,0-15,6.716-15,15s6.716,15,15,15h60c8.284,0,15-6.716,15-15s-6.716-15-15-15H90v-31h15c24.813,0,45-20.187,45-45v-30c0-24.813-20.187-45-45-45H90v-15c0-8.271,6.729-15,15-15h136v30h-15c-24.813,0-45,20.187-45,45v30c0,24.813,20.187,45,45,45h15v31h-15c-8.284,0-15,6.716-15,15s6.716,15,15,15h60c8.284,0,15-6.716,15-15s-6.716-15-15-15h-15v-31h15c24.813,0,45-20.187,45-45v-30c0-24.813-20.187-45-45-45h-15v-30h136c8.271,0,15,6.729,15,15v15h-15c-24.813,0-45,20.187-45,45v30c0,24.813,20.187,45,45,45h15v31h-15c-8.284,0-15,6.716-15,15s6.716,15,15,15h60c8.284,0,15-6.716,15-15s-6.716-15-15-15h-15v-31h15c24.813,0,45-20.187,45-45v-30C512,351.187,491.813,331,467,331z M105,361c8.271,0,15,6.729,15,15v30c0,8.271-6.729,15-15,15H45c-8.271,0-15-6.729-15-15v-30c0-8.271,6.729-15,15-15H105z M166,151c-8.271,0-15-6.729-15-15V45c0-8.271,6.729-15,15-15h180c8.271,0,15,6.729,15,15v91c0,8.271-6.729,15-15,15C309.96,151,201.911,151,166,151z M286,361c8.271,0,15,6.729,15,15v30c0,8.271-6.729,15-15,15h-60c-8.271,0-15-6.729-15-15v-30c0-8.271,6.729-15,15-15H286z M241,211v-30h30v30H241z M482,406c0,8.271-6.729,15-15,15h-60c-8.271,0-15-6.729-15-15v-30c0-8.271,6.729-15,15-15h60c8.271,0,15,6.729,15,15V406z" />
             </g>
-          </svg><span class="GlobalSideBar-navText">@category.Key</span><span class="GlobalSideBar-navNumber">@category.Value</span>
+          </svg><span class="GlobalSideBar-navText">{{category.name}}</span><span class="GlobalSideBar-navNumber">{{'('+category.count+')'}}</span>
         </a>
       </li>
     </ul>

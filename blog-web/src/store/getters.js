@@ -1,5 +1,4 @@
 const getters = {
-  device: state => state.app.device,
-  options: state => state.options.options
+  device: state => state.app.device
 }
 export default getters
