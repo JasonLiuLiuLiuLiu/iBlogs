@@ -71,7 +71,7 @@
           <h2 class="ContentItem-title">
             <div itemprop="Blogs:question" itemtype="http://schema.org/Question" itemscope="">
               <a data-za-detail-view-element_name="Title" data-za-detail-view-id="2812"
-                 :href="'/article/'+content.id">{{content.title}}</a>
+                 :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)">{{content.title}}</a>
             </div>
           </h2>
           <div class="RichContent is-collapsed">
@@ -80,7 +80,7 @@
                                                                   itemprop="text">
                                                                 {{content.content}}
                                                             </span>
-              <a class="Button ContentItem-more Button--plain" href="content.url">
+              <a class="Button ContentItem-more Button--plain" :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)">
                 阅读全文
               </a>
             </div>
