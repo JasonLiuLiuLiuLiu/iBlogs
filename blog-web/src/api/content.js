@@ -11,24 +11,24 @@ export function archive(pageNum, pageSize) {
   })
 }
 
-export function category(category, pageNum, pageSize) {
+export function category(meta, pageNum, pageSize) {
   return request({
     url: '/content/category',
-    method: 'get',
+    method: 'post',
     data: {
-      category,
+      meta,
       pageNum,
       pageSize
     }
   })
 }
 
-export function tag(tag, pageNum, pageSize) {
+export function tag(meta, pageNum, pageSize) {
   return request({
     url: '/content/tag',
-    method: 'get',
+    method: 'post',
     data: {
-      tag,
+      meta,
       pageNum,
       pageSize
     }

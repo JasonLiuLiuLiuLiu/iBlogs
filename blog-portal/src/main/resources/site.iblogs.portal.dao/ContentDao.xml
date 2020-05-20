@@ -11,6 +11,7 @@
 		WHERE
 			m.`Name` = #{name}
 			AND m.Type = #{type}
+			AND m.Deleted = 0
 		ORDER BY
 			c.Created DESC
 	</select>

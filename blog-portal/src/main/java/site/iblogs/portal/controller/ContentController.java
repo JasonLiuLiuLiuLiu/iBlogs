@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
 import site.iblogs.portal.model.params.MetaDataType;
+import site.iblogs.portal.model.request.content.ContentMetaPageRequest;
 import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -57,17 +59,17 @@ public class ContentController {
     }
 
     @ApiOperation("通过标签获取文章")
-    @RequestMapping(value = "tag", method = RequestMethod.GET)
+    @RequestMapping(value = "tag", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> Tag(String tag, int pageNum, int pageSize) {
-        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(),tag,pageNum,pageSize));
+    public ApiResponse<PageResponse<ContentResponse>> Tag(@RequestBody ContentMetaPageRequest request) {
+        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(),request.getMeta(),request.getPageNum(),request.getPageSize()));
     }
 
     @ApiOperation("通过通过分类获取文章")
-    @RequestMapping(value = "category", method = RequestMethod.GET)
+    @RequestMapping(value = "category", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> Category(String category, int pageNum, int pageSize) {
-        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(),category,pageNum,pageSize));
+    public ApiResponse<PageResponse<ContentResponse>> Category(@RequestBody ContentMetaPageRequest request) {
+        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(),request.getMeta(),request.getPageNum(),request.getPageSize()));
     }
 
     @ApiOperation("文章归档")

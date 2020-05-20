@@ -2,7 +2,7 @@
   <headroom>
     <header id="header" class="bg-white Sticky AppHeader header" style="position: relative" data-za-module="TopNavBar">
       <div class="navbar-container">
-        <a href="@ViewService.SiteUrl()" class="navbar-logo">
+        <a :href="this.$store.state.options.options.SiteUrl" class="navbar-logo">
           <img src="/static/img/logo.png" alt="@ViewService.SiteOption(ConfigKey.SiteTitle)" />
         </a>
         <div class="navbar-menu">

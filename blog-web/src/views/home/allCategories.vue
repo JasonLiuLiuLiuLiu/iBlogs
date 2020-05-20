@@ -31,7 +31,7 @@
                     </div>
                   </div>
                   <div class="HotItem-content">
-                    <a :href="'/category/'+category.name" :title="category.name">
+                    <a :href="'/category/'+encodeURIComponent(category.name)" :title="category.name">
                       <h2 class="HotItem-title">{{category.name}}</h2>
                     </a>
                     <div class="HotItem-metrics">

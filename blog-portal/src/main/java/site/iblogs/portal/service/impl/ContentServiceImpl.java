@@ -61,19 +61,7 @@ public class ContentServiceImpl implements ContentService {
         List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
         PageInfo<Contents> pageInfo=new PageInfo<>(contents);
         if (summary) {
-            int length;
-            try {
-                length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());
-            } catch (Exception e) {
-                length = 200;
-            }
-            final int lengthFinal = length;
-            return PageResponse.restPage(contents.stream().peek(u -> {
-                String contentText = Jsoup.parse(u.getContent()).body().text();
-                int contentLength = contentText.length();
-                contentLength = Math.min(lengthFinal, contentLength);
-                u.setContent(contentText.substring(0, contentLength - 1));
-            }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
+            return getContentResponsePageResponse(contents, pageInfo);
         }
         return PageResponse.restPage(contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
     }
@@ -96,6 +84,22 @@ public class ContentServiceImpl implements ContentService {
         PageHelper.startPage(pageNum, pageSize);
         List<Contents> contents = contentDao.getContentByMetaData(type,name);
         PageInfo<Contents> pageInfo=new PageInfo<>(contents);
-        return PageResponse.restPage(contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
+        return getContentResponsePageResponse(contents, pageInfo);
+    }
+
+    private PageResponse<ContentResponse> getContentResponsePageResponse(List<Contents> contents, PageInfo<Contents> pageInfo) {
+        int length;
+        try {
+            length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());
+        } catch (Exception e) {
+            length = 200;
+        }
+        final int lengthFinal = length;
+        return PageResponse.restPage(contents.stream().peek(u -> {
+            String contentText = Jsoup.parse(u.getContent()).body().text();
+            int contentLength = contentText.length();
+            contentLength = Math.min(lengthFinal, contentLength);
+            u.setContent(contentText.substring(0, contentLength - 1));
+        }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
     }
 }
