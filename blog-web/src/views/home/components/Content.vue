@@ -86,7 +86,7 @@
             </div>
             <div class="ContentItem-actions">
               <a class="Button ContentItem-action Button--plain Button--withIcon Button--withLabel"
-                 href="@article.Permalink()#comment">
+                 :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)+'#comment'">
                                                                 <span
                                                                   style="display: inline-flex; align-items: center;">
                                                                     <svg class="Zi Zi--Comment Button-zi"
@@ -101,7 +101,7 @@
                                                                 </span>
               </a>
               <a class="Button ContentItem-action Button--plain Button--withIcon Button--withLabel"
-                 href="@article.Permalink()">
+                 :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)">
                                                                 <span
                                                                   style="display: inline-flex; align-items: center;">
                                                                     <svg class="Zi Zi--Heart Button-zi"
