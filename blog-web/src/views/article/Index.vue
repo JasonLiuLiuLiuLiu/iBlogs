@@ -1,6 +1,6 @@
 <template>
 <div>
-  <article></article>
+  <v-article></v-article>
   <share></share>
   <comment></comment>
 
@@ -14,7 +14,7 @@
 
   export default {
     name:'article',
-    components: { Comment, Share, Article}
+    components: { Comment, Share, vArticle:Article}
   }
 </script>
 

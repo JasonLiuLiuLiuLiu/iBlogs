@@ -31,8 +31,13 @@ export const constantRouterMap = [
         component: () => import('@/views/home/index')
       },
       {
+        path: 'article/:slug',
+        name: 'article',
+        component: () => import('@/views/article/index')
+      },
+      {
         path: ':type/:meta/:id?',
-        name: 'index',
+        name: 'meta',
         component: () => import('@/views/home/index')
       },
       {
@@ -44,11 +49,6 @@ export const constantRouterMap = [
         path: 'allCategories',
         name: 'allCategories',
         component: () => import('@/views/home/allCategories')
-      },
-      {
-        path: 'article',
-        name: 'article',
-        component: () => import('@/views/article/index')
       }]
   }
 ]

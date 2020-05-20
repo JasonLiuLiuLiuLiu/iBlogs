@@ -55,35 +55,36 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public PageResponse<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary) {
         PageHelper.startPage(pageNum, pageSize);
-        ContentsExample contentsExample=new ContentsExample();
+        ContentsExample contentsExample = new ContentsExample();
         contentsExample.createCriteria().andDeletedEqualTo(false);
         contentsExample.setOrderByClause("Created desc");
         List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
-        PageInfo<Contents> pageInfo=new PageInfo<>(contents);
+        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         if (summary) {
             return getContentResponsePageResponse(contents, pageInfo);
         }
-        return PageResponse.restPage(contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
+        return PageResponse.restPage(contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
     }
 
     public ContentResponse getByUrl(String url) {
-        ContentsExample example = new ContentsExample();
-        example.createCriteria().andDeletedEqualTo(false);
-        example.createCriteria().andSlugEqualTo(url);
+        ContentsExample example=new ContentsExample();
+        ContentsExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(false);
         try {
             int id = Integer.parseInt(url);
-            example.or().andIdEqualTo(id);
+            criteria.andIdEqualTo(id);
         } catch (NumberFormatException ignored) {
+            criteria.andSlugEqualTo(url);
         }
         Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().findFirst();
         return contents.map(value -> contentResponseConverter.domain2dto(value)).orElse(null);
     }
 
     @Override
-    public PageResponse<ContentResponse> getContentByMetaData(int type,String name,int pageNum, int pageSize) {
+    public PageResponse<ContentResponse> getContentByMetaData(int type, String name, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Contents> contents = contentDao.getContentByMetaData(type,name);
-        PageInfo<Contents> pageInfo=new PageInfo<>(contents);
+        List<Contents> contents = contentDao.getContentByMetaData(type, name);
+        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
     }
 
@@ -100,6 +101,6 @@ public class ContentServiceImpl implements ContentService {
             int contentLength = contentText.length();
             contentLength = Math.min(lengthFinal, contentLength);
             u.setContent(contentText.substring(0, contentLength - 1));
-        }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()),pageInfo);
+        }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
     }
 }

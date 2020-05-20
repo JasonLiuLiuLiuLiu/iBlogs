@@ -2,29 +2,89 @@
   <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a href="@Model.Content.Permalink()">@Model.Content.Title</a>
+        <a :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)">{{content.title}}</a>
       </h1>
       <div class="post-data">
-        <time datetime="@Model.Content.CreatedStr("yyyy-MM-dd")" itemprop="datePublished">发布于 @Model.Content.CreatedStr("yyyy-MM-dd")</time>
-        / @Html.Raw(Model.Content.ShowCategories()) / <a href="#comments">@Model.Content.CommentsNumStr("没有评论", "{0} 条评论")</a> /
-        @Model.Content.Hits 浏览
+        <time :datetime="content.created|formatDate" itemprop="datePublished">发布于 {{content.created|formatDate}}</time>
+        / <span v-html="showCategory(content.categories)"></span> / <a href="#comments">{{content.commentsNum==0?'没有评论':content.commentsNum+' 条评论'}}</a>
+        / {{content.hits}} 浏览
       </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
-      <p class="post-tags">@Html.Raw(Model.Content.ShowTags())</p>
+      <p class="post-tags"><span v-html="showTag(content.tags)"></span></p>
       <a></a>
-      @Html.Raw(Model.Content.ShowContent())
+      <span v-html="content.content"></span>
       <p class="post-info">
-        本文由 <a href="">@(ViewService.SiteOption(ConfigKey.Author, "阿宇"))</a> 创作，采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
-                                                                                      rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为:
+        本文由 <a href="">@(ViewService.SiteOption(ConfigKey.Author, "阿宇"))</a> 创作，采用 <a
+        href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+        rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为:
         @Model.Content.ModifiedStr("yyyy/MM/dd HH:mm")
       </p>
     </div>
   </article>
 </template>
 <script>
+  import {index} from "../../../api/content";
+  import {dateFormat} from "../../../utils/dateUtils";
+
   export default {
-    name:'Article'
+    name: 'Article',
+    data() {
+      return {
+        content: {
+          author: null,
+          categories: "默认分类",
+          commentsNum: 0,
+          content: "",
+          created: "2019-09-11T05:13:00.028+0000",
+          hits: 22,
+          id: 1,
+          modified: "2019-10-10T00:37:38.725+0000",
+          slug: "about",
+          tags: null,
+          thumbImg: null,
+          title: "关于",
+        }
+      }
+    },
+    created() {
+      var slug = this.$route.params.slug;
+      this.getContent(slug);
+    }, filters: {
+      formatDate(time) {
+        const date = new Date(time);
+        return dateFormat(date, 'yyyy-MM-dd');
+      }
+    },
+    methods: {
+      getContent(url) {
+        index(encodeURIComponent(url)).then(response => {
+          this.article = response.data
+        })
+      },
+      showCategory(categories) {
+        if (categories) {
+          let arr = categories.split(',');
+          let sbuf = "";
+          for (const s in arr) {
+            sbuf += "<a href=\"/category/" + arr[s] + "\">" + arr[s] + "</a>";
+          }
+          return sbuf;
+        }
+        return this.showCategory("默认分类");
+      },
+      showTag(tags) {
+        if (tags) {
+          let arr = tags.split(',');
+          let sbuf = "";
+          for (const c in arr) {
+            sbuf += "<a href=\"/tag/" + arr[c] + "\">" + arr[c] + "</a>";
+          }
+          return sbuf;
+        }
+        return "";
+      }
+    }
   }
 </script>
 <style>
