@@ -1,10 +1,9 @@
 <template>
-<div>
-  <v-article></v-article>
-  <share></share>
-  <comment></comment>
-
-</div>
+  <div>
+    <v-article></v-article>
+    <share></share>
+    <comment></comment>
+  </div>
 </template>
 
 <script>
@@ -13,8 +12,8 @@
   import Share from "./components/Share";
 
   export default {
-    name:'article',
-    components: { Comment, Share, vArticle:Article}
+    name: 'article',
+    components: {Comment, Share, vArticle: Article}
   }
 </script>
 
