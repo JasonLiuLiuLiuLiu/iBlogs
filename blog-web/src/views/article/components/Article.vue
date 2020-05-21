@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
+    <div class="main-content page-page" itemscope itemtype="http://schema.org/Article">
       <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
           <a :href="'/article/'+(content.slug&&content.slug!=null?encodeURIComponent(content.slug):content.id)">{{content.title}}</a>
@@ -22,12 +22,7 @@
           {{content.modified|formatDate}}
         </p>
       </div>
-    </article>
-    <headroom>
-      <div id="directory-content" class="directory-content">
-        <div id="directory"></div>
-      </div>
-    </headroom>
+    </div>
   </div>
 
 </template>
@@ -69,6 +64,7 @@
       getContent(url) {
         index(encodeURIComponent(url)).then(response => {
           this.content = response.data
+          this.$store.dispatch('getOptions',response.data)
         })
       },
       showCategory(categories) {
