@@ -6,7 +6,7 @@
       </h1>
       <div class="post-data">
         <time :datetime="content.created|formatDate" itemprop="datePublished">发布于 {{content.created|formatDate}}</time>
-        / <span v-html="showCategory(content.categories)"></span> / <a href="#comments">{{content.commentsNum==0?'没有评论':content.commentsNum+' 条评论'}}</a>
+        / <span v-html="showCategory(content.categories)"></span> / <a href="#comments">{{content.commentsNum==0?'没有评论':content.commentsNum+'条评论'}}</a>
         / {{content.hits}} 浏览
       </div>
     </div>
@@ -15,10 +15,10 @@
       <a></a>
       <span v-html="content.content"></span>
       <p class="post-info">
-        本文由 <a href="">@(ViewService.SiteOption(ConfigKey.Author, "阿宇"))</a> 创作，采用 <a
+        本文由 <a href="">{{content.author==null||content.author==''?this.$store.state.options.options.Author:content.author}}</a> 创作，采用 <a
         href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
         rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为:
-        @Model.Content.ModifiedStr("yyyy/MM/dd HH:mm")
+        {{content.modified|formatDate}}
       </p>
     </div>
   </article>
@@ -59,7 +59,7 @@
     methods: {
       getContent(url) {
         index(encodeURIComponent(url)).then(response => {
-          this.article = response.data
+          this.content = response.data
         })
       },
       showCategory(categories) {
@@ -67,7 +67,7 @@
           let arr = categories.split(',');
           let sbuf = "";
           for (const s in arr) {
-            sbuf += "<a href=\"/category/" + arr[s] + "\">" + arr[s] + "</a>";
+            sbuf += "<a href=\"/category/" + encodeURIComponent(arr[s]) + "\">" + arr[s] + "</a>";
           }
           return sbuf;
         }
@@ -78,7 +78,7 @@
           let arr = tags.split(',');
           let sbuf = "";
           for (const c in arr) {
-            sbuf += "<a href=\"/tag/" + arr[c] + "\">" + arr[c] + "</a>";
+            sbuf += "<a href=\"/tag/" + encodeURIComponent(arr[c]) + "\">" + arr[c] + "</a>";
           }
           return sbuf;
         }

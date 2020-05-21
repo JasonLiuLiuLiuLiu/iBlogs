@@ -2,6 +2,10 @@ package site.iblogs.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.Renderer;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,11 +67,11 @@ public class ContentServiceImpl implements ContentService {
         if (summary) {
             return getContentResponsePageResponse(contents, pageInfo);
         }
-        return PageResponse.restPage(contents.stream().map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
+        return PageResponse.restPage(contents.stream().peek(u->u.setContent(parseMarkdownToHtml(u.getContent()))).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
     }
 
     public ContentResponse getByUrl(String url) {
-        ContentsExample example=new ContentsExample();
+        ContentsExample example = new ContentsExample();
         ContentsExample.Criteria criteria = example.createCriteria();
         criteria.andDeletedEqualTo(false);
         try {
@@ -76,7 +80,9 @@ public class ContentServiceImpl implements ContentService {
         } catch (NumberFormatException ignored) {
             criteria.andSlugEqualTo(url);
         }
-        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().findFirst();
+        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u->{
+            u.setContent(parseMarkdownToHtml(u.getContent()));
+        }).findFirst();
         return contents.map(value -> contentResponseConverter.domain2dto(value)).orElse(null);
     }
 
@@ -97,10 +103,25 @@ public class ContentServiceImpl implements ContentService {
         }
         final int lengthFinal = length;
         return PageResponse.restPage(contents.stream().peek(u -> {
+            u.setContent(parseMarkdownToHtml(u.getContent()));
             String contentText = Jsoup.parse(u.getContent()).body().text();
             int contentLength = contentText.length();
             contentLength = Math.min(lengthFinal, contentLength);
             u.setContent(contentText.substring(0, contentLength - 1));
         }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
+    }
+
+    private static Parser parser;
+    private static Renderer renderer;
+
+    private String parseMarkdownToHtml(String markdown) {
+        if (parser == null) {
+            parser = Parser.builder().build();
+        }
+        if (renderer == null) {
+            renderer = HtmlRenderer.builder().build();
+        }
+        Node document = parser.parse(markdown);
+        return renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
     }
 }
