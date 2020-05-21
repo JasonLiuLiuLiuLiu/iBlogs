@@ -83,7 +83,12 @@ public class ContentServiceImpl implements ContentService {
         Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u->{
             u.setContent(parseMarkdownToHtml(u.getContent()));
         }).findFirst();
-        return contents.map(value -> contentResponseConverter.domain2dto(value)).orElse(null);
+        return contents.map(value -> {
+            ContentResponse response=contentResponseConverter.domain2dto(value);
+            response.setPre(contentDao.getPre(value.getId()));
+            response.setNext(contentDao.getNext(value.getId()));
+            return response;
+        }).orElse(null);
     }
 
     @Override

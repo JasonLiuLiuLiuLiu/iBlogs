@@ -36,4 +36,6 @@ public class ContentResponse {
     private boolean AllowFeed;
     private String Author;
     private Date Created;
+    private Integer Pre;
+    private Integer Next;
 }

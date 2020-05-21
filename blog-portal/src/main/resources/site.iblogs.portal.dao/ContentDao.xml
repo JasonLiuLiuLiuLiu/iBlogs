@@ -15,4 +15,18 @@
 		ORDER BY
 			c.Created DESC
 	</select>
+	<select id="getPre" resultType="java.lang.Integer">
+		SELECT Id FROM Contents WHERE Created &lt;( SELECT Created FROM Contents WHERE Id = #{id} )
+		AND Deleted = 0
+		ORDER BY
+		Created DESC
+		LIMIT 1
+	</select>
+	<select id="getNext" resultType="java.lang.Integer">
+		SELECT Id FROM Contents WHERE Created &gt;( SELECT Created FROM Contents WHERE Id = #{id} )
+								  AND Deleted = 0
+		ORDER BY
+			Created
+		LIMIT 1
+	</select>
 </mapper>
