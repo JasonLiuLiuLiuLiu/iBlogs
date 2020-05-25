@@ -15,6 +15,7 @@ import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Contents;
 import site.iblogs.portal.model.params.MetaDataType;
 import site.iblogs.portal.model.request.content.ContentMetaPageRequest;
+import site.iblogs.portal.model.response.ArchivesResponse;
 import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -73,10 +74,10 @@ public class ContentController {
     }
 
     @ApiOperation("文章归档")
-    @RequestMapping(value = "archive", method = RequestMethod.GET)
+    @RequestMapping(value = "archives", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> Archive(int pageNum, int pageSize) {
-        throw new NotImplementedException();
+    public ApiResponse<List<ArchivesResponse>> Archives() {
+       return ApiResponse.success(contentService.contentArchives());
     }
 
     @ApiOperation("文章查找(目前支持对标题查找)")

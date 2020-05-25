@@ -17,6 +17,7 @@ import site.iblogs.model.ContentsExample;
 import site.iblogs.portal.dao.ContentDao;
 import site.iblogs.portal.model.converter.ContentResponseConverter;
 import site.iblogs.portal.model.params.ArticleParam;
+import site.iblogs.portal.model.response.ArchivesResponse;
 import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
@@ -67,7 +68,7 @@ public class ContentServiceImpl implements ContentService {
         if (summary) {
             return getContentResponsePageResponse(contents, pageInfo);
         }
-        return PageResponse.restPage(contents.stream().peek(u->u.setContent(parseMarkdownToHtml(u.getContent()))).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
+        return PageResponse.restPage(contents.stream().peek(u -> u.setContent(parseMarkdownToHtml(u.getContent()))).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
     }
 
     public ContentResponse getByUrl(String url) {
@@ -80,11 +81,11 @@ public class ContentServiceImpl implements ContentService {
         } catch (NumberFormatException ignored) {
             criteria.andSlugEqualTo(url);
         }
-        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u->{
+        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u -> {
             u.setContent(parseMarkdownToHtml(u.getContent()));
         }).findFirst();
         return contents.map(value -> {
-            ContentResponse response=contentResponseConverter.domain2dto(value);
+            ContentResponse response = contentResponseConverter.domain2dto(value);
             response.setPre(contentDao.getPre(value.getId()));
             response.setNext(contentDao.getNext(value.getId()));
             return response;
@@ -97,6 +98,11 @@ public class ContentServiceImpl implements ContentService {
         List<Contents> contents = contentDao.getContentByMetaData(type, name);
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
+    }
+
+    @Override
+    public List<ArchivesResponse> contentArchives() {
+        return contentDao.getArchives();
     }
 
     private PageResponse<ContentResponse> getContentResponsePageResponse(List<Contents> contents, PageInfo<Contents> pageInfo) {

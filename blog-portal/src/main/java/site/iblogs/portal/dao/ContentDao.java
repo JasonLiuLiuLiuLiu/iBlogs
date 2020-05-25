@@ -2,6 +2,7 @@ package site.iblogs.portal.dao;
 
 import org.apache.ibatis.annotations.Param;
 import site.iblogs.model.Contents;
+import site.iblogs.portal.model.response.ArchivesResponse;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface ContentDao {
 
     /*获取指定文章的后一篇文章的Id*/
     Integer getNext(@Param("id") int id);
+
+    /*获取所有的创作时间*/
+    List<ArchivesResponse> getArchives();
 }
