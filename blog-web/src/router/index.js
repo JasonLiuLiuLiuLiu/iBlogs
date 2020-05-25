@@ -40,9 +40,9 @@ export const constantRouterMap = [
         name: 'meta',
         component: () => import('@/views/home/index')
       }, {
-        path: 'archives/:id?',
+        path: 'archives',
         name: 'archives',
-        component: () => import('@/views/home/index')
+        component: () => import('@/views/home/archives')
       },
       {
         path: 'allTags',

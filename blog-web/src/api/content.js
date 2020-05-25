@@ -56,6 +56,13 @@ export function page(pageNum, pageSize) {
   })
 }
 
+export function archives() {
+  return request({
+    url: '/content/archives',
+    method: 'get'
+  })
+}
+
 export function search(keyword, pageNum, pageSize) {
   return request({
     url: '/content/search',
