@@ -20,4 +20,7 @@ public interface ContentDao {
 
     /*获取所有的创作时间*/
     List<ArchivesResponse> getArchives();
+
+    /*通过归档时间获取文章*/
+    List<Contents> getContentByArchive(@Param("date") String date);
 }

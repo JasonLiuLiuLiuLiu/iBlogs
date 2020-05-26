@@ -22,6 +22,8 @@ import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -96,6 +98,15 @@ public class ContentServiceImpl implements ContentService {
     public PageResponse<ContentResponse> getContentByMetaData(int type, String name, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Contents> contents = contentDao.getContentByMetaData(type, name);
+        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
+        return getContentResponsePageResponse(contents, pageInfo);
+    }
+
+    @Override
+    public PageResponse<ContentResponse> getContentByArchive(Date date, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        List<Contents> contents = contentDao.getContentByArchive(ft.format(date));
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
     }

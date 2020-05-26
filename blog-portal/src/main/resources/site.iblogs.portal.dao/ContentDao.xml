@@ -15,6 +15,17 @@
           AND m.Deleted = 0
         ORDER BY c.Created DESC
     </select>
+    <select id="getContentByArchive" resultMap="site.iblogs.mapper.ContentsMapper.ResultMapWithBLOBs">
+        SELECT
+            *
+        FROM
+            Contents
+        WHERE
+            Deleted = 0
+          AND DATE( Created )= #{date}
+        ORDER BY
+            Created DESC
+    </select>
     <select id="getPre" resultType="java.lang.Integer">
         SELECT Id
         FROM Contents

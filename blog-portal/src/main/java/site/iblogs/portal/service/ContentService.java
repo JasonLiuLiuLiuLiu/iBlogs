@@ -6,6 +6,7 @@ import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ArchivesResponse;
 import site.iblogs.portal.model.response.ContentResponse;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,4 +28,6 @@ public interface ContentService {
     PageResponse<ContentResponse> getContentByMetaData(int type,String name,int pageNum, int pageSize);
 
     List<ArchivesResponse> contentArchives();
+
+    PageResponse<ContentResponse> getContentByArchive(Date date, int pageNum, int pageSize);
 }
