@@ -1,16 +1,5 @@
 import request from '../utils/request'
 
-export function archive(pageNum, pageSize) {
-  return request({
-    url: '/content/archive',
-    method: 'get',
-    data: {
-      pageNum,
-      pageSize
-    }
-  })
-}
-
 export function category(meta, pageNum, pageSize) {
   return request({
     url: '/content/category',
@@ -50,6 +39,18 @@ export function page(pageNum, pageSize) {
     url: '/content/page',
     method: 'get',
     params: {
+      pageNum,
+      pageSize
+    }
+  })
+}
+
+export function archive(archive, pageNum, pageSize) {
+  return request({
+    url: '/content/byArchive',
+    method: 'get',
+    params: {
+      archive,
       pageNum,
       pageSize
     }

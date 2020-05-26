@@ -84,8 +84,8 @@ public class ContentController {
     @ApiOperation("通过归档日期获取文档")
     @RequestMapping(value = "byArchive", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> ByArchive(Date date, int pageNum, int pageSize){
-        return ApiResponse.success(contentService.getContentByArchive(date,pageNum,pageSize));
+    public ApiResponse<PageResponse<ContentResponse>> ByArchive(Date archive, int pageNum, int pageSize){
+        return ApiResponse.success(contentService.getContentByArchive(archive,pageNum,pageSize));
     }
 
     @ApiOperation("文章查找(目前支持对标题查找)")

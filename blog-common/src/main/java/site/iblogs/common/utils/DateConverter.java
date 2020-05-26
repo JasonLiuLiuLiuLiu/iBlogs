@@ -1,7 +1,5 @@
 package site.iblogs.common.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 
 import java.text.SimpleDateFormat;
@@ -16,12 +14,9 @@ public class DateConverter implements Converter<String, Date> {
     private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private static final String shortDateFormat = "yyyy-MM-dd";
     private static final String timeStampFormat = "^\\d+$";
-    private Logger logger = LoggerFactory.getLogger(DateConverter.class);
 
     @Override
     public Date convert(String value) {
-        logger.info("DateConverter：" + value);
-
         if (value.trim().equals("") || value.equalsIgnoreCase("null")) {
             return null;
         }
