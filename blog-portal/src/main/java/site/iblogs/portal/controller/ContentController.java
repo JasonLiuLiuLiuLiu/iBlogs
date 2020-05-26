@@ -20,6 +20,7 @@ import site.iblogs.portal.model.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class ContentController {
     @ApiOperation("通过链接或者ID获取文章")
     @RequestMapping(value = "index", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<ContentResponse> Index(String url){
+    public ApiResponse<ContentResponse> index(String url){
         ContentResponse response=contentService.getByUrl(url);
         return response==null?ApiResponse.failed():ApiResponse.success(response);
     }
@@ -62,22 +63,29 @@ public class ContentController {
     @ApiOperation("通过标签获取文章")
     @RequestMapping(value = "tag", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> Tag(@RequestBody ContentMetaPageRequest request) {
+    public ApiResponse<PageResponse<ContentResponse>> tag(@RequestBody ContentMetaPageRequest request) {
         return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(),request.getMeta(),request.getPageNum(),request.getPageSize()));
     }
 
     @ApiOperation("通过通过分类获取文章")
     @RequestMapping(value = "category", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<PageResponse<ContentResponse>> Category(@RequestBody ContentMetaPageRequest request) {
+    public ApiResponse<PageResponse<ContentResponse>> category(@RequestBody ContentMetaPageRequest request) {
         return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(),request.getMeta(),request.getPageNum(),request.getPageSize()));
     }
 
     @ApiOperation("文章归档")
     @RequestMapping(value = "archives", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<List<ArchivesResponse>> Archives() {
+    public ApiResponse<List<ArchivesResponse>> archives() {
        return ApiResponse.success(contentService.contentArchives());
+    }
+
+    @ApiOperation("通过归档日期获取文档")
+    @RequestMapping(value = "byArchive", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse<PageResponse<ContentResponse>> ByArchive(Date date, int pageNum, int pageSize){
+        return ApiResponse.success(contentService.getContentByArchive(date,pageNum,pageSize));
     }
 
     @ApiOperation("文章查找(目前支持对标题查找)")
