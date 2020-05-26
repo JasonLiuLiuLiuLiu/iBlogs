@@ -31,9 +31,9 @@ public class ContentResponse {
     private String Categories;
     private ContentStatus Status;
     private int CommentsNum;
-    private boolean AllowComment;
-    private boolean AllowPing;
-    private boolean AllowFeed;
+    private Boolean allowComment;
+    private Boolean allowPing;
+    private Boolean allowFeed;
     private String Author;
     private Date Created;
     private Integer Pre;

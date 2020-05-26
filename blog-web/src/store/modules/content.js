@@ -1,6 +1,9 @@
 const content = {
   state: {
     content: {
+      allowComment: true,
+      allowFeed: true,
+      allowPing: true,
       author: null,
       categories: "默认分类",
       commentsNum: 0,
