@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.iblogs.mapper.CommentsMapper">
+  <resultMap id="BaseResultMap" type="site.iblogs.model.Comments">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="IsAuthor" jdbcType="BIT" property="isauthor" />
+    <result column="Created" jdbcType="TIMESTAMP" property="created" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
+    <result column="Cid" jdbcType="INTEGER" property="cid" />
+    <result column="Author" jdbcType="VARCHAR" property="author" />
+    <result column="OwnerId" jdbcType="INTEGER" property="ownerid" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Parent" jdbcType="INTEGER" property="parent" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Comments">
+    <result column="Mail" jdbcType="LONGVARCHAR" property="mail" />
+    <result column="Url" jdbcType="LONGVARCHAR" property="url" />
+    <result column="Ip" jdbcType="LONGVARCHAR" property="ip" />
+    <result column="Agent" jdbcType="LONGVARCHAR" property="agent" />
+    <result column="Content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="Type" jdbcType="LONGVARCHAR" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, IsAuthor, Created, Deleted, Cid, Author, OwnerId, Status, Parent
+  </sql>
+  <sql id="Blob_Column_List">
+    Mail, Url, Ip, Agent, Content, Type
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.CommentsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="site.iblogs.model.CommentsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Comments
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Comments
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="site.iblogs.model.CommentsExample">
+    delete from Comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="site.iblogs.model.Comments">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Comments (IsAuthor, Created, Deleted, 
+      Cid, Author, OwnerId, 
+      Status, Parent, Mail, 
+      Url, Ip, Agent, 
+      Content, Type)
+    values (#{isauthor,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{cid,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{parent,jdbcType=INTEGER}, #{mail,jdbcType=LONGVARCHAR}, 
+      #{url,jdbcType=LONGVARCHAR}, #{ip,jdbcType=LONGVARCHAR}, #{agent,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{type,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="site.iblogs.model.Comments">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Comments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="isauthor != null">
+        IsAuthor,
+      </if>
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
+      <if test="cid != null">
+        Cid,
+      </if>
+      <if test="author != null">
+        Author,
+      </if>
+      <if test="ownerid != null">
+        OwnerId,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="parent != null">
+        Parent,
+      </if>
+      <if test="mail != null">
+        Mail,
+      </if>
+      <if test="url != null">
+        Url,
+      </if>
+      <if test="ip != null">
+        Ip,
+      </if>
+      <if test="agent != null">
+        Agent,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="isauthor != null">
+        #{isauthor,jdbcType=BIT},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null">
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agent != null">
+        #{agent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="site.iblogs.model.CommentsExample" resultType="java.lang.Long">
+    select count(*) from Comments
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Comments
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.isauthor != null">
+        IsAuthor = #{record.isauthor,jdbcType=BIT},
+      </if>
+      <if test="record.created != null">
+        Created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        Deleted = #{record.deleted,jdbcType=BIT},
+      </if>
+      <if test="record.cid != null">
+        Cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        Author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerid != null">
+        OwnerId = #{record.ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.parent != null">
+        Parent = #{record.parent,jdbcType=INTEGER},
+      </if>
+      <if test="record.mail != null">
+        Mail = #{record.mail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.url != null">
+        Url = #{record.url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.ip != null">
+        Ip = #{record.ip,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.agent != null">
+        Agent = #{record.agent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null">
+        Content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update Comments
+    set Id = #{record.id,jdbcType=INTEGER},
+      IsAuthor = #{record.isauthor,jdbcType=BIT},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      Cid = #{record.cid,jdbcType=INTEGER},
+      Author = #{record.author,jdbcType=VARCHAR},
+      OwnerId = #{record.ownerid,jdbcType=INTEGER},
+      Status = #{record.status,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=INTEGER},
+      Mail = #{record.mail,jdbcType=LONGVARCHAR},
+      Url = #{record.url,jdbcType=LONGVARCHAR},
+      Ip = #{record.ip,jdbcType=LONGVARCHAR},
+      Agent = #{record.agent,jdbcType=LONGVARCHAR},
+      Content = #{record.content,jdbcType=LONGVARCHAR},
+      Type = #{record.type,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Comments
+    set Id = #{record.id,jdbcType=INTEGER},
+      IsAuthor = #{record.isauthor,jdbcType=BIT},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      Cid = #{record.cid,jdbcType=INTEGER},
+      Author = #{record.author,jdbcType=VARCHAR},
+      OwnerId = #{record.ownerid,jdbcType=INTEGER},
+      Status = #{record.status,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Comments">
+    update Comments
+    <set>
+      <if test="isauthor != null">
+        IsAuthor = #{isauthor,jdbcType=BIT},
+      </if>
+      <if test="created != null">
+        Created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        Deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="cid != null">
+        Cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null">
+        OwnerId = #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        Parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="mail != null">
+        Mail = #{mail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="url != null">
+        Url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ip != null">
+        Ip = #{ip,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agent != null">
+        Agent = #{agent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Comments">
+    update Comments
+    set IsAuthor = #{isauthor,jdbcType=BIT},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      Cid = #{cid,jdbcType=INTEGER},
+      Author = #{author,jdbcType=VARCHAR},
+      OwnerId = #{ownerid,jdbcType=INTEGER},
+      Status = #{status,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=INTEGER},
+      Mail = #{mail,jdbcType=LONGVARCHAR},
+      Url = #{url,jdbcType=LONGVARCHAR},
+      Ip = #{ip,jdbcType=LONGVARCHAR},
+      Agent = #{agent,jdbcType=LONGVARCHAR},
+      Content = #{content,jdbcType=LONGVARCHAR},
+      Type = #{type,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Comments">
+    update Comments
+    set IsAuthor = #{isauthor,jdbcType=BIT},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      Cid = #{cid,jdbcType=INTEGER},
+      Author = #{author,jdbcType=VARCHAR},
+      OwnerId = #{ownerid,jdbcType=INTEGER},
+      Status = #{status,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

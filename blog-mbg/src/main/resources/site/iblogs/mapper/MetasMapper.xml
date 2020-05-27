@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.iblogs.mapper.MetasMapper">
+  <resultMap id="BaseResultMap" type="site.iblogs.model.Metas">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Sort" jdbcType="INTEGER" property="sort" />
+    <result column="Parent" jdbcType="INTEGER" property="parent" />
+    <result column="Count" jdbcType="INTEGER" property="count" />
+    <result column="Created" jdbcType="TIMESTAMP" property="created" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Metas">
+    <result column="Name" jdbcType="LONGVARCHAR" property="name" />
+    <result column="Slug" jdbcType="LONGVARCHAR" property="slug" />
+    <result column="Description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, Type, Sort, Parent, Count, Created, Deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    Name, Slug, Description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.MetasExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Metas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="site.iblogs.model.MetasExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Metas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Metas
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Metas
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="site.iblogs.model.MetasExample">
+    delete from Metas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="site.iblogs.model.Metas">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Metas (Type, Sort, Parent, 
+      Count, Created, Deleted, 
+      Name, Slug, Description
+      )
+    values (#{type,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{parent,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{name,jdbcType=LONGVARCHAR}, #{slug,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="site.iblogs.model.Metas">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Metas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="sort != null">
+        Sort,
+      </if>
+      <if test="parent != null">
+        Parent,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="created != null">
+        Created,
+      </if>
+      <if test="deleted != null">
+        Deleted,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="slug != null">
+        Slug,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="slug != null">
+        #{slug,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="site.iblogs.model.MetasExample" resultType="java.lang.Long">
+    select count(*) from Metas
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Metas
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        Sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.parent != null">
+        Parent = #{record.parent,jdbcType=INTEGER},
+      </if>
+      <if test="record.count != null">
+        Count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null">
+        Created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        Deleted = #{record.deleted,jdbcType=BIT},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.slug != null">
+        Slug = #{record.slug,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update Metas
+    set Id = #{record.id,jdbcType=INTEGER},
+      Type = #{record.type,jdbcType=INTEGER},
+      Sort = #{record.sort,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=INTEGER},
+      Count = #{record.count,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT},
+      Name = #{record.name,jdbcType=LONGVARCHAR},
+      Slug = #{record.slug,jdbcType=LONGVARCHAR},
+      Description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Metas
+    set Id = #{record.id,jdbcType=INTEGER},
+      Type = #{record.type,jdbcType=INTEGER},
+      Sort = #{record.sort,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=INTEGER},
+      Count = #{record.count,jdbcType=INTEGER},
+      Created = #{record.created,jdbcType=TIMESTAMP},
+      Deleted = #{record.deleted,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Metas">
+    update Metas
+    <set>
+      <if test="type != null">
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        Sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        Parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        Created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        Deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="slug != null">
+        Slug = #{slug,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Metas">
+    update Metas
+    set Type = #{type,jdbcType=INTEGER},
+      Sort = #{sort,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=INTEGER},
+      Count = #{count,jdbcType=INTEGER},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT},
+      Name = #{name,jdbcType=LONGVARCHAR},
+      Slug = #{slug,jdbcType=LONGVARCHAR},
+      Description = #{description,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Metas">
+    update Metas
+    set Type = #{type,jdbcType=INTEGER},
+      Sort = #{sort,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=INTEGER},
+      Count = #{count,jdbcType=INTEGER},
+      Created = #{created,jdbcType=TIMESTAMP},
+      Deleted = #{deleted,jdbcType=BIT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
