@@ -19,21 +19,20 @@
       <span class="response" v-else>评论已关闭.</span>
 
 
-      <ol class="comment-list">
-
+      <ol class="comment-list" v-for="comment in this.comments">
         <li id="li-comment-@comment.Id" class="comment-body comment-parent comment-odd">
-          <div id="comment-@comment.Id}">
+          <div id="comment-@comment.Id">
             <div class="comment-view" onclick="">
               <div class="comment-header">
-                <img class="avatar" src="" title="@comment.Author"
+                <img class="avatar" src="" :title="comment.Author"
                      width="80" height="80">
                 <span class="comment-author">
-                                            <a href="@comment.Url}" target="_blank" rel="external nofollow">@comment.Author</a>
+                                            <a :href="comment.Url" target="_blank" rel="external nofollow">{{comment.Author}}</a>
                                         </span>
               </div>
               <div class="comment-content">
                 <span class="comment-author-at"></span>
-                <p>@comment.Content</p>
+                <p>{{comment.Content}}</p>
               </div>
               <div class="comment-meta">
                 <time class="comment-time">@comment.Created.ToString("yyyy-MM-dd")</time>
@@ -93,8 +92,34 @@
   </div>
 </template>
 <script>
+  import {getComments} from "../../../api/comment";
+  import {dateFormat} from "../../../utils/dateUtils";
+
   export default {
-    name: 'Comment'
+    name: 'Comment',
+    data() {
+      return {
+        comments: null,
+        pageNum: 1,
+        pageSize: 10,
+      }
+    },
+    created() {
+      this.getComments();
+    },
+    filters: {
+      formatDate(time) {
+        const date = new Date(time);
+        return dateFormat(date, 'yyyy-MM-dd');
+      }
+    },
+    methods: {
+      getComments() {
+        getComments(this.$store.state.content.content.id, this.pageNum, this.pageSize).then(response => {
+          this.comments = response.data.list;
+        })
+      }
+    }
   }
 </script>
 <style>
