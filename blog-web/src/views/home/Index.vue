@@ -2,10 +2,11 @@
   <main role="main" class="App-main">
     <div class="Topstory">
       <div class="Topstory-container">
-        <div class="Topstory-mainColumn">
-          <v-content :display-type="displayType" :display-meta="displayMeta" :order-type="orderType" :data="data"></v-content>
+        <div class="Topstory-mainColumn" v-if="!loading&&data!=null">
+          <v-content :display-type="displayType" :display-meta="displayMeta" :order-type="orderType"
+                     :data="data"></v-content>
         </div>
-        <side-bar></side-bar>
+        <side-bar v-if="!loading&&data!=null"></side-bar>
       </div>
     </div>
   </main>
@@ -17,13 +18,14 @@
 
   export default {
     name: 'home',
-    components: {SideBar, vContent:Content},
+    components: {SideBar, vContent: Content},
     data() {
       return {
         displayType: 'index',
         displayMeta: '',
         orderType: '',
-        data: []
+        data: [],
+        loading: true,
       }
     },
     created() {
@@ -49,7 +51,7 @@
             this.byTag(pageNum, pageSize)
           }
         }
-
+        this.loading = false;
       });
     },
     methods: {
