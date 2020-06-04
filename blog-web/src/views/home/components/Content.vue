@@ -173,77 +173,16 @@
   </div>
 </template>
 <script>
-  import {archive, category, tag, page, search} from '@/api/content'
+
   import {dateFormat} from "../../../utils/dateUtils";
 
   export default {
     name: 'Content',
-    data() {
-      return {
-        displayType: 'index',
-        displayMeta: '',
-        orderType: '',
-        data: []
-      }
-    },
+    props: ['displayType', 'displayMeta', 'orderType', 'data'],
     filters: {
       formatDate(time) {
         const date = new Date(time);
         return dateFormat(date, 'yyyy-MM-dd');
-      }
-    },
-    created() {
-      this.$store.dispatch('getOptions').then(() => {
-        let pageNum = this.$route.params.id;
-        let pageSize = this.$store.state.options.options.pageSize;
-        if (!pageNum) {
-          pageNum = 1;
-        }
-        if (!this.$route.params.type) {
-          this.getContents(pageNum, pageSize);
-        } else {
-          let displayType = this.$route.params.type;
-          let meta = this.$route.params.meta;
-          this.displayType = displayType;
-          this.displayMeta = meta;
-          if (displayType === 'category') {
-            this.byCategory(pageNum, pageSize)
-          } else if (displayType === 'archive') {
-            this.displayMeta = Number(this.$route.params.meta);
-            this.byArchive(pageNum, pageSize)
-          } else {
-            this.byTag(pageNum, pageSize)
-          }
-        }
-
-      });
-    },
-    methods: {
-      getContents(pageNum, pageSize) {
-        page(pageNum, pageSize).then(response => {
-          this.data = response.data;
-        });
-      },
-      byCategory(pageNum, pageSize) {
-        category(this.displayMeta, pageNum, pageSize).then(
-          response => {
-            this.data = response.data;
-          }
-        )
-      },
-      byTag(pageNum, pageSize) {
-        tag(this.displayMeta, pageNum, pageSize).then(
-          response => {
-            this.data = response.data;
-          }
-        )
-      },
-      byArchive(pageNum, pageSize) {
-        archive(this.displayMeta, pageNum, pageSize).then(
-          response => {
-            this.data = response.data;
-          }
-        )
       }
     }
   }
