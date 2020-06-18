@@ -172,6 +172,14 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>iBlogs</id>
+            <name>https://iblogs.site</name>
+            <url>https://maven.pkg.github.com/liuzhenyulive/iblogs</url>
+        </repository>
+    </distributionManagement>
+
     <profiles>
         <profile>
             <id>integration-test</id>
