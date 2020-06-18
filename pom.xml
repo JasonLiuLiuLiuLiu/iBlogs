@@ -48,6 +48,7 @@
         <sonar.organization>liuzhenyu</sonar.organization>
         <sonar.moduleKey>${artifactId}</sonar.moduleKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.sources>.</sonar.sources>
     </properties>
 
     <dependencies>
