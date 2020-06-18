@@ -2,13 +2,12 @@ name: dev
 
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
-  
   test:
     name: Unit Test
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -19,4 +18,19 @@ jobs:
       - name: Maven Package
         run: mvn -B clean package
       - name: Maven Verify
-        run: mvn -B clean verify
+        run: mmvn -B clean verify -Pintegration-test
+
+  sonar:
+    name: Test - SonarCloud Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: SonarCloud Scan
+        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
