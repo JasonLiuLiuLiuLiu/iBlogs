@@ -24,7 +24,8 @@ jobs:
     name: Publish - Docker Hub
     runs-on: ubuntu-latest
     needs: [test]
-    steps:      
+    steps:
+      - uses: actions/checkout@v2      
       - uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
