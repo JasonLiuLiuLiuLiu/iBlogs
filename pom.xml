@@ -46,7 +46,7 @@
         <jsoup.version>1.13.1</jsoup.version>
         <sonar.projectKey>liuzhenyulive_iBlogs</sonar.projectKey>
         <sonar.organization>liuzhenyu</sonar.organization>
-        <sonar.moduleKey>${artifactId}</sonar.moduleKey>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 

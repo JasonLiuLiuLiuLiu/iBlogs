@@ -2,6 +2,7 @@ FROM maven:3.6.3-jdk-8-slim AS build
 RUN mkdir -p /workspace
 WORKDIR /workspace
 COPY pom.xml /workspace
+COPY blog-admin /workspace/blog-admin
 COPY blog-common /workspace/blog-common
 COPY blog-mbg /workspace/blog-mbg
 COPY blog-portal /workspace/blog-portal
