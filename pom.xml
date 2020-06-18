@@ -220,9 +220,6 @@
 <!--            **/com/wkrzywiec/medium/noticeboard/entity/**,-->
 <!--            **/com/wkrzywiec/medium/noticeboard/Application.java-->
         </code.coverage.exclusions>
-        <sonar.projectKey>liuzhenyulive_iBlogs</sonar.projectKey>
-        <sonar.organization>liuzhenyu</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <profiles>
@@ -232,8 +229,8 @@
                 <sonar.sources>.</sonar.sources>
                 <sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
                 <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
-                <sonar.projectKey>wkrzywiec_NoticeBoard</sonar.projectKey>
-                <sonar.organization>wkrzywiec</sonar.organization>
+                <sonar.projectKey>liuzhenyulive_iBlogs</sonar.projectKey>
+                <sonar.organization>liuzhenyu</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
             </properties>
             <activation>
