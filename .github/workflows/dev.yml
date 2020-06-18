@@ -18,7 +18,7 @@ jobs:
       - name: Maven Package
         run: mvn -B clean package
       - name: Maven Verify
-        run: mmvn -B clean verify -Pintegration-test
+        run: mvn -B clean verify -Pintegration-test
 
   sonar:
     name: Test - SonarCloud Scan
