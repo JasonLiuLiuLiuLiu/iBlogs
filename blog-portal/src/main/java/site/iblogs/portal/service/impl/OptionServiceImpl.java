@@ -49,8 +49,9 @@ public class OptionServiceImpl implements OptionService {
         Options value = redisService.get(optionsPreKey + key.name());
         if (value == null || StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
-            example.createCriteria().andDeletedEqualTo(false);
-            example.createCriteria().andNameEqualTo(key.toString());
+            OptionsExample.Criteria criteria=example.createCriteria();
+            criteria.andDeletedEqualTo(false);
+            criteria.andNameEqualTo(key.toString());
             List<Options> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
                 value = options.get(0);
