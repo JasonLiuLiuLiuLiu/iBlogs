@@ -5,14 +5,18 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.api.PageResponse;
+import site.iblogs.common.model.ConfigKey;
 import site.iblogs.common.utils.GravatarTools;
 import site.iblogs.mapper.CommentsMapper;
 import site.iblogs.model.Comments;
 import site.iblogs.model.CommentsExample;
-import site.iblogs.portal.model.converter.CommentResponseConverter;
+import site.iblogs.portal.model.converter.CommentConverter;
+import site.iblogs.portal.model.request.CommentRequest;
 import site.iblogs.portal.model.response.CommentResponse;
 import site.iblogs.portal.service.CommentService;
+import site.iblogs.portal.service.OptionService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +25,9 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentsMapper commentsMapper;
     @Autowired
-    private CommentResponseConverter commentResponseConverter;
+    private CommentConverter commentConverter;
+    @Autowired
+    private OptionService optionService;
 
     @Override
     public PageResponse<CommentResponse> getComment(int cid, int pageNum, int pageSize) {
@@ -32,9 +38,24 @@ public class CommentServiceImpl implements CommentService {
         List<Comments> comments = commentsMapper.selectByExampleWithBLOBs(example);
         PageInfo<Comments> pageInfo = new PageInfo<>(comments);
         return PageResponse.restPage(comments.stream().map(u -> {
-            CommentResponse response = commentResponseConverter.domain2dto(u);
+            CommentResponse response = commentConverter.domain2dto(u);
             response.setMailPic(GravatarTools.computeGravatarUrl(u.getMail(), 0, null));
             return response;
         }).collect(Collectors.toList()), pageInfo);
+    }
+
+    @Override
+    public Boolean SaveComment(CommentRequest request) {
+        Comments comment=commentConverter.request2domain(request);
+        comment.setIsauthor(false);
+        if (!Boolean.parseBoolean(optionService.getOption(ConfigKey.AllowCommentAudit).getValue())) {
+            comment.setStatus(0);
+        }else {
+            comment.setStatus(1);
+        }
+        comment.setCreated(new Date(System.currentTimeMillis()));
+        comment.setDeleted(false);
+        commentsMapper.insert(comment);
+        return true;
     }
 }
