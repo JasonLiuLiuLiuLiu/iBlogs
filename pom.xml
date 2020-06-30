@@ -13,6 +13,7 @@
         <module>blog-common</module>
         <module>blog-admin</module>
         <module>blog-mbg</module>
+        <module>blog-search</module>
     </modules>
 
     <parent>
