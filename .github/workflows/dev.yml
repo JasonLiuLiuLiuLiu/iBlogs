@@ -40,15 +40,16 @@ jobs:
     needs: [docker]
 
     steps:
-      - name: deploy container
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          command_timeout: 30m
-          script: |
-            docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 ${{ secrets.DOCKER_REPO }}:${{ github.run_number }} --spring.datasource.url="${{secrets.SPRING_DATASOURCE_URL}}" --spring.redis.host="${{secrets.SPRING_REDIS_HOST}}"
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: set image --record deployment/iblogs-portal iblogs=${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
+    - name: verify deployment
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBECTL_VERSION: "1.15"
+      with:
+        args: rollout status deployment/iblogs-portal -n mybox
