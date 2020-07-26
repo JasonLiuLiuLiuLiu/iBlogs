@@ -46,10 +46,10 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: set image --record deployment/iblogs-portal iblogs=${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
-    - name: verify deployment
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        KUBECTL_VERSION: "1.15"
-      with:
-        args: rollout status deployment/iblogs-portal -n mybox
+    # - name: verify deployment
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #     KUBECTL_VERSION: "1.15"
+    #   with:
+    #     args: rollout status deployment/iblogs-portal -n mybox
