@@ -27,8 +27,13 @@ spec:
     matchLabels:
       app: iblogs-portal
   replicas: 2
+  minReadySeconds: 5
   strategy:
-    type: Recreate
+    # indicate which strategy we want for rolling update
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
