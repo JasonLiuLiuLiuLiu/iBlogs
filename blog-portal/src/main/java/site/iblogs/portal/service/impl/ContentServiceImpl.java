@@ -60,11 +60,20 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public PageResponse<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary) {
+    public PageResponse<ContentResponse> listContent(int pageNum, int pageSize, String orderType, Boolean summary) {
         PageHelper.startPage(pageNum, pageSize);
         ContentsExample contentsExample = new ContentsExample();
         contentsExample.createCriteria().andDeletedEqualTo(false);
-        contentsExample.setOrderByClause("Created desc");
+        switch (orderType){
+            case "hot":
+                contentsExample.setOrderByClause("Hits desc");
+                break;
+            case "random":
+                contentsExample.setOrderByClause("RAND()");
+                break;
+            default:
+                contentsExample.setOrderByClause("Created desc");
+        }
         List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         if (summary) {
@@ -105,7 +114,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public PageResponse<ContentResponse> getContentByArchive(Date date, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         List<Contents> contents = contentDao.getContentByArchive(ft.format(date));
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);

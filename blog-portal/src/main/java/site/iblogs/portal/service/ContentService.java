@@ -21,11 +21,11 @@ public interface ContentService {
 
     List<Contents> findArticles(ArticleParam param);
 
-    PageResponse<ContentResponse> listContent(int pageNum, int pageSize, Boolean summary);
+    PageResponse<ContentResponse> listContent(int pageNum, int pageSize, String orderType, Boolean summary);
 
     ContentResponse getByUrl(String url);
 
-    PageResponse<ContentResponse> getContentByMetaData(int type,String name,int pageNum, int pageSize);
+    PageResponse<ContentResponse> getContentByMetaData(int type, String name, int pageNum, int pageSize);
 
     List<ArchivesResponse> contentArchives();
 
