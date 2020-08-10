@@ -33,8 +33,11 @@ public class DateConverter implements Converter<String, Date> {
                 }
                 return formatter.parse(value);
             } else if (value.matches(timeStampFormat)) {
+                System.out.println(value);
                 Long lDate = new Long(value);
-                return new Date(lDate);
+                Date result= new Date(lDate);
+                System.out.println(result.toString());
+                return result;
             }
         } catch (Exception e) {
             throw new RuntimeException(String.format("parser %s to Date fail", value));
