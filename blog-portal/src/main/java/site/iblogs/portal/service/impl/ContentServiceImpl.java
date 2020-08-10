@@ -117,9 +117,7 @@ public class ContentServiceImpl implements ContentService {
         PageHelper.startPage(pageNum, pageSize);
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         ft.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-        String dateStr=ft.format(date);
-        System.out.println(dateStr);
-        List<Contents> contents = contentDao.getContentByArchive(dateStr);
+        List<Contents> contents = contentDao.getContentByArchive(ft.format(date));
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
     }
