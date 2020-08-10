@@ -13,6 +13,8 @@
         WHERE m.`Name` = #{name}
           AND m.Type = #{type}
           AND m.Deleted = 0
+          AND c.Deleted = 0
+          AND r.Deleted = 0
         ORDER BY c.Created DESC
     </select>
     <select id="getContentByArchive" resultMap="site.iblogs.mapper.ContentsMapper.ResultMapWithBLOBs">

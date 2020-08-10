@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 
@@ -115,6 +116,7 @@ public class ContentServiceImpl implements ContentService {
     public PageResponse<ContentResponse> getContentByArchive(Date date, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        ft.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         List<Contents> contents = contentDao.getContentByArchive(ft.format(date));
         PageInfo<Contents> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
