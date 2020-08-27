@@ -1,9 +1,8 @@
 package site.iblogs.portal.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.Lifecycle;
@@ -28,10 +27,14 @@ import java.util.List;
 @Component
 public class StreamConsumerRunner implements ApplicationRunner, DisposableBean {
 
-    public static final String RSS_CHANNEL = "channel:stream:ftp:rss";
-    public static final String RSS_GROUP = "group:ftp:rss";
-    public static final String SITE_MAP_CHANNEL = "channel:stream:ftp:siteMap";
-    public static final String SITE_MAP_GROUP = "group:ftp:siteMap";
+    @Value("${redis.stream.chanel.ftp.rss}")
+    private String rssChanel;
+    @Value("${redis.stream.group.ftp.rss}")
+    private String rssGroup;
+    @Value("${redis.stream.chanel.ftp.siteMap}")
+    private String siteMapChanel;
+    @Value("${redis.stream.group.ftp.siteMap}")
+    private String siteMapGroup;
 
     @Autowired
     private ThreadPoolTaskExecutor executor;
@@ -48,8 +51,8 @@ public class StreamConsumerRunner implements ApplicationRunner, DisposableBean {
 
     @Override
     public void run(ApplicationArguments args) {
-        CreateContainerAndStart(rssTaskConsumer, FtpRssFileInfo.class, RSS_CHANNEL, RSS_GROUP);
-        CreateContainerAndStart(siteMapTaskConsumer, FtpSiteMapFileInfo.class, SITE_MAP_CHANNEL, SITE_MAP_GROUP);
+        CreateContainerAndStart(rssTaskConsumer, FtpRssFileInfo.class, rssChanel, rssGroup);
+        CreateContainerAndStart(siteMapTaskConsumer, FtpSiteMapFileInfo.class, siteMapChanel, siteMapGroup);
     }
 
     private <T extends FtpFileInfo> void CreateContainerAndStart(StreamListener<String, ObjectRecord<String, T>> listener, Class<T> type, String channel, String group) {

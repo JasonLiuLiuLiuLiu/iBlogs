@@ -3,6 +3,7 @@ package site.iblogs.portal.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,6 +18,8 @@ public class RssTaskConsumer implements StreamListener<String, ObjectRecord<Stri
     private final Logger logger = LoggerFactory.getLogger( RssTaskConsumer.class);
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Value("${redis.stream.group.ftp.rss}")
+    private String rssGroup;
 
     @Override
     public void onMessage(ObjectRecord<String, FtpRssFileInfo> message) {
@@ -25,6 +28,6 @@ public class RssTaskConsumer implements StreamListener<String, ObjectRecord<Stri
 
         logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
 
-        stringRedisTemplate.opsForStream().acknowledge(StreamConsumerRunner.RSS_GROUP, message);
+        stringRedisTemplate.opsForStream().acknowledge(rssGroup, message);
     }
 }

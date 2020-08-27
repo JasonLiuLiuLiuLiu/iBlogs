@@ -41,6 +41,16 @@ redis:
       authCode: "portal:authCode:"
     expire:
       authCode: 120 # 验证码超期时间
+  stream:
+    chanel:
+      ftp:
+        rss: "channel:stream:ftp:rss"
+        siteMap: "channel:stream:ftp:siteMap"
+    group:
+      ftp:
+        rss: "group:ftp:rss"
+        siteMap: "group:ftp:siteMap"
+
 
 logging:
   level:
