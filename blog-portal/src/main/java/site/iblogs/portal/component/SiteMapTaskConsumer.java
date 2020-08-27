@@ -2,6 +2,7 @@ package site.iblogs.portal.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
@@ -27,8 +28,12 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
         RecordId id = message.getId();
         FtpFileInfo messageValue = message.getValue();
 
-        logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
-
-        stringRedisTemplate.opsForStream().acknowledge(siteMapGroup, message);
+        try {
+            logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
+            stringRedisTemplate.opsForStream().acknowledge(siteMapGroup, message);
+            stringRedisTemplate.opsForStream().delete(message);
+        }catch (Exception ex){
+            logger.error("failed to process message, exception:{}",ex.getMessage());
+        }
     }
 }

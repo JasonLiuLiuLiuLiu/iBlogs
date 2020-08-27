@@ -15,7 +15,7 @@ import site.iblogs.portal.model.params.FtpRssFileInfo;
 @Component
 public class RssTaskConsumer implements StreamListener<String, ObjectRecord<String, FtpRssFileInfo>> {
 
-    private final Logger logger = LoggerFactory.getLogger( RssTaskConsumer.class);
+    private final Logger logger = LoggerFactory.getLogger(RssTaskConsumer.class);
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Value("${redis.stream.group.ftp.rss}")
@@ -25,9 +25,13 @@ public class RssTaskConsumer implements StreamListener<String, ObjectRecord<Stri
     public void onMessage(ObjectRecord<String, FtpRssFileInfo> message) {
         RecordId id = message.getId();
         FtpFileInfo messageValue = message.getValue();
+        try {
+            logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
+            stringRedisTemplate.opsForStream().acknowledge(rssGroup, message);
+            stringRedisTemplate.opsForStream().delete(message);
+        } catch (Exception ex) {
+            logger.error("failed to process message, exception:{}", ex.getMessage());
+        }
 
-        logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
-
-        stringRedisTemplate.opsForStream().acknowledge(rssGroup, message);
     }
 }
