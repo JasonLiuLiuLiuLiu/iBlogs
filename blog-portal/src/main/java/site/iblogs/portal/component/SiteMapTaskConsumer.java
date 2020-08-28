@@ -2,7 +2,6 @@ package site.iblogs.portal.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
@@ -20,6 +19,9 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Autowired
+    private SiteMapGenerator sitemapGenerater;
+
     @Value("${redis.stream.group.ftp.siteMap}")
     private String siteMapGroup;
 
@@ -29,11 +31,14 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
         FtpFileInfo messageValue = message.getValue();
 
         try {
-            logger.info("消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
+            logger.debug("正在消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
+            String path=sitemapGenerater.run();
+            logger.info("生成了sitemap文件{},消息id:{}",path,id);
             stringRedisTemplate.opsForStream().acknowledge(siteMapGroup, message);
             stringRedisTemplate.opsForStream().delete(message);
-        }catch (Exception ex){
-            logger.error("failed to process message, exception:{}",ex.getMessage());
+            logger.debug("完成消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
+        } catch (Exception ex) {
+            logger.error("failed to process message, exception:{}", ex.getMessage());
         }
     }
 }
