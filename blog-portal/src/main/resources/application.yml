@@ -63,3 +63,8 @@ logging:
             debug
           CommentsMapper:
             debug
+ftp:
+  host: 127.0.0.1
+  port: 21
+  username: root
+  password: 123456

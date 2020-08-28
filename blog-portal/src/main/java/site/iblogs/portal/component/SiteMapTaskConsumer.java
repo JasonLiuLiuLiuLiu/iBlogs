@@ -9,6 +9,7 @@ import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.stream.StreamListener;
 import org.springframework.stereotype.Component;
+import site.iblogs.common.utils.FtpUtil;
 import site.iblogs.portal.model.params.FtpFileInfo;
 import site.iblogs.portal.model.params.FtpSiteMapFileInfo;
 
@@ -24,6 +25,14 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
 
     @Value("${redis.stream.group.ftp.siteMap}")
     private String siteMapGroup;
+    @Value("${ftp.host}")
+    private String host;
+    @Value("${ftp.port}")
+    private Integer port;
+    @Value("${ftp.username}")
+    private String username;
+    @Value("${ftp.password}")
+    private String password;
 
     @Override
     public void onMessage(ObjectRecord<String, FtpSiteMapFileInfo> message) {
@@ -34,6 +43,7 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
             logger.debug("正在消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
             String path=sitemapGenerater.run();
             logger.info("生成了sitemap文件{},消息id:{}",path,id);
+            FtpUtil.uploadFile(host,port,username,password,"","","sitemap.xml",path);
             stringRedisTemplate.opsForStream().acknowledge(siteMapGroup, message);
             stringRedisTemplate.opsForStream().delete(message);
             logger.debug("完成消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
