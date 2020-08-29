@@ -64,7 +64,12 @@ logging:
           CommentsMapper:
             debug
 ftp:
-  host: 127.0.0.1
+  host: v0.ftp.upyun.com
   port: 21
-  username: root
+  username: iblogs/iblogs-web
+  password: 123456
+
+upYun:
+  bucketname: iblogs-web
+  username: iblogs
   password: 123456
