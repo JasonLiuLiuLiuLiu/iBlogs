@@ -69,6 +69,12 @@
             <artifactId>sitemapgen4j</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.15.0</version>
+        </dependency>
+
 
 
 

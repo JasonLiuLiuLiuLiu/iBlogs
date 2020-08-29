@@ -19,7 +19,7 @@ public class RssTaskProducer {
     @Value("${redis.stream.chanel.ftp.rss}")
     private String rssChanel;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000000)
     public void Upload(){
         FtpRssFileInfo fileInfo = new FtpRssFileInfo("test");
         ObjectRecord<String, FtpRssFileInfo> record = Record.of(fileInfo).withStreamKey(rssChanel);

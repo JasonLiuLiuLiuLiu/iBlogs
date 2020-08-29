@@ -19,7 +19,7 @@ public class SiteMapTaskProducer {
     @Value("${redis.stream.chanel.ftp.siteMap}")
     private String siteMapChanel;
 
-    @Scheduled(fixedDelay = 15000)
+    @Scheduled(fixedDelay = 150000)
     public void Upload(){
         FtpSiteMapFileInfo fileInfo = new FtpSiteMapFileInfo("test");
         ObjectRecord<String, FtpSiteMapFileInfo> record = Record.of(fileInfo).withStreamKey(siteMapChanel);
