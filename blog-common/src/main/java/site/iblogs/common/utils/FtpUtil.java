@@ -66,6 +66,7 @@ public class FtpUtil {
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
             //上传文件
             FileInputStream input = new FileInputStream(new File(inputPath));
+            ftp.enterLocalPassiveMode();
             if (!ftp.storeFile(filename, input)) {
                 result.setMessage("cannot store file:" + filename + ",inputPath:" + inputPath + ",replyCode:" + ftp.getReplyCode());
                 return result;
