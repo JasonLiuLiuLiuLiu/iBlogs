@@ -53,9 +53,6 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
     public void onMessage(ObjectRecord<String, FtpSiteMapFileInfo> message) {
         RecordId id = message.getId();
         FtpFileInfo messageValue = message.getValue();
-
-        logger.info("ftp.host{},ftp.port{},ftp.username{},ftp.password{},upyun.username{},upyun.password{},upyun.backetname{}",host,port,username,password,upYunUsername,upYunPassword,bucketname);
-
         try {
             logger.debug("正在消费stream:{}中的信息:{}, 消息id:{}", message.getStream(), messageValue.toString(), id);
             String path = sitemapGenerater.run();
