@@ -10,6 +10,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import site.iblogs.common.model.BoolResultWithMessage;
 
 /**
  * ftp上传下载工具类
@@ -29,9 +30,9 @@ public class FtpUtil {
      * @param inputPath 本地输入文件路径
      * @return 成功返回true，否则返回false
      */
-    public static boolean uploadFile(String host, int port, String username, String password, String basePath,
-                                     String filePath, String filename, String inputPath) {
-        boolean result = false;
+    public static BoolResultWithMessage uploadFile(String host, int port, String username, String password, String basePath,
+                                                   String filePath, String filename, String inputPath) {
+        BoolResultWithMessage result = new BoolResultWithMessage();
         FTPClient ftp = new FTPClient();
         try {
             int reply;
@@ -41,7 +42,8 @@ public class FtpUtil {
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
-                return false;
+                result.setMessage("login ftp with code:" + reply);
+                return result;
             }
             //切换到上传目录
             if (!ftp.changeWorkingDirectory(basePath + filePath)) {
@@ -53,7 +55,7 @@ public class FtpUtil {
                     tempPath += "/" + dir;
                     if (!ftp.changeWorkingDirectory(tempPath)) {
                         if (!ftp.makeDirectory(tempPath)) {
-                            return false;
+                            return result;
                         } else {
                             ftp.changeWorkingDirectory(tempPath);
                         }
@@ -65,11 +67,13 @@ public class FtpUtil {
             //上传文件
             FileInputStream input = new FileInputStream(new File(inputPath));
             if (!ftp.storeFile(filename, input)) {
-                return false;
+                result.setMessage("cannot store file:" + filename);
+                return result;
             }
             input.close();
             ftp.logout();
-            result = true;
+            result.setSuccess(true);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
