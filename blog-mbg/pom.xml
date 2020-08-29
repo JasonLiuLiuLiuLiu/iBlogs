@@ -18,6 +18,11 @@
             <groupId>site.iblogs</groupId>
             <artifactId>blog-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
     </dependencies>
 
 
