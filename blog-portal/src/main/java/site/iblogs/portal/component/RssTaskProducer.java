@@ -1,7 +1,7 @@
 package site.iblogs.portal.component;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.Record;
 import org.springframework.data.redis.connection.stream.RecordId;
@@ -16,7 +16,7 @@ public class RssTaskProducer {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Value("${redis.stream.chanel.ftp.rss}")
+    @NacosValue(value = "${redis.stream.chanel.ftp.rss}", autoRefreshed = true)
     private String rssChanel;
 
     @Scheduled(fixedDelay = 1000000)

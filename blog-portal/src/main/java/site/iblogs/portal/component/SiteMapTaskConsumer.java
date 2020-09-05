@@ -1,9 +1,9 @@
 package site.iblogs.portal.component;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -32,22 +32,22 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
     @Autowired
     private SiteMapGenerator sitemapGenerater;
 
-    @Value("${redis.stream.group.ftp.siteMap}")
+    @NacosValue(value = "${redis.stream.group.ftp.siteMap}", autoRefreshed = true)
     private String siteMapGroup;
-    @Value("${ftp.host}")
+    @NacosValue(value = "${ftp.host}", autoRefreshed = true)
     private String host;
-    @Value("${ftp.port}")
+    @NacosValue(value = "${ftp.port}", autoRefreshed = true)
     private Integer port;
-    @Value("${ftp.username}")
+    @NacosValue(value = "${ftp.username}", autoRefreshed = true)
     private String username;
-    @Value("${ftp.password}")
+    @NacosValue(value = "${ftp.password}", autoRefreshed = true)
     private String password;
 
-    @Value("${upYun.username}")
+    @NacosValue(value = "${upYun.username}", autoRefreshed = true)
     private String upYunUsername;
-    @Value("${upYun.password}")
+    @NacosValue(value = "${upYun.password}", autoRefreshed = true)
     private String upYunPassword;
-    @Value("${upYun.bucketname}")
+    @NacosValue(value = "${upYun.bucketname}", autoRefreshed = true)
     private String bucketname;
 
     @Override

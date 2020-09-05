@@ -41,11 +41,15 @@ spec:
     spec:
       containers:
         - name: iblogs
-          image: liuzhenyulive/iblogs:22
+          image: liuzhenyulive/iblogs:50
           args:
             [
               "--spring.datasource.url=jdbc:mysql://omv:3306/iblogs?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai",
-              "--spring.redis.host=omv"
+              "--spring.redis.host=omv",
+              "--ftp.username=iblogs/dev-iblogs-web",
+              "--ftp.password=MgQjuVGoocDQZQHBVngUr627ACCzwkuw",
+              "--upYun.backetname=dev-iblogs-web",
+              "--upYun.password=MgQjuVGoocDQZQHBVngUr627ACCzwkuw",
             ]
           ports:
             - containerPort: 8080
