@@ -7,3 +7,9 @@ nacos:
     namespace: 03b6dc11-e91a-4545-afec-c1db99fa705e
     group: DEFAULT_GROUP
     auto-refresh: true
+    data-id: portal
+    bootstrap:
+      enable: true
+      log-enable: true
+    type: properties
+    max-retry: 10
