@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import site.iblogs.common.model.ConfigKey;
 import site.iblogs.model.Contents;
-import site.iblogs.model.Options;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 

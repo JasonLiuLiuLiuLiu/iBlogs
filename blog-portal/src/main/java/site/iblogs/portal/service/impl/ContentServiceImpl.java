@@ -98,6 +98,10 @@ public class ContentServiceImpl implements ContentService {
         }).findFirst();
         return contents.map(value -> {
             ContentResponse response = contentResponseConverter.domain2dto(value);
+            String contentText = Jsoup.parse(response.getContent()).body().text();
+            int contentLength = contentText.length();
+            contentLength = Math.min(getMaxIntroCount(), contentLength);
+            response.setDescription(contentText.substring(0, contentLength - 1));
             response.setPre(contentDao.getPre(value.getId()));
             response.setNext(contentDao.getNext(value.getId()));
             return response;
@@ -128,13 +132,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     private PageResponse<ContentResponse> getContentResponsePageResponse(List<Contents> contents, PageInfo<Contents> pageInfo) {
-        int length;
-        try {
-            length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());
-        } catch (Exception e) {
-            length = 200;
-        }
-        final int lengthFinal = length;
+        final int lengthFinal = getMaxIntroCount();
         return PageResponse.restPage(contents.stream().peek(u -> {
             u.setContent(parseMarkdownToHtml(u.getContent()));
             String contentText = Jsoup.parse(u.getContent()).body().text();
@@ -142,6 +140,16 @@ public class ContentServiceImpl implements ContentService {
             contentLength = Math.min(lengthFinal, contentLength);
             u.setContent(contentText.substring(0, contentLength - 1));
         }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
+    }
+
+    private int getMaxIntroCount(){
+        int length;
+        try {
+            length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());
+        } catch (Exception e) {
+            length = 200;
+        }
+        return length;
     }
 
     private static Parser parser;

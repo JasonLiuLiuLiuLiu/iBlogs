@@ -1,8 +1,8 @@
 package site.iblogs.portal.component;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.Lifecycle;
@@ -27,13 +27,13 @@ import java.util.List;
 @Component
 public class StreamConsumerRunner implements ApplicationRunner, DisposableBean {
 
-    @Value("${redis.stream.chanel.ftp.rss}")
+    @NacosValue(value = "${redis.stream.chanel.ftp.rss}", autoRefreshed = true)
     private String rssChanel;
-    @Value("${redis.stream.group.ftp.rss}")
+    @NacosValue(value = "${redis.stream.group.ftp.rss}", autoRefreshed = true)
     private String rssGroup;
-    @Value("${redis.stream.chanel.ftp.siteMap}")
+    @NacosValue(value = "${redis.stream.chanel.ftp.siteMap}", autoRefreshed = true)
     private String siteMapChanel;
-    @Value("${redis.stream.group.ftp.siteMap}")
+    @NacosValue(value = "${redis.stream.group.ftp.siteMap}", autoRefreshed = true)
     private String siteMapGroup;
 
     @Autowired

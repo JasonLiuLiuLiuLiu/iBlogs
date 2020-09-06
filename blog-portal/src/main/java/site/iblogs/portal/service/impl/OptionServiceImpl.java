@@ -21,7 +21,7 @@ public class OptionServiceImpl implements OptionService {
     private RedisService<Options> redisService;
 
     private static boolean initializedOptionsToRedis = false;
-    private static String optionsPreKey = "IBLOGS.SITE.OPTIONS";
+    private static String optionsPreKey = "IBLOGS.SITE.OPTIONS-";
 
     public OptionServiceImpl(OptionsMapper optionsMapper, RedisService<Options> redisService) {
         this.optionsMapper = optionsMapper;

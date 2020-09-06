@@ -38,4 +38,5 @@ public class ContentResponse {
     private Date Created;
     private Integer Pre;
     private Integer Next;
+    private String description;
 }
