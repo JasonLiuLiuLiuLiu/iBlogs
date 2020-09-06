@@ -38,13 +38,6 @@ public class SiteMapTaskConsumer implements StreamListener<String, ObjectRecord<
     @NacosValue(value = "${ftp.filePath}", autoRefreshed = true)
     private String filePath;
 
-    @NacosValue(value = "${upYun.username}", autoRefreshed = true)
-    private String upYunUsername;
-    @NacosValue(value = "${upYun.password}", autoRefreshed = true)
-    private String upYunPassword;
-    @NacosValue(value = "${upYun.bucketname}", autoRefreshed = true)
-    private String bucketname;
-
     @Override
     public void onMessage(ObjectRecord<String, FtpSiteMapFileInfo> message) {
         RecordId id = message.getId();
