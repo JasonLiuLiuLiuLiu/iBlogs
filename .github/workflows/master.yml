@@ -52,4 +52,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
             docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 ${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} --spring.datasource.url="${{secrets.SPRING_DATASOURCE_URL}}" --spring.redis.host="${{secrets.SPRING_REDIS_HOST}}" --spring.datasource.password="${{secrets.SPRING_DATASOURCE_PASSWORD}}" --spring.redis.port="${{secrets.SPRING_REDIS_PORT}}" --spring.redis.password="${{secrets.SPRING_REDIS_PASSWORD}}" --ftp.password="${{secrets.UPYUM_PASSWORD}}" --upYun.password="${{secrets.UPYUM_PASSWORD}}"
+            docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 ${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} --nacos.config.namespace=${{ secrets.NACOS_NAMESPCE }} --nacos.config.server-addr="${{ secrets.NACOS_SERVER_ADDR }}"
