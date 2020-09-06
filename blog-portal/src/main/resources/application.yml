@@ -3,13 +3,13 @@ server:
 
 nacos:
   config:
-    server-addr: localhost:8848
+    server-addr: 192.168.101.100:30848
     namespace: 03b6dc11-e91a-4545-afec-c1db99fa705e
     group: DEFAULT_GROUP
     auto-refresh: true
     data-id: portal
     bootstrap:
       enable: true
-      log-enable: true
+      log-enable: false
     max-retry: 10
     type: yaml

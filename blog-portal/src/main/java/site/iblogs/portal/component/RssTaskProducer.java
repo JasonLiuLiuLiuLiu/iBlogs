@@ -1,6 +1,8 @@
 package site.iblogs.portal.component;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.Record;
@@ -12,6 +14,8 @@ import site.iblogs.portal.model.params.FtpRssFileInfo;
 
 @Component
 public class RssTaskProducer {
+
+    private final Logger logger = LoggerFactory.getLogger(RssTaskProducer.class);
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -25,6 +29,6 @@ public class RssTaskProducer {
         ObjectRecord<String, FtpRssFileInfo> record = Record.of(fileInfo).withStreamKey(rssChanel);
         RecordId recordId = redisTemplate.opsForStream().add(record);
         assert recordId != null;
-        System.out.println("Upload rss file to ftp,recordId:"+recordId.toString());
+        logger.debug("Upload rss file to ftp,recordId:"+recordId.toString());
     }
 }

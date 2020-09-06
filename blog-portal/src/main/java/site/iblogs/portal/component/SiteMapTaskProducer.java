@@ -1,6 +1,8 @@
 package site.iblogs.portal.component;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.Record;
@@ -12,6 +14,7 @@ import site.iblogs.portal.model.params.FtpSiteMapFileInfo;
 
 @Component
 public class SiteMapTaskProducer {
+    private final Logger logger = LoggerFactory.getLogger(SiteMapTaskProducer.class);
     @Autowired
     private StringRedisTemplate redisTemplate;
 
@@ -24,6 +27,6 @@ public class SiteMapTaskProducer {
         ObjectRecord<String, FtpSiteMapFileInfo> record = Record.of(fileInfo).withStreamKey(siteMapChanel);
         RecordId recordId = redisTemplate.opsForStream().add(record);
         assert recordId != null;
-        System.out.println("Upload site map file to ftp,recordId:"+recordId.toString());
+        logger.debug("Upload site map file to ftp,recordId:"+recordId.toString());
     }
 }
