@@ -4,7 +4,7 @@ server:
 nacos:
   config:
     server-addr: 192.168.101.100:30848
-    namespace: 03b6dc11-e91a-4545-afec-c1db99fa705e
+    namespace: f1426bb3-51c1-487e-8e0a-c33c7c31fad5
     group: DEFAULT_GROUP
     auto-refresh: true
     data-id: portal

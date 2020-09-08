@@ -51,8 +51,19 @@ public class ContentServiceImpl implements ContentService {
     private ContentDao contentDao;
 
     @Override
-    public List<Contents> listAllContent() {
-        return contentsMapper.selectByExample(new ContentsExample());
+    public List<Contents> getTopContent(Integer topNum,boolean containContent) {
+        if(topNum!=null){
+            PageHelper.startPage(1, topNum);
+        }
+        ContentsExample contentsExample = new ContentsExample();
+        contentsExample.createCriteria().andDeletedEqualTo(false);
+        contentsExample.setOrderByClause("Created desc");
+        if(containContent){
+            List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
+            return contents.stream().peek(value-> value.setContent(parseMarkdownToHtml(value.getContent()))).collect(Collectors.toList());
+        }else {
+            return  contentsMapper.selectByExample(contentsExample);
+        }
     }
 
     @Override
@@ -65,7 +76,7 @@ public class ContentServiceImpl implements ContentService {
         PageHelper.startPage(pageNum, pageSize);
         ContentsExample contentsExample = new ContentsExample();
         contentsExample.createCriteria().andDeletedEqualTo(false);
-        switch (orderType){
+        switch (orderType) {
             case "hot":
                 contentsExample.setOrderByClause("Hits desc");
                 break;
@@ -142,7 +153,7 @@ public class ContentServiceImpl implements ContentService {
         }).map(u -> contentResponseConverter.domain2dto(u)).collect(Collectors.toList()), pageInfo);
     }
 
-    private int getMaxIntroCount(){
+    private int getMaxIntroCount() {
         int length;
         try {
             length = Integer.parseInt(optionService.getOption(ConfigKey.MaxIntroCount).getValue());

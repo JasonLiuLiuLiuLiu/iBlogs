@@ -35,13 +35,6 @@ public class ContentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ContentController.class);
 
-    @ApiOperation("获取所有内容")
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    @ResponseBody
-    public ApiResponse<List<Contents>> listContent() {
-        return ApiResponse.success(contentService.listAllContent());
-    }
-
     @ApiOperation("分页获取所有内容")
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
