@@ -46,13 +46,17 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Boolean SaveComment(CommentRequest request) {
-        Comments comment=commentConverter.request2domain(request);
+        Comments comment = commentConverter.request2domain(request);
         comment.setIsauthor(false);
         if (!Boolean.parseBoolean(optionService.getOption(ConfigKey.AllowCommentAudit).getValue())) {
             comment.setStatus(0);
-        }else {
+        } else {
             comment.setStatus(1);
         }
+        if (comment.getParent() == null) {
+            comment.setParent(0);
+        }
+        comment.setOwnerid(0);
         comment.setCreated(new Date(System.currentTimeMillis()));
         comment.setDeleted(false);
         commentsMapper.insert(comment);
