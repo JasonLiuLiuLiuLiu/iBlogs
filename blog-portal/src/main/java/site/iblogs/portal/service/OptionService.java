@@ -10,7 +10,7 @@ import java.util.List;
 public interface OptionService {
     List<Options> getAllOption();
 
-    Options getOption(ConfigKey key);
+    Options getOption(String key);
 
     Hashtable<String, String> getOptions(ArrayList<String> keys);
 }
