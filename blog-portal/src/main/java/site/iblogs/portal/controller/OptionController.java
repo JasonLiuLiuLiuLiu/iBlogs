@@ -12,6 +12,7 @@ import site.iblogs.common.api.ApiResponse;
 import site.iblogs.portal.service.OptionService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 @Api(tags = "OptionController", value = "配置项")
@@ -24,7 +25,7 @@ public class OptionController {
     @ApiOperation("添加品牌关注")
     @RequestMapping(value = "/getOptions", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<Hashtable<String,String>> add(@RequestBody ArrayList<String> keys) {
+    public ApiResponse<HashMap<String,String>> add(@RequestBody ArrayList<String> keys) {
         return ApiResponse.success(optionService.getOptions(keys));
     }
 }
