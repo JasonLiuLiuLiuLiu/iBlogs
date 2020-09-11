@@ -46,7 +46,7 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: --insecure-skip-tls-verify set image --record deployment/iblogs-portal iblogs=${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
+        args: --insecure-skip-tls-verify set image --record deployment/iblogs-portal iblogs=registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
     # - name: verify deployment
     #   uses: steebchen/kubectl@master
     #   env:
