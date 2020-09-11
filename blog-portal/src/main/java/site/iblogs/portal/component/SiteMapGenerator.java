@@ -25,7 +25,7 @@ public class SiteMapGenerator {
 
     public String run() throws MalformedURLException {
         File file = new File(System.getProperty("java.io.tmpdir"));
-        List<Contents> allContents = contentService.listAllContent();
+        List<Contents> allContents = contentService.getTopContent(null,false);
         String siteUrl = optionService.getOption(ConfigKey.SiteUrl).getValue();
         W3CDateFormat dateFormat = new W3CDateFormat(W3CDateFormat.Pattern.DAY);
         dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));

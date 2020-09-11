@@ -10,6 +10,7 @@ import site.iblogs.portal.service.OptionService;
 import site.iblogs.portal.service.RedisService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public Options getOption(ConfigKey key) {
-        Options value = redisService.get(optionsPreKey + key.name());
+    public Options getOption(String key) {
+        Options value = redisService.get(optionsPreKey + key);
         if (value == null || StringUtils.isEmpty(value.getValue())) {
             OptionsExample example = new OptionsExample();
             OptionsExample.Criteria criteria=example.createCriteria();
@@ -62,27 +63,23 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public Hashtable<String, String> getOptions(ArrayList<String> keys) {
-        Hashtable<String, String> result = new Hashtable<>();
+    public HashMap<String, String> getOptions(ArrayList<String> keys) {
+        HashMap<String, String> result = new HashMap<>();
         if (keys == null) {
             return null;
         }
 
-        for (String s : keys) {
+        for (String key : keys) {
             try {
-                ConfigKey key = ConfigKey.valueOf(s);
                 Options option = getOption(key);
                 if (option == null || !option.getVisible()) {
-                    result.put(s, "NULL");
+                    result.put(key, null);
                 } else {
                     String value = option.getValue();
-                    if (value == null) {
-                        value = "NULL";
-                    }
-                    result.put(s, value);
+                    result.put(key, value);
                 }
             } catch (IllegalArgumentException ex) {
-                result.put(s, "NULL");
+                result.put(key, null);
             }
         }
         return result;

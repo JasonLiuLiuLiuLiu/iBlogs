@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface ContentService {
 
-    List<Contents> listAllContent();
+    List<Contents> getTopContent(Integer topNum,boolean containContent);
 
     List<Contents> findArticles(ArticleParam param);
 
