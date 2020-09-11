@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: mr-smithers-excellent/docker-build-push@v4
         with:
-          registry: registry.cn-hangzhou.aliyuncs.com
+          registry: registry.us-west-1.aliyuncs.com
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           image: ${{ secrets.DOCKER_REPO }}
@@ -46,7 +46,7 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: --insecure-skip-tls-verify set image --record deployment/iblogs-portal iblogs=registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
+        args: --insecure-skip-tls-verify set image --record deployment/iblogs-portal iblogs=registry.us-west-1.aliyuncs.com/${{ secrets.DOCKER_REPO }}:${{ github.run_number }} -n mybox
     # - name: verify deployment
     #   uses: steebchen/kubectl@master
     #   env:
