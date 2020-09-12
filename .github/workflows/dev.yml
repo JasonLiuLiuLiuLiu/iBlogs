@@ -40,12 +40,12 @@ jobs:
           mkdir -p DIR
           cd DIR
           if [ -d "$DIR/iBlogs" ]; then
-            cd iBlogs
+            cd $DIR/iBlogs
             git checkout dev
             git pull
           else
             git clone https://github.com/liuzhenyulive/iBlogs.git
-            cd iBlogs
+            cd $DIR/iBlogs
             git checkout dev
           fi
           docker build -f ${{ secrets.DOCKER_REPO }}:${{ github.run_number }} .
