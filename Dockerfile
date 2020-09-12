@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/acs/maven:3-jdk-8 AS build
+FROM maven:3.6.3-jdk-8-slim AS build
 RUN mkdir -p /workspace
 WORKDIR /workspace
 COPY pom.xml /workspace
@@ -7,6 +7,7 @@ COPY blog-common /workspace/blog-common
 COPY blog-mbg /workspace/blog-mbg
 COPY blog-portal /workspace/blog-portal
 COPY blog-search /workspace/blog-search
+COPY settings.xml /usr/share/maven/ref/
 RUN mvn -B -f pom.xml clean package -DskipTests 
 FROM openjdk:8-jdk-slim
 COPY --from=build /workspace/blog-portal/target/*.jar app.jar
