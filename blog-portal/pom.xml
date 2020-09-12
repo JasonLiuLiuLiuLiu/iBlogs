@@ -7,7 +7,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>blog-portal</name>
     <description>https://iblogs.site/</description>
-
     <parent>
         <artifactId>iblogs</artifactId>
         <groupId>site.iblogs</groupId>
