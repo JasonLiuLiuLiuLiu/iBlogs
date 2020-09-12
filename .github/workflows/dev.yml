@@ -37,8 +37,8 @@ jobs:
         script: |
           yum install git -y
           DIR="/docker/workspace"
-          mkdir -p DIR
-          cd DIR
+          mkdir -p $DIR
+          cd $DIR
           if [ -d "$DIR/iBlogs" ]; then
             cd $DIR/iBlogs
             git checkout dev
