@@ -26,13 +26,38 @@ jobs:
     needs: [test]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: ${{ secrets.DOCKER_REPO }}
-          tags: prod-${{ github.run_number }}
+    - name: publish container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODHOST }}
+        username: ${{ secrets.PRODUSERNAME }}
+        password: ${{ secrets.PRODPASSWORD }}
+        port: ${{ secrets.PRODPORT }}
+        command_timeout: 30m
+        script: |
+          yum install git -y
+          DIR="/docker/workspace"
+          mkdir -p $DIR
+          if [[ -d "$DIR/inProgress" ]]
+          then
+            echo "Another process is in progress"
+            exit 1
+          fi
+          cd $DIR
+          mkdir inProgress
+          if [ -d "$DIR/iBlogs" ]; then
+            cd $DIR/iBlogs
+            git checkout master
+            git pull
+          else
+            git clone https://github.com/liuzhenyulive/iBlogs.git
+            cd $DIR/iBlogs
+            git checkout master
+          fi
+          docker build -t registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} .
+          docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+          docker push registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
+          rm -rf $DIR/inProgress
 
   deploy:
     name: deploy container
@@ -49,7 +74,7 @@ jobs:
           port: ${{ secrets.PRODPORT }}
           command_timeout: 30m
           script: |
-            docker pull ${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
+            docker registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
             docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 ${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} --nacos.config.namespace=${{ secrets.NACOS_NAMESPCE }} --nacos.config.server-addr="${{ secrets.NACOS_SERVER_ADDR }}"
+            docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} --nacos.config.namespace=${{ secrets.NACOS_NAMESPCE }} --nacos.config.server-addr="${{ secrets.NACOS_SERVER_ADDR }}"
