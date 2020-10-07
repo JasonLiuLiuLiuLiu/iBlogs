@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class CommentRequest {
-    private Integer parentId;
-    private int contentId;
+    private Long parentId;
+    private Long contentId;
     private String author;
     private String mail;
     private String url;

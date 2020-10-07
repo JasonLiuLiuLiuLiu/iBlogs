@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class ContentResponse {
-    private Integer id;
+    private Long id;
     private String title;
     private String slug;
     private Date modified;
