@@ -8,9 +8,9 @@
     <result column="Deleted" jdbcType="BIT" property="deleted" />
     <result column="Cid" jdbcType="BIGINT" property="cid" />
     <result column="Author" jdbcType="VARCHAR" property="author" />
-    <result column="OwnerId" jdbcType="INTEGER" property="ownerid" />
+    <result column="OwnerId" jdbcType="BIGINT" property="ownerid" />
     <result column="Status" jdbcType="INTEGER" property="status" />
-    <result column="Parent" jdbcType="INTEGER" property="parent" />
+    <result column="Parent" jdbcType="BIGINT" property="parent" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Comment">
     <result column="Mail" jdbcType="LONGVARCHAR" property="mail" />
@@ -142,8 +142,8 @@
       Url, Ip, Agent, 
       Content, Type)
     values (#{isauthor,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{cid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{parent,jdbcType=INTEGER}, #{mail,jdbcType=LONGVARCHAR}, 
+      #{cid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{ownerid,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{parent,jdbcType=BIGINT}, #{mail,jdbcType=LONGVARCHAR}, 
       #{url,jdbcType=LONGVARCHAR}, #{ip,jdbcType=LONGVARCHAR}, #{agent,jdbcType=LONGVARCHAR}, 
       #{content,jdbcType=LONGVARCHAR}, #{type,jdbcType=LONGVARCHAR})
   </insert>
@@ -213,13 +213,13 @@
         #{author,jdbcType=VARCHAR},
       </if>
       <if test="ownerid != null">
-        #{ownerid,jdbcType=INTEGER},
+        #{ownerid,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
       <if test="parent != null">
-        #{parent,jdbcType=INTEGER},
+        #{parent,jdbcType=BIGINT},
       </if>
       <if test="mail != null">
         #{mail,jdbcType=LONGVARCHAR},
@@ -269,13 +269,13 @@
         Author = #{record.author,jdbcType=VARCHAR},
       </if>
       <if test="record.ownerid != null">
-        OwnerId = #{record.ownerid,jdbcType=INTEGER},
+        OwnerId = #{record.ownerid,jdbcType=BIGINT},
       </if>
       <if test="record.status != null">
         Status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.parent != null">
-        Parent = #{record.parent,jdbcType=INTEGER},
+        Parent = #{record.parent,jdbcType=BIGINT},
       </if>
       <if test="record.mail != null">
         Mail = #{record.mail,jdbcType=LONGVARCHAR},
@@ -308,9 +308,9 @@
       Deleted = #{record.deleted,jdbcType=BIT},
       Cid = #{record.cid,jdbcType=BIGINT},
       Author = #{record.author,jdbcType=VARCHAR},
-      OwnerId = #{record.ownerid,jdbcType=INTEGER},
+      OwnerId = #{record.ownerid,jdbcType=BIGINT},
       Status = #{record.status,jdbcType=INTEGER},
-      Parent = #{record.parent,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=BIGINT},
       Mail = #{record.mail,jdbcType=LONGVARCHAR},
       Url = #{record.url,jdbcType=LONGVARCHAR},
       Ip = #{record.ip,jdbcType=LONGVARCHAR},
@@ -329,9 +329,9 @@
       Deleted = #{record.deleted,jdbcType=BIT},
       Cid = #{record.cid,jdbcType=BIGINT},
       Author = #{record.author,jdbcType=VARCHAR},
-      OwnerId = #{record.ownerid,jdbcType=INTEGER},
+      OwnerId = #{record.ownerid,jdbcType=BIGINT},
       Status = #{record.status,jdbcType=INTEGER},
-      Parent = #{record.parent,jdbcType=INTEGER}
+      Parent = #{record.parent,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -355,13 +355,13 @@
         Author = #{author,jdbcType=VARCHAR},
       </if>
       <if test="ownerid != null">
-        OwnerId = #{ownerid,jdbcType=INTEGER},
+        OwnerId = #{ownerid,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         Status = #{status,jdbcType=INTEGER},
       </if>
       <if test="parent != null">
-        Parent = #{parent,jdbcType=INTEGER},
+        Parent = #{parent,jdbcType=BIGINT},
       </if>
       <if test="mail != null">
         Mail = #{mail,jdbcType=LONGVARCHAR},
@@ -391,9 +391,9 @@
       Deleted = #{deleted,jdbcType=BIT},
       Cid = #{cid,jdbcType=BIGINT},
       Author = #{author,jdbcType=VARCHAR},
-      OwnerId = #{ownerid,jdbcType=INTEGER},
+      OwnerId = #{ownerid,jdbcType=BIGINT},
       Status = #{status,jdbcType=INTEGER},
-      Parent = #{parent,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=BIGINT},
       Mail = #{mail,jdbcType=LONGVARCHAR},
       Url = #{url,jdbcType=LONGVARCHAR},
       Ip = #{ip,jdbcType=LONGVARCHAR},
@@ -409,9 +409,9 @@
       Deleted = #{deleted,jdbcType=BIT},
       Cid = #{cid,jdbcType=BIGINT},
       Author = #{author,jdbcType=VARCHAR},
-      OwnerId = #{ownerid,jdbcType=INTEGER},
+      OwnerId = #{ownerid,jdbcType=BIGINT},
       Status = #{status,jdbcType=INTEGER},
-      Parent = #{parent,jdbcType=INTEGER}
+      Parent = #{parent,jdbcType=BIGINT}
     where Id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

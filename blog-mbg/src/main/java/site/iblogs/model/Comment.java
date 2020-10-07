@@ -17,11 +17,11 @@ public class Comment implements Serializable {
 
     private String author;
 
-    private Integer ownerid;
+    private Long ownerid;
 
     private Integer status;
 
-    private Integer parent;
+    private Long parent;
 
     private String mail;
 
@@ -85,11 +85,11 @@ public class Comment implements Serializable {
         this.author = author;
     }
 
-    public Integer getOwnerid() {
+    public Long getOwnerid() {
         return ownerid;
     }
 
-    public void setOwnerid(Integer ownerid) {
+    public void setOwnerid(Long ownerid) {
         this.ownerid = ownerid;
     }
 
@@ -101,11 +101,11 @@ public class Comment implements Serializable {
         this.status = status;
     }
 
-    public Integer getParent() {
+    public Long getParent() {
         return parent;
     }
 
-    public void setParent(Integer parent) {
+    public void setParent(Long parent) {
         this.parent = parent;
     }
 

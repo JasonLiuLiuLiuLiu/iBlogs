@@ -485,52 +485,52 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andOwneridEqualTo(Integer value) {
+        public Criteria andOwneridEqualTo(Long value) {
             addCriterion("OwnerId =", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridNotEqualTo(Integer value) {
+        public Criteria andOwneridNotEqualTo(Long value) {
             addCriterion("OwnerId <>", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridGreaterThan(Integer value) {
+        public Criteria andOwneridGreaterThan(Long value) {
             addCriterion("OwnerId >", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOwneridGreaterThanOrEqualTo(Long value) {
             addCriterion("OwnerId >=", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridLessThan(Integer value) {
+        public Criteria andOwneridLessThan(Long value) {
             addCriterion("OwnerId <", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridLessThanOrEqualTo(Integer value) {
+        public Criteria andOwneridLessThanOrEqualTo(Long value) {
             addCriterion("OwnerId <=", value, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridIn(List<Integer> values) {
+        public Criteria andOwneridIn(List<Long> values) {
             addCriterion("OwnerId in", values, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridNotIn(List<Integer> values) {
+        public Criteria andOwneridNotIn(List<Long> values) {
             addCriterion("OwnerId not in", values, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridBetween(Integer value1, Integer value2) {
+        public Criteria andOwneridBetween(Long value1, Long value2) {
             addCriterion("OwnerId between", value1, value2, "ownerid");
             return (Criteria) this;
         }
 
-        public Criteria andOwneridNotBetween(Integer value1, Integer value2) {
+        public Criteria andOwneridNotBetween(Long value1, Long value2) {
             addCriterion("OwnerId not between", value1, value2, "ownerid");
             return (Criteria) this;
         }
@@ -605,52 +605,52 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentEqualTo(Integer value) {
+        public Criteria andParentEqualTo(Long value) {
             addCriterion("Parent =", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotEqualTo(Integer value) {
+        public Criteria andParentNotEqualTo(Long value) {
             addCriterion("Parent <>", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentGreaterThan(Integer value) {
+        public Criteria andParentGreaterThan(Long value) {
             addCriterion("Parent >", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentGreaterThanOrEqualTo(Integer value) {
+        public Criteria andParentGreaterThanOrEqualTo(Long value) {
             addCriterion("Parent >=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentLessThan(Integer value) {
+        public Criteria andParentLessThan(Long value) {
             addCriterion("Parent <", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentLessThanOrEqualTo(Integer value) {
+        public Criteria andParentLessThanOrEqualTo(Long value) {
             addCriterion("Parent <=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentIn(List<Integer> values) {
+        public Criteria andParentIn(List<Long> values) {
             addCriterion("Parent in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotIn(List<Integer> values) {
+        public Criteria andParentNotIn(List<Long> values) {
             addCriterion("Parent not in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentBetween(Integer value1, Integer value2) {
+        public Criteria andParentBetween(Long value1, Long value2) {
             addCriterion("Parent between", value1, value2, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotBetween(Integer value1, Integer value2) {
+        public Criteria andParentNotBetween(Long value1, Long value2) {
             addCriterion("Parent not between", value1, value2, "parent");
             return (Criteria) this;
         }
