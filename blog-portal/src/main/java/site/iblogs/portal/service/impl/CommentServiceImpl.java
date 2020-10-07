@@ -54,9 +54,9 @@ public class CommentServiceImpl implements CommentService {
             comment.setStatus(1);
         }
         if (comment.getParent() == null) {
-            comment.setParent(0);
+            comment.setParent(0L);
         }
-        comment.setOwnerid(0);
+        comment.setOwnerid(0L);
         comment.setCreated(new Date(System.currentTimeMillis()));
         comment.setDeleted(false);
         commentsMapper.insert(comment);
