@@ -26,11 +26,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+    private static String TOKEN_HEAD = "Bearer ";
 
     @Autowired
     private UserService userService;
@@ -55,8 +51,8 @@ public class UserController {
     @ResponseBody
     public ApiResponse<RegisterParam> register(@RequestBody RegisterParam registerParam) {
         RegisterParam register = userService.register(registerParam);
-        if(register==null){
-            return ApiResponse.failed();
+        if (register == null) {
+            return ApiResponse.failed("目前系统仅允许一个用户,请联系管理员");
         }
         return ApiResponse.success(register);
     }
@@ -71,7 +67,7 @@ public class UserController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("tokenHead", TOKEN_HEAD);
         return ApiResponse.success(tokenMap);
     }
 }

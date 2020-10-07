@@ -56,4 +56,8 @@ public class AdminUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.getDeleted();
     }
+
+    public User getUser() {
+        return user;
+    }
 }

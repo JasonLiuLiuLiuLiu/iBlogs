@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AdminUserDetails getUserByUserName(String username) {
         UserExample example=new UserExample();
-        //example.createCriteria().andUsernameEqualTo(user.getUsername());
+        example.createCriteria().andUsernameEqualTo(username);
         User admin= userMapper.selectByExample(example).stream().findFirst().orElse(null);
         if (admin != null) {
             List<String> permissionList = new ArrayList<>();
@@ -47,18 +47,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterParam register(RegisterParam umsAdminParam) {
+        //目前系统仅允许一个用户
+        UserExample example = new UserExample();
+        example.createCriteria().andDeletedEqualTo(false);
+        List<User> umsAdminList = userMapper.selectByExample(example);
+        if (umsAdminList.size() > 0) {
+            return null;
+        }
         User user=new User();
         user.setCreated(new Date());
         user.setUsername(umsAdminParam.getUsername());
         user.setPassword(umsAdminParam.getPassword());
         user.setEmail(umsAdminParam.getEmail());
-        //查询是否有相同用户名的用户
-        UserExample example = new UserExample();
-        //example.createCriteria().andUsernameEqualTo(user.getUsername());
-        List<User> umsAdminList = userMapper.selectByExample(example);
-        if (umsAdminList.size() > 0) {
-            return null;
-        }
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
@@ -74,6 +74,9 @@ public class UserServiceImpl implements UserService {
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
+            User user=((AdminUserDetails)userDetails).getUser();
+            user.setLogged(new Date());
+            userMapper.updateByPrimaryKeySelective(user);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
