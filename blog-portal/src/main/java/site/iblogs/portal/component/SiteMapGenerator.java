@@ -6,7 +6,7 @@ import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import site.iblogs.common.model.ConfigKey;
-import site.iblogs.model.Contents;
+import site.iblogs.model.Content;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 
@@ -25,7 +25,7 @@ public class SiteMapGenerator {
 
     public String run() throws MalformedURLException {
         File file = new File(System.getProperty("java.io.tmpdir"));
-        List<Contents> allContents = contentService.getTopContent(null,false);
+        List<Content> allContents = contentService.getTopContent(null,false);
         String siteUrl = optionService.getOption(ConfigKey.SiteUrl).getValue();
         W3CDateFormat dateFormat = new W3CDateFormat(W3CDateFormat.Pattern.DAY);
         dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));

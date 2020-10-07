@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.model.ConfigKey;
-import site.iblogs.mapper.ContentsMapper;
-import site.iblogs.model.Contents;
-import site.iblogs.model.ContentsExample;
+import site.iblogs.mapper.ContentMapper;
+import site.iblogs.model.Content;
+import site.iblogs.model.ContentExample;
 import site.iblogs.portal.dao.ContentDao;
 import site.iblogs.portal.model.converter.ContentResponseConverter;
 import site.iblogs.portal.model.params.ArticleParam;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 public class ContentServiceImpl implements ContentService {
 
     @Autowired
-    private ContentsMapper contentsMapper;
+    private ContentMapper contentsMapper;
 
     @Autowired
     private ContentResponseConverter contentResponseConverter;
@@ -51,15 +51,15 @@ public class ContentServiceImpl implements ContentService {
     private ContentDao contentDao;
 
     @Override
-    public List<Contents> getTopContent(Integer topNum,boolean containContent) {
+    public List<Content> getTopContent(Integer topNum,boolean containContent) {
         if(topNum!=null){
             PageHelper.startPage(1, topNum);
         }
-        ContentsExample contentsExample = new ContentsExample();
+        ContentExample contentsExample = new ContentExample();
         contentsExample.createCriteria().andDeletedEqualTo(false);
         contentsExample.setOrderByClause("Created desc");
         if(containContent){
-            List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
+            List<Content> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
             return contents.stream().peek(value-> value.setContent(parseMarkdownToHtml(value.getContent()))).collect(Collectors.toList());
         }else {
             return  contentsMapper.selectByExample(contentsExample);
@@ -67,14 +67,14 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<Contents> findArticles(ArticleParam param) {
+    public List<Content> findArticles(ArticleParam param) {
         return null;
     }
 
     @Override
     public PageResponse<ContentResponse> listContent(int pageNum, int pageSize, String orderType, Boolean summary) {
         PageHelper.startPage(pageNum, pageSize);
-        ContentsExample contentsExample = new ContentsExample();
+        ContentExample contentsExample = new ContentExample();
         contentsExample.createCriteria().andDeletedEqualTo(false);
         switch (orderType) {
             case "hot":
@@ -86,8 +86,8 @@ public class ContentServiceImpl implements ContentService {
             default:
                 contentsExample.setOrderByClause("Created desc");
         }
-        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
-        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
+        List<Content> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
+        PageInfo<Content> pageInfo = new PageInfo<>(contents);
         if (summary) {
             return getContentResponsePageResponse(contents, pageInfo);
         }
@@ -95,16 +95,16 @@ public class ContentServiceImpl implements ContentService {
     }
 
     public ContentResponse getByUrl(String url) {
-        ContentsExample example = new ContentsExample();
-        ContentsExample.Criteria criteria = example.createCriteria();
+        ContentExample example = new ContentExample();
+        ContentExample.Criteria criteria = example.createCriteria();
         criteria.andDeletedEqualTo(false);
         try {
-            int id = Integer.parseInt(url);
+            Long id = Long.parseLong(url);
             criteria.andIdEqualTo(id);
         } catch (NumberFormatException ignored) {
             criteria.andSlugEqualTo(url);
         }
-        Optional<Contents> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u -> {
+        Optional<Content> contents = contentsMapper.selectByExampleWithBLOBs(example).stream().peek(u -> {
             u.setContent(parseMarkdownToHtml(u.getContent()));
         }).findFirst();
         return contents.map(value -> {
@@ -122,8 +122,8 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public PageResponse<ContentResponse> getContentByMetaData(int type, String name, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Contents> contents = contentDao.getContentByMetaData(type, name);
-        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
+        List<Content> contents = contentDao.getContentByMetaData(type, name);
+        PageInfo<Content> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
     }
 
@@ -132,8 +132,8 @@ public class ContentServiceImpl implements ContentService {
         PageHelper.startPage(pageNum, pageSize);
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         ft.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-        List<Contents> contents = contentDao.getContentByArchive(ft.format(date));
-        PageInfo<Contents> pageInfo = new PageInfo<>(contents);
+        List<Content> contents = contentDao.getContentByArchive(ft.format(date));
+        PageInfo<Content> pageInfo = new PageInfo<>(contents);
         return getContentResponsePageResponse(contents, pageInfo);
     }
 
@@ -142,7 +142,7 @@ public class ContentServiceImpl implements ContentService {
         return contentDao.getArchives();
     }
 
-    private PageResponse<ContentResponse> getContentResponsePageResponse(List<Contents> contents, PageInfo<Contents> pageInfo) {
+    private PageResponse<ContentResponse> getContentResponsePageResponse(List<Content> contents, PageInfo<Content> pageInfo) {
         final int lengthFinal = getMaxIntroCount();
         return PageResponse.restPage(contents.stream().peek(u -> {
             u.setContent(parseMarkdownToHtml(u.getContent()));

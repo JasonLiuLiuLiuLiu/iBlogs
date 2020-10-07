@@ -12,19 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import site.iblogs.admin.component.jwt.JwtAuthenticationTokenFilter;
 import site.iblogs.admin.component.jwt.RestAuthenticationEntryPoint;
 import site.iblogs.admin.component.jwt.RestfulAccessDeniedHandler;
-import site.iblogs.admin.dto.AdminUserDetails;
 import site.iblogs.admin.service.UserService;
-import site.iblogs.model.Users;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity

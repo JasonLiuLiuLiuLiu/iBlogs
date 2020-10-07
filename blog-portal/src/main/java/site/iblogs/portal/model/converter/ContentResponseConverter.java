@@ -3,7 +3,7 @@ package site.iblogs.portal.model.converter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import site.iblogs.model.Contents;
+import site.iblogs.model.Content;
 import site.iblogs.portal.model.response.ContentResponse;
 
 @Mapper(componentModel = "spring")
@@ -15,5 +15,5 @@ public interface ContentResponseConverter {
             @Mapping(target = "allowFeed", expression = "java(contents.getAllowfeed())"),
             @Mapping(target = "allowPing", expression = "java(contents.getAllowping())")
     })
-    ContentResponse domain2dto(Contents contents);
+    ContentResponse domain2dto(Content contents);
 }

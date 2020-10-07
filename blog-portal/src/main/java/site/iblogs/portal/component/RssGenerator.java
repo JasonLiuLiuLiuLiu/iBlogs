@@ -5,17 +5,13 @@ import com.rometools.rome.io.SyndFeedOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import site.iblogs.common.model.ConfigKey;
-import site.iblogs.model.Contents;
-import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.model.Content;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -44,9 +40,9 @@ public class RssGenerator {
             ArrayList<SyndEntry> entries = new ArrayList<>();
             SyndEntry entry;
             SyndContent description;
-            List<Contents> allContents=contentService.getTopContent(20,true);
+            List<Content> allContents=contentService.getTopContent(20,true);
 
-            for (Contents content : allContents) {
+            for (Content content : allContents) {
                 entry = new SyndEntryImpl();
                 entry.setTitle(content.getTitle());
                 entry.setLink(String.format("%s/article/%s", siteUrl, content.getId()));

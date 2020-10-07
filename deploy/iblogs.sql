@@ -1,29 +1,29 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : centos-dev1
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50720
- Source Host           : centos-dev1:3306
+ Source Server Version : 50731
+ Source Host           : localhost:3306
  Source Schema         : iblogs
 
  Target Server Type    : MySQL
- Target Server Version : 50720
+ Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 27/04/2020 22:41:01
+ Date: 07/10/2020 18:46:48
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for Attachments
+-- Table structure for attachment
 -- ----------------------------
-DROP TABLE IF EXISTS `Attachments`;
-CREATE TABLE `Attachments`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `AuthorId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `attachment`;
+CREATE TABLE `attachment`  (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `AuthorId` bigint(20) NULL DEFAULT NULL,
   `FName` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `FType` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `FKey` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -31,18 +31,18 @@ CREATE TABLE `Attachments`  (
   `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Attachments_AuthorId`(`AuthorId`) USING BTREE,
-  CONSTRAINT `FK_Attachments_Users_AuthorId` FOREIGN KEY (`AuthorId`) REFERENCES `Users` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `FK_Attachments_Users_AuthorId` FOREIGN KEY (`AuthorId`) REFERENCES `user` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for BlogSyncRelationships
+-- Table structure for blogsyncrelationship
 -- ----------------------------
-DROP TABLE IF EXISTS `BlogSyncRelationships`;
-CREATE TABLE `BlogSyncRelationships`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `blogsyncrelationship`;
+CREATE TABLE `blogsyncrelationship`  (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
   `Created` datetime(6) NOT NULL,
   `Deleted` bit(1) NOT NULL,
-  `ContentId` int(11) NOT NULL,
+  `ContentId` bigint(20) NULL DEFAULT NULL,
   `Target` int(11) NOT NULL,
   `TargetPostId` int(11) NULL DEFAULT NULL,
   `SyncData` datetime(6) NOT NULL,
@@ -51,19 +51,19 @@ CREATE TABLE `BlogSyncRelationships`  (
   `Successful` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_BlogSyncRelationships_ContentId`(`ContentId`) USING BTREE,
-  CONSTRAINT `FK_BlogSyncRelationships_Contents_ContentId` FOREIGN KEY (`ContentId`) REFERENCES `Contents` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 88 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `FK_BlogSyncRelationships_Contents_ContentId` FOREIGN KEY (`ContentId`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 88 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Comments
+-- Table structure for comment
 -- ----------------------------
-DROP TABLE IF EXISTS `Comments`;
-CREATE TABLE `Comments`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
   `IsAuthor` bit(1) NOT NULL,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
-  `Cid` int(11) NOT NULL,
+  `Cid` bigint(20) NULL DEFAULT NULL,
   `Author` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `OwnerId` int(11) NOT NULL,
   `Mail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
@@ -76,15 +76,15 @@ CREATE TABLE `Comments`  (
   `Parent` int(11) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Comments_Cid`(`Cid`) USING BTREE,
-  CONSTRAINT `FK_Comments_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `Contents` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `FK_Comments_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Contents
+-- Table structure for content
 -- ----------------------------
-DROP TABLE IF EXISTS `Contents`;
-CREATE TABLE `Contents`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `content`;
+CREATE TABLE `content`  (
+  `Id` bigint(20) NOT NULL,
   `Title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `Slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `Modified` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -101,20 +101,20 @@ CREATE TABLE `Contents`  (
   `AllowPing` bit(1) NOT NULL,
   `AllowFeed` bit(1) NOT NULL,
   `Url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `AuthorId` int(11) NOT NULL,
+  `AuthorId` bigint(20) NULL DEFAULT NULL,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Contents_AuthorId`(`AuthorId`) USING BTREE,
-  CONSTRAINT `FK_Contents_Users_AuthorId` FOREIGN KEY (`AuthorId`) REFERENCES `Users` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `FK_Contents_Users_AuthorId` FOREIGN KEY (`AuthorId`) REFERENCES `user` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Metas
+-- Table structure for meta
 -- ----------------------------
-DROP TABLE IF EXISTS `Metas`;
-CREATE TABLE `Metas`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `meta`;
+CREATE TABLE `meta`  (
+  `Id` bigint(20) NOT NULL,
   `Name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Slug` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Type` int(11) NOT NULL,
@@ -125,57 +125,54 @@ CREATE TABLE `Metas`  (
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Options
+-- Table structure for option
 -- ----------------------------
-DROP TABLE IF EXISTS `Options`;
-CREATE TABLE `Options`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `option`;
+CREATE TABLE `option`  (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `Value` varchar(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `Description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `Visible` bit(1) NOT NULL DEFAULT b'0',
   `Editable` bit(1) NOT NULL,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Relationships
+-- Table structure for relationship
 -- ----------------------------
-DROP TABLE IF EXISTS `Relationships`;
-CREATE TABLE `Relationships`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Cid` int(11) NOT NULL,
-  `Mid` int(11) NOT NULL,
+DROP TABLE IF EXISTS `relationship`;
+CREATE TABLE `relationship`  (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `Cid` bigint(20) NULL DEFAULT NULL,
+  `Mid` bigint(20) NULL DEFAULT NULL,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Relationships_Cid`(`Cid`) USING BTREE,
   INDEX `IX_Relationships_Mid`(`Mid`) USING BTREE,
-  CONSTRAINT `FK_Relationships_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `Contents` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Relationships_Metas_Mid` FOREIGN KEY (`Mid`) REFERENCES `Metas` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `FK_Relationships_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Relationships_Metas_Mid` FOREIGN KEY (`Mid`) REFERENCES `meta` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for Users
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `Users`;
-CREATE TABLE `Users`  (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `Password` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `Email` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `HomeUrl` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `ScreenName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `Id` bigint(20) NOT NULL,
+  `Username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `Deleted` bit(1) NOT NULL,
-  `Activated` datetime(6) NOT NULL,
   `Logged` datetime(6) NOT NULL,
-  `GroupName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

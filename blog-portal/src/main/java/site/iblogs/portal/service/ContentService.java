@@ -1,7 +1,7 @@
 package site.iblogs.portal.service;
 
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.model.Contents;
+import site.iblogs.model.Content;
 import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ArchivesResponse;
 import site.iblogs.portal.model.response.ContentResponse;
@@ -17,9 +17,9 @@ import java.util.List;
 
 public interface ContentService {
 
-    List<Contents> getTopContent(Integer topNum,boolean containContent);
+    List<Content> getTopContent(Integer topNum,boolean containContent);
 
-    List<Contents> findArticles(ArticleParam param);
+    List<Content> findArticles(ArticleParam param);
 
     PageResponse<ContentResponse> listContent(int pageNum, int pageSize, String orderType, Boolean summary);
 

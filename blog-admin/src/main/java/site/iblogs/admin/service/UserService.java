@@ -2,7 +2,6 @@ package site.iblogs.admin.service;
 
 import site.iblogs.admin.dto.AdminUserDetails;
 import site.iblogs.admin.dto.request.RegisterParam;
-import site.iblogs.model.Users;
 
 public interface UserService {
 

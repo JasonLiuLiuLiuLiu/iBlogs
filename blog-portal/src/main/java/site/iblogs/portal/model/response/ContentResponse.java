@@ -36,7 +36,7 @@ public class ContentResponse {
     private Boolean allowFeed;
     private String Author;
     private Date Created;
-    private Integer Pre;
-    private Integer Next;
+    private Long Pre;
+    private Long Next;
     private String description;
 }

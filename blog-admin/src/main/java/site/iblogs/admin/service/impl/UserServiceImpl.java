@@ -15,9 +15,9 @@ import site.iblogs.admin.component.jwt.JwtTokenUtil;
 import site.iblogs.admin.dto.AdminUserDetails;
 import site.iblogs.admin.dto.request.RegisterParam;
 import site.iblogs.admin.service.UserService;
-import site.iblogs.mapper.UsersMapper;
-import site.iblogs.model.Users;
-import site.iblogs.model.UsersExample;
+import site.iblogs.mapper.UserMapper;
+import site.iblogs.model.User;
+import site.iblogs.model.UserExample;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,16 +27,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
-    private UsersMapper usersMapper;
+    private UserMapper userMapper;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
     public AdminUserDetails getUserByUserName(String username) {
-        UsersExample example=new UsersExample();
+        UserExample example=new UserExample();
         //example.createCriteria().andUsernameEqualTo(user.getUsername());
-        Users admin= usersMapper.selectByExample(example).stream().findFirst().orElse(null);
+        User admin= userMapper.selectByExample(example).stream().findFirst().orElse(null);
         if (admin != null) {
             List<String> permissionList = new ArrayList<>();
             permissionList.add("admin");
@@ -47,22 +47,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterParam register(RegisterParam umsAdminParam) {
-        Users user=new Users();
+        User user=new User();
         user.setCreated(new Date());
         user.setUsername(umsAdminParam.getUsername());
         user.setPassword(umsAdminParam.getPassword());
         user.setEmail(umsAdminParam.getEmail());
         //查询是否有相同用户名的用户
-        UsersExample example = new UsersExample();
+        UserExample example = new UserExample();
         //example.createCriteria().andUsernameEqualTo(user.getUsername());
-        List<Users> umsAdminList = usersMapper.selectByExample(example);
+        List<User> umsAdminList = userMapper.selectByExample(example);
         if (umsAdminList.size() > 0) {
             return null;
         }
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
-        usersMapper.insert(user);
+        userMapper.insert(user);
         return umsAdminParam;
     }
 

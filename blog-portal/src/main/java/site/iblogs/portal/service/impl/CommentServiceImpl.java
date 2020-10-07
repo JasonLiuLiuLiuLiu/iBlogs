@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.model.ConfigKey;
 import site.iblogs.common.utils.GravatarTools;
-import site.iblogs.mapper.CommentsMapper;
-import site.iblogs.model.Comments;
-import site.iblogs.model.CommentsExample;
+import site.iblogs.mapper.CommentMapper;
+import site.iblogs.model.Comment;
+import site.iblogs.model.CommentExample;
 import site.iblogs.portal.model.converter.CommentConverter;
 import site.iblogs.portal.model.request.CommentRequest;
 import site.iblogs.portal.model.response.CommentResponse;
@@ -23,20 +23,20 @@ import java.util.stream.Collectors;
 @Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
-    private CommentsMapper commentsMapper;
+    private CommentMapper commentsMapper;
     @Autowired
     private CommentConverter commentConverter;
     @Autowired
     private OptionService optionService;
 
     @Override
-    public PageResponse<CommentResponse> getComment(int cid, int pageNum, int pageSize) {
+    public PageResponse<CommentResponse> getComment(Long cid, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        CommentsExample example = new CommentsExample();
+        CommentExample example = new CommentExample();
         example.createCriteria().andDeletedEqualTo(false);
         example.createCriteria().andCidEqualTo(cid);
-        List<Comments> comments = commentsMapper.selectByExampleWithBLOBs(example);
-        PageInfo<Comments> pageInfo = new PageInfo<>(comments);
+        List<Comment> comments = commentsMapper.selectByExampleWithBLOBs(example);
+        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
         return PageResponse.restPage(comments.stream().map(u -> {
             CommentResponse response = commentConverter.domain2dto(u);
             response.setMailPic(GravatarTools.computeGravatarUrl(u.getMail(), 0, null));
@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Boolean SaveComment(CommentRequest request) {
-        Comments comment = commentConverter.request2domain(request);
+        Comment comment = commentConverter.request2domain(request);
         comment.setIsauthor(false);
         if (!Boolean.parseBoolean(optionService.getOption(ConfigKey.AllowCommentAudit).getValue())) {
             comment.setStatus(0);

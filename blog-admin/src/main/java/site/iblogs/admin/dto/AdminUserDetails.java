@@ -3,17 +3,17 @@ package site.iblogs.admin.dto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import site.iblogs.model.Users;
+import site.iblogs.model.User;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminUserDetails implements UserDetails {
-    private Users user;
+    private User user;
     private List<String> permissionList;
 
-    public AdminUserDetails(Users user, List<String> permissionList) {
+    public AdminUserDetails(User user, List<String> permissionList) {
         this.user = user;
         this.permissionList = permissionList;
     }
