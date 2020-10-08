@@ -78,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from option
+    from `option`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,15 +89,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from option
+    from `option`
     where Id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from option
+    delete from `option`
     where Id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="site.iblogs.model.OptionExample">
-    delete from option
+    delete from `option`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -166,13 +166,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="site.iblogs.model.OptionExample" resultType="java.lang.Long">
-    select count(*) from option
+    select count(*) from `option`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update option
+    update `option`
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=BIGINT},
@@ -204,7 +204,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update option
+    update `option`
     set Id = #{record.id,jdbcType=BIGINT},
       Name = #{record.name,jdbcType=VARCHAR},
       Value = #{record.value,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Option">
-    update option
+    update `option`
     <set>
       <if test="name != null">
         Name = #{name,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
     where Id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Option">
-    update option
+    update `option`
     set Name = #{name,jdbcType=VARCHAR},
       Value = #{value,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR},

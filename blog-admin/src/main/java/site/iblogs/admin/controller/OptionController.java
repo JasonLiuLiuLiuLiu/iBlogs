@@ -2,10 +2,15 @@ package site.iblogs.admin.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.iblogs.admin.dto.request.OptionUpdateParam;
+import site.iblogs.admin.service.OptionService;
+import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.RestResponse;
 
 import java.util.List;
@@ -20,17 +25,20 @@ import java.util.Map;
 @RequestMapping("/option")
 public class OptionController {
 
+    @Autowired
+    private OptionService optionService;
+
     @ApiOperation("获取配置项")
     @RequestMapping(value = "/options", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse options() {
-        return RestResponse.ok();
+    public ApiResponse options() {
+        return ApiResponse.success(optionService.getVisibleOptions());
     }
 
     @ApiOperation("保存配置项")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse<?> saveOptions() {
-        return RestResponse.ok();
+    public ApiResponse saveOptions(@RequestBody OptionUpdateParam param) {
+        return ApiResponse.success(optionService.updateOption(param));
     }
 }
