@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import site.iblogs.admin.component.jwt.JwtTokenUtil;
 import site.iblogs.admin.dto.AdminUserDetails;
+import site.iblogs.admin.dto.request.PasswordParam;
+import site.iblogs.admin.dto.request.ProfileParam;
 import site.iblogs.admin.dto.request.RegisterParam;
 import site.iblogs.admin.service.UserService;
 import site.iblogs.mapper.UserMapper;
@@ -32,15 +34,16 @@ public class UserServiceImpl implements UserService {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Override
     public AdminUserDetails getUserByUserName(String username) {
-        UserExample example=new UserExample();
+        UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);
-        User admin= userMapper.selectByExample(example).stream().findFirst().orElse(null);
+        User admin = userMapper.selectByExample(example).stream().findFirst().orElse(null);
         if (admin != null) {
             List<String> permissionList = new ArrayList<>();
             permissionList.add("admin");
-            return new AdminUserDetails(admin,permissionList);
+            return new AdminUserDetails(admin, permissionList);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
     }
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
         if (umsAdminList.size() > 0) {
             return null;
         }
-        User user=new User();
+        User user = new User();
         user.setCreated(new Date());
         user.setUsername(umsAdminParam.getUsername());
         user.setPassword(umsAdminParam.getPassword());
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
-            User user=((AdminUserDetails)userDetails).getUser();
+            User user = ((AdminUserDetails) userDetails).getUser();
             user.setLogged(new Date());
             userMapper.updateByPrimaryKeySelective(user);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -84,5 +87,33 @@ public class UserServiceImpl implements UserService {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
+    }
+
+    @Override
+    public ProfileParam updateProfile(ProfileParam param) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserDetails userDetails = getUserByUserName(userName);
+        User user = ((AdminUserDetails) userDetails).getUser();
+        user.setEmail(param.getEmail());
+        userMapper.updateByPrimaryKeySelective(user);
+        return param;
+    }
+
+    @Override
+    public PasswordParam updatePassword(PasswordParam param) {
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            UserDetails userDetails = getUserByUserName(username);
+            if (!passwordEncoder.matches(param.getOldPassword(), userDetails.getPassword())) {
+                throw new BadCredentialsException("密码不正确");
+            }
+            User user = ((AdminUserDetails) userDetails).getUser();
+            user.setPassword(passwordEncoder.encode(param.getNewPassword()));
+            userMapper.updateByPrimaryKeySelective(user);
+            return param;
+        } catch (AuthenticationException e) {
+            LOGGER.warn("登录异常:{}", e.getMessage());
+            throw e;
+        }
     }
 }

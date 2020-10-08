@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.admin.dto.request.LoginParam;
+import site.iblogs.admin.dto.request.PasswordParam;
+import site.iblogs.admin.dto.request.ProfileParam;
 import site.iblogs.admin.dto.request.RegisterParam;
 import site.iblogs.admin.service.UserService;
 import site.iblogs.common.api.ApiResponse;
@@ -34,16 +36,16 @@ public class UserController {
     @ApiOperation("保存用户信息")
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse saveProfile(String screenName, String email) {
+    public ApiResponse updateProfile(@RequestBody ProfileParam param) {
 
-        return RestResponse.ok();
+        return ApiResponse.success(userService.updateProfile(param));
     }
 
     @ApiOperation("更新密码")
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse upPwd(String old_password, String password) {
-        return RestResponse.ok();
+    public ApiResponse updatePwd(@RequestBody PasswordParam param) {
+        return ApiResponse.success(userService.updatePassword(param));
     }
 
     @ApiOperation(value = "用户注册")

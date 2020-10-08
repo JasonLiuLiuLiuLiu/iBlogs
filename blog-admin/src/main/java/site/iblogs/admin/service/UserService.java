@@ -1,6 +1,8 @@
 package site.iblogs.admin.service;
 
 import site.iblogs.admin.dto.AdminUserDetails;
+import site.iblogs.admin.dto.request.PasswordParam;
+import site.iblogs.admin.dto.request.ProfileParam;
 import site.iblogs.admin.dto.request.RegisterParam;
 
 public interface UserService {
@@ -18,4 +20,6 @@ public interface UserService {
      * @return 生成的JWT的token
      */
     String login(String username, String password);
+    ProfileParam updateProfile(ProfileParam param);
+    PasswordParam updatePassword(PasswordParam param);
 }
