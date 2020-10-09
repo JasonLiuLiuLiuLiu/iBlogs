@@ -1,4 +1,4 @@
-package site.iblogs.portal.model.request;
+package site.iblogs.common.api;
 
 import lombok.Data;
 

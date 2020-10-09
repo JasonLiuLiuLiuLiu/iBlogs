@@ -3,12 +3,12 @@ package site.iblogs.admin.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.iblogs.admin.dto.request.MetaParam;
 import site.iblogs.common.api.RestResponse;
-
-import java.util.List;
 
 /**
  * @author: liuzhenyulive@live.com
@@ -21,7 +21,7 @@ public class MetadataController {
     @ApiOperation("保存元数据")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse<?> saveCategory() {
+    public RestResponse<?> saveMeta(@RequestBody MetaParam param) {
         return RestResponse.ok();
     }
 
@@ -35,7 +35,7 @@ public class MetadataController {
     @ApiOperation("获取元数据")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse categoryList() {
+    public RestResponse metaList() {
         return RestResponse.ok();
     }
 }

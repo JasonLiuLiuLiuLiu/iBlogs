@@ -8,7 +8,7 @@ import site.iblogs.common.api.PageResponse;
 import site.iblogs.mapper.MetaMapper;
 import site.iblogs.model.Meta;
 import site.iblogs.model.MetaExample;
-import site.iblogs.portal.model.params.MetaDataType;
+import site.iblogs.common.model.MetaType;
 import site.iblogs.portal.model.response.MetaDataResponse;
 import site.iblogs.portal.service.MetadataService;
 
@@ -21,7 +21,7 @@ public class MetadataServiceImpl implements MetadataService {
     private MetaMapper metasMapper;
 
     @Override
-    public PageResponse<MetaDataResponse> getMetadata(MetaDataType type, int pageNum, int pageSize) {
+    public PageResponse<MetaDataResponse> getMetadata(MetaType type, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         MetaExample example = new MetaExample();
         example.createCriteria().andTypeEqualTo(type.ordinal());

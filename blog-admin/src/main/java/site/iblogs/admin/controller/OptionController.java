@@ -39,6 +39,10 @@ public class OptionController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse saveOptions(@RequestBody OptionUpdateParam param) {
-        return ApiResponse.success(optionService.updateOption(param));
+        if(optionService.updateOption(param)){
+            return ApiResponse.success(param);
+        }else {
+            return ApiResponse.failed();
+        }
     }
 }

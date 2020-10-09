@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.portal.model.params.MetaDataType;
+import site.iblogs.common.model.MetaType;
 import site.iblogs.portal.model.response.MetaDataResponse;
 import site.iblogs.portal.service.MetadataService;
 
@@ -25,13 +25,13 @@ public class MetaDataController {
     @RequestMapping(value = "categories", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<MetaDataResponse>> Categories(int pageNum, int pageSize) {
-        return ApiResponse.success(metadataService.getMetadata(MetaDataType.Category,pageNum,pageSize));
+        return ApiResponse.success(metadataService.getMetadata(MetaType.Category,pageNum,pageSize));
     }
 
     @ApiOperation("获取标签")
     @RequestMapping(value = "tags", method = RequestMethod.GET)
     @ResponseBody
     public ApiResponse<PageResponse<MetaDataResponse>> Tags(int pageNum, int pageSize) {
-        return ApiResponse.success(metadataService.getMetadata(MetaDataType.Tag,pageNum,pageSize));
+        return ApiResponse.success(metadataService.getMetadata(MetaType.Tag,pageNum,pageSize));
     }
 }
