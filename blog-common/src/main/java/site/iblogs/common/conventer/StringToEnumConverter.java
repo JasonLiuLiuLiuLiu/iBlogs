@@ -3,7 +3,7 @@ package site.iblogs.common.conventer;
 import cn.hutool.core.util.ObjectUtil;
 import com.google.common.collect.Maps;
 import org.springframework.core.convert.converter.Converter;
-import site.iblogs.common.model.BaseEnum;
+import site.iblogs.common.dto.enums.BaseEnum;
 
 import java.util.Map;
 

@@ -3,12 +3,13 @@ package site.iblogs.admin.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import site.iblogs.admin.dto.request.MetaPageRequest;
 import site.iblogs.admin.dto.request.MetaParam;
 import site.iblogs.admin.dto.response.MetaResponse;
 import site.iblogs.admin.service.MetaService;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.common.model.MetaType;
+import site.iblogs.common.dto.enums.MetaType;
 import site.iblogs.mapper.MetaMapper;
 import site.iblogs.model.Meta;
 import site.iblogs.model.MetaExample;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class MetaServiceImpl implements MetaService {
     @Autowired
     private MetaMapper metaMapper;

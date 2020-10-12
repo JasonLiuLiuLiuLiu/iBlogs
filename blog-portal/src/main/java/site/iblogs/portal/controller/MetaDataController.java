@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.common.model.MetaType;
+import site.iblogs.common.dto.enums.MetaType;
 import site.iblogs.portal.model.response.MetaDataResponse;
 import site.iblogs.portal.service.MetadataService;
 

@@ -4,7 +4,7 @@ import site.iblogs.common.api.PageResponse;
 import site.iblogs.model.Content;
 import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ArchivesResponse;
-import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.common.dto.response.ContentResponse;
 
 import java.util.Date;
 import java.util.List;

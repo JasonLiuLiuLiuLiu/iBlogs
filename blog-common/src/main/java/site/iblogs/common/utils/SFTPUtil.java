@@ -2,17 +2,14 @@ package site.iblogs.common.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import site.iblogs.common.model.BoolResultWithMessage;
+import site.iblogs.common.dto.BoolResultWithMessage;
 
 public class SFTPUtil {
 

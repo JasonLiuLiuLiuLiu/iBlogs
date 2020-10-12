@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.common.model.ConfigKey;
+import site.iblogs.common.dto.ConfigKey;
 import site.iblogs.mapper.ContentMapper;
 import site.iblogs.model.Content;
 import site.iblogs.model.ContentExample;
@@ -18,7 +18,7 @@ import site.iblogs.portal.dao.ContentDao;
 import site.iblogs.portal.model.converter.ContentResponseConverter;
 import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ArchivesResponse;
-import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.common.dto.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;
 

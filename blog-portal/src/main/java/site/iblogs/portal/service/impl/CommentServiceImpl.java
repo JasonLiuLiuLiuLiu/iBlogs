@@ -5,14 +5,14 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.common.model.ConfigKey;
+import site.iblogs.common.dto.ConfigKey;
 import site.iblogs.common.utils.GravatarTools;
 import site.iblogs.mapper.CommentMapper;
 import site.iblogs.model.Comment;
 import site.iblogs.model.CommentExample;
 import site.iblogs.portal.model.converter.CommentConverter;
 import site.iblogs.portal.model.request.CommentRequest;
-import site.iblogs.portal.model.response.CommentResponse;
+import site.iblogs.common.dto.response.CommentResponse;
 import site.iblogs.portal.service.CommentService;
 import site.iblogs.portal.service.OptionService;
 

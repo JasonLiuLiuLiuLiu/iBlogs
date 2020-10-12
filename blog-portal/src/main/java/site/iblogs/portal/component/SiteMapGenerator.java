@@ -5,7 +5,7 @@ import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import site.iblogs.common.model.ConfigKey;
+import site.iblogs.common.dto.ConfigKey;
 import site.iblogs.model.Content;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;

@@ -1,11 +1,11 @@
-package site.iblogs.portal.model.response;
+package site.iblogs.common.dto.response;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import site.iblogs.portal.model.params.ContentStatus;
-import site.iblogs.portal.model.params.ContentType;
+import site.iblogs.common.dto.enums.ContentStatus;
+import site.iblogs.common.dto.enums.ContentType;
 
 import java.util.Date;
 

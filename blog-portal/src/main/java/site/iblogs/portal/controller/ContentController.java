@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.common.model.MetaType;
+import site.iblogs.common.dto.enums.MetaType;
 import site.iblogs.portal.model.request.content.ContentMetaPageRequest;
 import site.iblogs.portal.model.response.ArchivesResponse;
-import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.common.dto.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

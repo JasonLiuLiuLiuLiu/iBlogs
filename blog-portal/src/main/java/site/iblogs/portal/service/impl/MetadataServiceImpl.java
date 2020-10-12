@@ -8,7 +8,7 @@ import site.iblogs.common.api.PageResponse;
 import site.iblogs.mapper.MetaMapper;
 import site.iblogs.model.Meta;
 import site.iblogs.model.MetaExample;
-import site.iblogs.common.model.MetaType;
+import site.iblogs.common.dto.enums.MetaType;
 import site.iblogs.portal.model.response.MetaDataResponse;
 import site.iblogs.portal.service.MetadataService;
 

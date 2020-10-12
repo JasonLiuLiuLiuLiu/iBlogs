@@ -5,12 +5,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import site.iblogs.model.Comment;
 import site.iblogs.portal.model.request.CommentRequest;
-import site.iblogs.portal.model.response.CommentResponse;
+import site.iblogs.common.dto.response.CommentResponse;
 
 @Mapper(componentModel = "spring")
 public interface CommentConverter {
     @Mappings({
-            @Mapping(target = "status", expression = "java(site.iblogs.portal.model.params.CommentStatus.values()[comment.getStatus()])")
+            @Mapping(target = "status", expression = "java(site.iblogs.common.dto.enums.CommentStatus.values()[comment.getStatus()])")
     })
     CommentResponse domain2dto(Comment comment);
     @Mappings({

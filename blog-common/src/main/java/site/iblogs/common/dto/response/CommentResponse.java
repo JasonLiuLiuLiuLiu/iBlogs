@@ -1,9 +1,9 @@
-package site.iblogs.portal.model.response;
+package site.iblogs.common.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import site.iblogs.portal.model.params.CommentStatus;
+import site.iblogs.common.dto.enums.CommentStatus;
 
 import java.util.Date;
 import java.util.List;

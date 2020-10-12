@@ -1,4 +1,4 @@
-package site.iblogs.common.model;
+package site.iblogs.common.dto;
 
 public class ConfigKey {
 

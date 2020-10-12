@@ -1,8 +1,6 @@
-package site.iblogs.common.model;
+package site.iblogs.common.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class BoolResultWithMessage {

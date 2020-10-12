@@ -4,7 +4,7 @@ import com.rometools.rome.feed.synd.*;
 import com.rometools.rome.io.SyndFeedOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import site.iblogs.common.model.ConfigKey;
+import site.iblogs.common.dto.ConfigKey;
 import site.iblogs.model.Content;
 import site.iblogs.portal.service.ContentService;
 import site.iblogs.portal.service.OptionService;

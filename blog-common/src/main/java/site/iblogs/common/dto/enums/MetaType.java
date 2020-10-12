@@ -1,4 +1,6 @@
-package site.iblogs.common.model;
+package site.iblogs.common.dto.enums;
+
+import site.iblogs.common.dto.enums.BaseEnum;
 
 public enum MetaType implements BaseEnum {
     Tag(0),

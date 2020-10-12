@@ -3,7 +3,7 @@ package site.iblogs.admin.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import site.iblogs.common.model.MetaType;
+import site.iblogs.common.dto.enums.MetaType;
 
 @Data
 @AllArgsConstructor
