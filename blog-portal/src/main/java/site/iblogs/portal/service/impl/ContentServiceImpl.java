@@ -15,7 +15,7 @@ import site.iblogs.mapper.ContentMapper;
 import site.iblogs.model.Content;
 import site.iblogs.model.ContentExample;
 import site.iblogs.portal.dao.ContentDao;
-import site.iblogs.portal.model.converter.ContentResponseConverter;
+import site.iblogs.common.conventer.ContentResponseConverter;
 import site.iblogs.portal.model.params.ArticleParam;
 import site.iblogs.portal.model.response.ArchivesResponse;
 import site.iblogs.common.dto.response.ContentResponse;

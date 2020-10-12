@@ -1,7 +1,7 @@
 package site.iblogs.portal.service;
 
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.portal.model.request.CommentRequest;
+import site.iblogs.common.dto.request.CommentRequest;
 import site.iblogs.common.dto.response.CommentResponse;
 
 public interface CommentService {

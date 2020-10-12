@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>site.iblogs</groupId>
-            <artifactId>blog-mbg</artifactId>
+            <artifactId>blog-common</artifactId>
         </dependency>
 
         <dependency>
@@ -29,10 +29,6 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>site.iblogs</groupId>
-            <artifactId>blog-mbg</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>

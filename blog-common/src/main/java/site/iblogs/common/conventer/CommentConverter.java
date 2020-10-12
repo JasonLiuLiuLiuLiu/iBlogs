@@ -1,10 +1,10 @@
-package site.iblogs.portal.model.converter;
+package site.iblogs.common.conventer;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import site.iblogs.model.Comment;
-import site.iblogs.portal.model.request.CommentRequest;
+import site.iblogs.common.dto.request.CommentRequest;
 import site.iblogs.common.dto.response.CommentResponse;
 
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package site.iblogs.portal.model.converter;
+package site.iblogs.common.conventer;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

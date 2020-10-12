@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.portal.model.request.CommentRequest;
+import site.iblogs.common.dto.request.CommentRequest;
 import site.iblogs.common.dto.response.CommentResponse;
 import site.iblogs.portal.service.CommentService;
 

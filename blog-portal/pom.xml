@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>site.iblogs</groupId>
-            <artifactId>blog-mbg</artifactId>
+            <artifactId>blog-common</artifactId>
         </dependency>
 
         <!--redis依赖配置-->
@@ -38,17 +38,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-jdk8</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
         </dependency>
 
         <dependency>

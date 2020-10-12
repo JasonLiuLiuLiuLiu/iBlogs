@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>site.iblogs</groupId>
-            <artifactId>blog-mbg</artifactId>
+            <artifactId>blog-common</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
