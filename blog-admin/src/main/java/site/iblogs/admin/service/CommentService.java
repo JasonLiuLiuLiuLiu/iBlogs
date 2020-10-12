@@ -1,8 +1,10 @@
 package site.iblogs.admin.service;
 
+import site.iblogs.admin.dto.request.CommentStatusUpdateParam;
 import site.iblogs.common.api.PageParam;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.dto.enums.CommentStatus;
+import site.iblogs.common.dto.request.CommentPageParam;
 import site.iblogs.common.dto.response.CommentResponse;
 
 /**
@@ -12,11 +14,11 @@ import site.iblogs.common.dto.response.CommentResponse;
 public interface CommentService {
 
 
-    PageResponse<CommentResponse> commentList(PageParam pageParam);
+    PageResponse<CommentResponse> commentList(CommentPageParam pageParam);
 
 
-    Boolean deleteComment(Integer id);
+    Boolean deleteComment(Long id);
 
 
-    CommentStatus updateStatus(CommentStatus status);
+    CommentStatus updateStatus(CommentStatusUpdateParam param);
 }
