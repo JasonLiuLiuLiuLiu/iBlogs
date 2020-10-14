@@ -59,6 +59,13 @@ public class UserController {
         return ApiResponse.success(register);
     }
 
+    @ApiOperation(value = "获取用户信息")
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse info() {
+        return ApiResponse.success(userService.info());
+    }
+
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody

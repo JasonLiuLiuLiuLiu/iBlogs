@@ -16,6 +16,7 @@ import site.iblogs.admin.dto.AdminUserDetails;
 import site.iblogs.admin.dto.request.PasswordParam;
 import site.iblogs.admin.dto.request.ProfileParam;
 import site.iblogs.admin.dto.request.RegisterParam;
+import site.iblogs.admin.dto.response.UserInfoResponse;
 import site.iblogs.admin.service.UserService;
 import site.iblogs.mapper.UserMapper;
 import site.iblogs.model.User;
@@ -115,5 +116,12 @@ public class UserServiceImpl implements UserService {
             LOGGER.warn("登录异常:{}", e.getMessage());
             throw e;
         }
+    }
+
+    @Override
+    public UserInfoResponse info() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = getUserByUserName(username).getUser();
+        return new UserInfoResponse(user.getId(),user.getUsername(),user.getEmail());
     }
 }
