@@ -3,6 +3,7 @@ package site.iblogs.admin.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -18,6 +19,8 @@ import site.iblogs.admin.dto.request.ProfileParam;
 import site.iblogs.admin.dto.request.RegisterParam;
 import site.iblogs.admin.dto.response.UserInfoResponse;
 import site.iblogs.admin.service.UserService;
+import site.iblogs.common.service.RedisService;
+import site.iblogs.common.utils.GravatarTools;
 import site.iblogs.mapper.UserMapper;
 import site.iblogs.model.User;
 import site.iblogs.model.UserExample;
@@ -122,6 +125,12 @@ public class UserServiceImpl implements UserService {
     public UserInfoResponse info() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = getUserByUserName(username).getUser();
-        return new UserInfoResponse(user.getId(),user.getUsername(),user.getEmail());
+        return new UserInfoResponse(user.getId(), user.getUsername(), GravatarTools.computeGravatarUrl(user.getEmail(), 80, null));
+    }
+
+    @Override
+    public void logout() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        jwtTokenUtil.removeToken(username);
     }
 }

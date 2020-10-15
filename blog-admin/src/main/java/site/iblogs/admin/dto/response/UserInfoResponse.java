@@ -10,7 +10,7 @@ import java.util.Date;
 public class UserInfoResponse {
     private Long id;
 
-    private String username;
+    private String name;
 
-    private String email;
+    private String avatar;
 }

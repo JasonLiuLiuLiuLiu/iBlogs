@@ -29,4 +29,6 @@ public interface UserService {
     PasswordParam updatePassword(PasswordParam param);
 
     UserInfoResponse info();
+
+    void logout();
 }

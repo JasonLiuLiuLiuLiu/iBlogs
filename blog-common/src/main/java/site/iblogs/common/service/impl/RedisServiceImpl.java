@@ -1,10 +1,10 @@
-package site.iblogs.portal.service.impl;
+package site.iblogs.common.service.impl;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
-import site.iblogs.portal.service.RedisService;
+import site.iblogs.common.service.RedisService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +26,11 @@ public class RedisServiceImpl<T> implements RedisService<T> {
     @Override
     public void set(String key, T value) {
         redisTemplate.opsForValue().set(key,value);
+    }
+
+    @Override
+    public void set(String key, T value,long expire) {
+        redisTemplate.opsForValue().set(key,value,expire, TimeUnit.SECONDS);
     }
 
     @Override

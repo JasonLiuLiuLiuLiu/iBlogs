@@ -5,9 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import site.iblogs.common.service.RedisService;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,10 +20,13 @@ public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
+    private static final String JWT_TOKEN_KEY_PRE = "JWT_TOKEN_KEY_PRE_";
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
+    @Autowired
+    private RedisService<String> redisService;
 
     /**
      * 根据负责生成JWT的token
@@ -45,7 +50,7 @@ public class JwtTokenUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            LOGGER.info("JWT格式验证失败:{}",token);
+            LOGGER.info("JWT格式验证失败:{}", token);
         }
         return claims;
     }
@@ -64,7 +69,7 @@ public class JwtTokenUtil {
         String username;
         try {
             Claims claims = getClaimsFromToken(token);
-            username =  claims.getSubject();
+            username = claims.getSubject();
         } catch (Exception e) {
             username = null;
         }
@@ -79,7 +84,11 @@ public class JwtTokenUtil {
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+         if(!username.equals(userDetails.getUsername()) && !isTokenExpired(token)){
+             return false;
+         }
+         String tokenInCache=redisService.get(JWT_TOKEN_KEY_PRE+userDetails.getUsername());
+         return tokenInCache!=null&&tokenInCache.equals(token);
     }
 
     /**
@@ -105,22 +114,12 @@ public class JwtTokenUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
-        return generateToken(claims);
+        String token = generateToken(claims);
+        redisService.set(JWT_TOKEN_KEY_PRE + userDetails.getUsername(), token, expiration);
+        return token;
     }
 
-    /**
-     * 判断token是否可以被刷新
-     */
-    public boolean canRefresh(String token) {
-        return !isTokenExpired(token);
-    }
-
-    /**
-     * 刷新token
-     */
-    public String refreshToken(String token) {
-        Claims claims = getClaimsFromToken(token);
-        claims.put(CLAIM_KEY_CREATED, new Date());
-        return generateToken(claims);
+    public void removeToken(String username) {
+       redisService.remove(JWT_TOKEN_KEY_PRE + username);
     }
 }

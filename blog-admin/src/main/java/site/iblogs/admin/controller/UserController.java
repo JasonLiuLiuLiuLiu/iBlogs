@@ -79,4 +79,12 @@ public class UserController {
         tokenMap.put("tokenHead", TOKEN_HEAD);
         return ApiResponse.success(tokenMap);
     }
+
+    @ApiOperation(value = "退出登录")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse login() {
+        userService.logout();
+        return ApiResponse.success("登出成功");
+    }
 }

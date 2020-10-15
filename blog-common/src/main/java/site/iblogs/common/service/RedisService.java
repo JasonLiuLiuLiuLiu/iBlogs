@@ -1,4 +1,6 @@
-package site.iblogs.portal.service;
+package site.iblogs.common.service;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis操作Service
@@ -11,6 +13,11 @@ public interface RedisService<T> {
      * 存储数据
      */
     void set(String key, T value);
+
+    /**
+     * 存储数据并设置过期时间,单位秒
+     * */
+    void set(String key, T value, long expire);
 
     /**
      * 获取数据

@@ -6,7 +6,7 @@ import site.iblogs.mapper.OptionMapper;
 import site.iblogs.model.Option;
 import site.iblogs.model.OptionExample;
 import site.iblogs.portal.service.OptionService;
-import site.iblogs.portal.service.RedisService;
+import site.iblogs.common.service.RedisService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
