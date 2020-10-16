@@ -3,8 +3,8 @@ server:
 
 nacos:
   config:
-    server-addr: data.iblogs.site:8848
-    namespace: 03b6dc11-e91a-4545-afec-c1db99fa705e
+    server-addr: 192.168.101.1:8848
+    namespace: f1426bb3-51c1-487e-8e0a-c33c7c31fad3
     group: DEFAULT_GROUP
     auto-refresh: true
     data-id: admin

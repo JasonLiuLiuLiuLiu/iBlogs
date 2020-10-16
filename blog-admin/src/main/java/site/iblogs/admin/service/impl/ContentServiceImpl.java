@@ -24,7 +24,7 @@ public class ContentServiceImpl implements ContentService {
     private ContentResponseConverter contentResponseConverter;
     @Override
     public PageResponse<ContentResponse> page(ContentPageParam pageParam) {
-        PageHelper.startPage(pageParam.getIndex(), pageParam.getLimit());
+        PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
         ContentExample contentsExample = new ContentExample();
         ContentExample.Criteria criteria= contentsExample.createCriteria();
         criteria.andDeletedEqualTo(false);

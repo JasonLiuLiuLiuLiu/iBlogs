@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.admin.dto.request.CommentStatusUpdateParam;
 import site.iblogs.admin.service.CommentService;
-import site.iblogs.common.api.PageParam;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.conventer.CommentConverter;
 import site.iblogs.common.dto.enums.CommentStatus;
@@ -33,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public PageResponse<CommentResponse> commentList(CommentPageParam pageParam) {
-        PageHelper.startPage(pageParam.getIndex(), pageParam.getLimit());
+        PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
         CommentExample example = new CommentExample();
         example.createCriteria().andDeletedEqualTo(false);
         if (pageParam.getContentId() != null) {

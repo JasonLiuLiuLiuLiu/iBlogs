@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.admin.dto.request.OptionUpdateParam;
 import site.iblogs.admin.service.OptionService;
 import site.iblogs.common.api.ApiResponse;
+import site.iblogs.common.api.PageRequest;
 import site.iblogs.common.api.RestResponse;
 
 import java.util.List;
@@ -44,5 +45,12 @@ public class OptionController {
         }else {
             return ApiResponse.failed();
         }
+    }
+
+    @ApiOperation("分页获取")
+    @RequestMapping(value = "/page", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse saveOptions(@RequestBody PageRequest param) {
+        return ApiResponse.success(optionService.page(param));
     }
 }

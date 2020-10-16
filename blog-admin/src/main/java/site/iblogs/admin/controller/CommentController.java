@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.admin.dto.request.CommentStatusUpdateParam;
 import site.iblogs.admin.service.CommentService;
 import site.iblogs.common.api.ApiResponse;
-import site.iblogs.common.api.PageParam;
-import site.iblogs.common.api.RestResponse;
 import site.iblogs.common.dto.request.CommentPageParam;
 
 /**

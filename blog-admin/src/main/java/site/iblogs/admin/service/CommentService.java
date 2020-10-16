@@ -1,7 +1,6 @@
 package site.iblogs.admin.service;
 
 import site.iblogs.admin.dto.request.CommentStatusUpdateParam;
-import site.iblogs.common.api.PageParam;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.dto.enums.CommentStatus;
 import site.iblogs.common.dto.request.CommentPageParam;
