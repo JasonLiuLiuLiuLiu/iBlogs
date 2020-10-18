@@ -36,8 +36,7 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public Boolean updateOption(OptionUpdateParam param) {
         OptionExample example = new OptionExample();
-        example.createCriteria().andNameEqualTo(param.getName());
-        Option option = optionMapper.selectByExample(example).stream().findFirst().orElse(null);
+        Option option = optionMapper.selectByPrimaryKey(param.getId());
         if (option != null && option.getEditable() && option.getVisible()) {
             option.setValue(param.getValue());
             optionMapper.updateByPrimaryKeySelective(option);

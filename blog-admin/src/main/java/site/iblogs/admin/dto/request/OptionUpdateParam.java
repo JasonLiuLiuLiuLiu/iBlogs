@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class OptionUpdateParam {
-    private String name;
+    private Long id;
     private String value;
 }
