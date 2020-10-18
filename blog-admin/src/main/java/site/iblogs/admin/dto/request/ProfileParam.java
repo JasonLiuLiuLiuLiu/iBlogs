@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ProfileParam {
-    private String Email;
+    private String email;
 }

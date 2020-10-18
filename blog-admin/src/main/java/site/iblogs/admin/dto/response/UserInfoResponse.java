@@ -3,8 +3,6 @@ package site.iblogs.admin.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 public class UserInfoResponse {
@@ -13,4 +11,6 @@ public class UserInfoResponse {
     private String name;
 
     private String avatar;
+
+    private String email;
 }

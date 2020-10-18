@@ -114,6 +114,7 @@ public class UserServiceImpl implements UserService {
             User user = ((AdminUserDetails) userDetails).getUser();
             user.setPassword(passwordEncoder.encode(param.getNewPassword()));
             userMapper.updateByPrimaryKeySelective(user);
+            jwtTokenUtil.removeToken(user.getUsername());
             return param;
         } catch (AuthenticationException e) {
             LOGGER.warn("登录异常:{}", e.getMessage());
@@ -125,12 +126,14 @@ public class UserServiceImpl implements UserService {
     public UserInfoResponse info() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = getUserByUserName(username).getUser();
-        return new UserInfoResponse(user.getId(), user.getUsername(), GravatarTools.computeGravatarUrl(user.getEmail(), 80, null));
+        return new UserInfoResponse(user.getId(), user.getUsername(), GravatarTools.computeGravatarUrl(user.getEmail(), 80, null), user.getEmail());
     }
 
     @Override
     public void logout() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        jwtTokenUtil.removeToken(username);
+        if (!username.equals("anonymousUser")) {
+            jwtTokenUtil.removeToken(username);
+        }
     }
 }
