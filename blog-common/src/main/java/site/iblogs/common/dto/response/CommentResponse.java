@@ -12,18 +12,19 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CommentResponse {
-    private int Id;
-    private boolean IsAuthor;
-    private Date Created;
-    private int Cid;
-    private String Author;
-    private int OwnerId;
-    private String MailPic;
-    private String Url;
-    private String Ip;
-    private String Agent;
-    private String Content;
-    private CommentStatus Status;
-    private int Parent;
-    private List<CommentResponse> Children;
+    private int id;
+    private boolean isAuthor;
+    private Date created;
+    private int cid;
+    private String author;
+    private int ownerId;
+    private String email;
+    private String mailPic;
+    private String url;
+    private String ip;
+    private String agent;
+    private String content;
+    private CommentStatus status;
+    private Long parent;
+    private List<CommentResponse> children;
 }

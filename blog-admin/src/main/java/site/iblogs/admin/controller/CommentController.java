@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.iblogs.admin.dto.request.CommentDeleteParam;
 import site.iblogs.admin.dto.request.CommentStatusUpdateParam;
 import site.iblogs.admin.service.CommentService;
 import site.iblogs.common.api.ApiResponse;
@@ -34,9 +35,9 @@ public class CommentController {
     @ApiOperation("删除评论")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse deleteComment(Long id) {
-        if(commentService.deleteComment(id)){
-            return ApiResponse.success(id);
+    public ApiResponse deleteComment(@RequestBody CommentDeleteParam param) {
+        if(commentService.deleteComment(param.getId())){
+            return ApiResponse.success(param.getId());
         }else {
             return ApiResponse.failed();
         }
@@ -45,7 +46,7 @@ public class CommentController {
     @ApiOperation("修改评论状态")
     @RequestMapping(value = "/status", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse updateStatus(CommentStatusUpdateParam param) {
+    public ApiResponse updateStatus(@RequestBody CommentStatusUpdateParam param) {
         return ApiResponse.success(commentService.updateStatus(param));
     }
 }
