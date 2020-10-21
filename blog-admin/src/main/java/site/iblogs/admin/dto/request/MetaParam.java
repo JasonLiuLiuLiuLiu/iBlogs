@@ -8,4 +8,6 @@ public class MetaParam {
     private Long id;
     private String name;
     private MetaType type;
+    private String slug;
+    private String description;
 }

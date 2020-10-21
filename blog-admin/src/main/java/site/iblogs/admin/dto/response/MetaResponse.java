@@ -12,4 +12,7 @@ public class MetaResponse {
     private Long id;
     private String name;
     private MetaType type;
+    private String slug;
+    private String description;
+    private Long count;
 }

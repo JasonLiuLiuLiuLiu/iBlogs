@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.iblogs.admin.dto.request.MetaDeleteParam;
+import site.iblogs.admin.dto.request.MetaPageRequest;
 import site.iblogs.admin.dto.request.MetaParam;
 import site.iblogs.admin.service.MetaService;
 import site.iblogs.common.api.ApiResponse;
@@ -33,10 +35,10 @@ public class MetadataController {
     @ApiOperation("删除元数据")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse deleteMeta(Long mid) {
-        Boolean result=metaService.deleteMeta(mid);
+    public ApiResponse deleteMeta(@RequestBody MetaDeleteParam param) {
+        Boolean result=metaService.deleteMeta(param.getId());
         if(result){
-            return ApiResponse.success(mid);
+            return ApiResponse.success(param.getId());
         }else {
             return ApiResponse.failed();
         }
@@ -45,7 +47,7 @@ public class MetadataController {
     @ApiOperation("获取元数据")
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse metaList() {
-        return RestResponse.ok();
+    public ApiResponse metaList(@RequestBody MetaPageRequest param) {
+        return ApiResponse.success(metaService.page(param));
     }
 }

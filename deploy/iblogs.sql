@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : omv
  Source Server Type    : MySQL
- Source Server Version : 50731
- Source Host           : localhost:3306
+ Source Server Version : 50720
+ Source Host           : omv:3306
  Source Schema         : iblogs
 
  Target Server Type    : MySQL
- Target Server Version : 50731
+ Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 07/10/2020 18:46:48
+ Date: 22/10/2020 00:21:12
 */
 
 SET NAMES utf8mb4;
@@ -65,7 +65,7 @@ CREATE TABLE `comment`  (
   `Deleted` bit(1) NOT NULL,
   `Cid` bigint(20) NULL DEFAULT NULL,
   `Author` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `OwnerId` int(11) NOT NULL,
+  `OwnerId` bigint(11) NOT NULL,
   `Mail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Url` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Ip` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `comment`  (
   `Content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Type` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `Status` int(11) NOT NULL,
-  `Parent` int(11) NOT NULL,
+  `Parent` bigint(11) NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Comments_Cid`(`Cid`) USING BTREE,
   CONSTRAINT `FK_Comments_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -114,18 +114,18 @@ CREATE TABLE `content`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `meta`;
 CREATE TABLE `meta`  (
-  `Id` bigint(20) NOT NULL,
-  `Name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `Slug` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Type` int(11) NOT NULL,
   `Description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `Sort` int(11) NOT NULL,
-  `Parent` int(11) NOT NULL,
-  `Count` int(11) NOT NULL,
+  `Sort` int(11) NULL DEFAULT 0,
+  `Parent` bigint(20) NULL DEFAULT 0,
+  `Count` bigint(20) NULL DEFAULT 0,
   `Created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `Deleted` bit(1) NOT NULL,
+  `Deleted` bit(1) NULL DEFAULT b'0',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for option
@@ -156,8 +156,7 @@ CREATE TABLE `relationship`  (
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `IX_Relationships_Cid`(`Cid`) USING BTREE,
   INDEX `IX_Relationships_Mid`(`Mid`) USING BTREE,
-  CONSTRAINT `FK_Relationships_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Relationships_Metas_Mid` FOREIGN KEY (`Mid`) REFERENCES `meta` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_Relationships_Contents_Cid` FOREIGN KEY (`Cid`) REFERENCES `content` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

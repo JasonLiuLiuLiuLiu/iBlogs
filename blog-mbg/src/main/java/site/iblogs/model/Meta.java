@@ -7,21 +7,21 @@ import java.util.Date;
 public class Meta implements Serializable {
     private Long id;
 
+    private String name;
+
+    private String slug;
+
     private Integer type;
 
     private Integer sort;
 
-    private Integer parent;
+    private Long parent;
 
-    private Integer count;
+    private Long count;
 
     private Date created;
 
     private Boolean deleted;
-
-    private String name;
-
-    private String slug;
 
     private String description;
 
@@ -33,6 +33,22 @@ public class Meta implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Integer getType() {
@@ -51,19 +67,19 @@ public class Meta implements Serializable {
         this.sort = sort;
     }
 
-    public Integer getParent() {
+    public Long getParent() {
         return parent;
     }
 
-    public void setParent(Integer parent) {
+    public void setParent(Long parent) {
         this.parent = parent;
     }
 
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 
@@ -83,22 +99,6 @@ public class Meta implements Serializable {
         this.deleted = deleted;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -114,14 +114,14 @@ public class Meta implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", slug=").append(slug);
         sb.append(", type=").append(type);
         sb.append(", sort=").append(sort);
         sb.append(", parent=").append(parent);
         sb.append(", count=").append(count);
         sb.append(", created=").append(created);
         sb.append(", deleted=").append(deleted);
-        sb.append(", name=").append(name);
-        sb.append(", slug=").append(slug);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

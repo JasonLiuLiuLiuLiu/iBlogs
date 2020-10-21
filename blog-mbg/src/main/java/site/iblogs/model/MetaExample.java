@@ -165,6 +165,146 @@ public class MetaExample {
             return (Criteria) this;
         }
 
+        public Criteria andNameIsNull() {
+            addCriterion("Name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameIsNotNull() {
+            addCriterion("Name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("Name =", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("Name <>", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("Name >", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("Name >=", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLessThan(String value) {
+            addCriterion("Name <", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("Name <=", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameLike(String value) {
+            addCriterion("Name like", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotLike(String value) {
+            addCriterion("Name not like", value, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("Name in", values, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("Name not in", values, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("Name between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("Name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugIsNull() {
+            addCriterion("Slug is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugIsNotNull() {
+            addCriterion("Slug is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugEqualTo(String value) {
+            addCriterion("Slug =", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugNotEqualTo(String value) {
+            addCriterion("Slug <>", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugGreaterThan(String value) {
+            addCriterion("Slug >", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugGreaterThanOrEqualTo(String value) {
+            addCriterion("Slug >=", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugLessThan(String value) {
+            addCriterion("Slug <", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugLessThanOrEqualTo(String value) {
+            addCriterion("Slug <=", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugLike(String value) {
+            addCriterion("Slug like", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugNotLike(String value) {
+            addCriterion("Slug not like", value, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugIn(List<String> values) {
+            addCriterion("Slug in", values, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugNotIn(List<String> values) {
+            addCriterion("Slug not in", values, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugBetween(String value1, String value2) {
+            addCriterion("Slug between", value1, value2, "slug");
+            return (Criteria) this;
+        }
+
+        public Criteria andSlugNotBetween(String value1, String value2) {
+            addCriterion("Slug not between", value1, value2, "slug");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeIsNull() {
             addCriterion("Type is null");
             return (Criteria) this;
@@ -295,52 +435,52 @@ public class MetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentEqualTo(Integer value) {
+        public Criteria andParentEqualTo(Long value) {
             addCriterion("Parent =", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotEqualTo(Integer value) {
+        public Criteria andParentNotEqualTo(Long value) {
             addCriterion("Parent <>", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentGreaterThan(Integer value) {
+        public Criteria andParentGreaterThan(Long value) {
             addCriterion("Parent >", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentGreaterThanOrEqualTo(Integer value) {
+        public Criteria andParentGreaterThanOrEqualTo(Long value) {
             addCriterion("Parent >=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentLessThan(Integer value) {
+        public Criteria andParentLessThan(Long value) {
             addCriterion("Parent <", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentLessThanOrEqualTo(Integer value) {
+        public Criteria andParentLessThanOrEqualTo(Long value) {
             addCriterion("Parent <=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentIn(List<Integer> values) {
+        public Criteria andParentIn(List<Long> values) {
             addCriterion("Parent in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotIn(List<Integer> values) {
+        public Criteria andParentNotIn(List<Long> values) {
             addCriterion("Parent not in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentBetween(Integer value1, Integer value2) {
+        public Criteria andParentBetween(Long value1, Long value2) {
             addCriterion("Parent between", value1, value2, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andParentNotBetween(Integer value1, Integer value2) {
+        public Criteria andParentNotBetween(Long value1, Long value2) {
             addCriterion("Parent not between", value1, value2, "parent");
             return (Criteria) this;
         }
@@ -355,52 +495,52 @@ public class MetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andCountEqualTo(Integer value) {
+        public Criteria andCountEqualTo(Long value) {
             addCriterion("Count =", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountNotEqualTo(Integer value) {
+        public Criteria andCountNotEqualTo(Long value) {
             addCriterion("Count <>", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountGreaterThan(Integer value) {
+        public Criteria andCountGreaterThan(Long value) {
             addCriterion("Count >", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCountGreaterThanOrEqualTo(Long value) {
             addCriterion("Count >=", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountLessThan(Integer value) {
+        public Criteria andCountLessThan(Long value) {
             addCriterion("Count <", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountLessThanOrEqualTo(Integer value) {
+        public Criteria andCountLessThanOrEqualTo(Long value) {
             addCriterion("Count <=", value, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountIn(List<Integer> values) {
+        public Criteria andCountIn(List<Long> values) {
             addCriterion("Count in", values, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountNotIn(List<Integer> values) {
+        public Criteria andCountNotIn(List<Long> values) {
             addCriterion("Count not in", values, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountBetween(Integer value1, Integer value2) {
+        public Criteria andCountBetween(Long value1, Long value2) {
             addCriterion("Count between", value1, value2, "count");
             return (Criteria) this;
         }
 
-        public Criteria andCountNotBetween(Integer value1, Integer value2) {
+        public Criteria andCountNotBetween(Long value1, Long value2) {
             addCriterion("Count not between", value1, value2, "count");
             return (Criteria) this;
         }

@@ -28,9 +28,22 @@ public class MetaServiceImpl implements MetaService {
         MetaResponse response = new MetaResponse();
         response.setName(param.getName());
         response.setType(param.getType());
+        MetaExample example=new MetaExample();
+        MetaExample.Criteria criteria=example.createCriteria();
+        criteria.andDeletedEqualTo(false);
+        if(param.getId()!=null){
+            criteria.andIdNotEqualTo(param.getId());
+        }
+        criteria.andSlugEqualTo(param.getSlug());
+        Long count=metaMapper.countByExample(example);
+        if(count>0){
+            throw new IllegalArgumentException("slug已存在");
+        }
         if (param.getId() != null) {
             Meta meta = metaMapper.selectByPrimaryKey(param.getId());
             meta.setName(param.getName());
+            meta.setSlug(param.getSlug());
+            meta.setDescription(param.getDescription());
             metaMapper.updateByPrimaryKeyWithBLOBs(meta);
             response.setId(param.getId());
         } else {
@@ -38,6 +51,12 @@ public class MetaServiceImpl implements MetaService {
             meta.setName(param.getName());
             meta.setType(param.getType().ordinal());
             meta.setCreated(new Date());
+            meta.setSlug(param.getSlug());
+            meta.setDescription(param.getDescription());
+            meta.setSort(0);
+            meta.setParent(0L);
+            meta.setCount(0L);
+            meta.setDeleted(false);
             metaMapper.insert(meta);
             response.setId(meta.getId());
         }
@@ -63,7 +82,7 @@ public class MetaServiceImpl implements MetaService {
         example.createCriteria().andTypeEqualTo(request.getType().ordinal()).andDeletedEqualTo(false);
         List<Meta> metas = metaMapper.selectByExampleWithBLOBs(example);
         PageInfo<Meta> pageInfo = new PageInfo<>(metas);
-        List<MetaResponse> responses=metas.stream().map(u -> new MetaResponse(u.getId(), u.getName(), MetaType.values()[u.getType()])).collect(Collectors.toList());
+        List<MetaResponse> responses = metas.stream().map(u -> new MetaResponse(u.getId(), u.getName(), MetaType.values()[u.getType()], u.getSlug(), u.getDescription(), u.getCount())).collect(Collectors.toList());
         return PageResponse.restPage(responses, pageInfo);
     }
 }

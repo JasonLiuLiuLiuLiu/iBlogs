@@ -3,16 +3,16 @@
 <mapper namespace="site.iblogs.mapper.MetaMapper">
   <resultMap id="BaseResultMap" type="site.iblogs.model.Meta">
     <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Slug" jdbcType="VARCHAR" property="slug" />
     <result column="Type" jdbcType="INTEGER" property="type" />
     <result column="Sort" jdbcType="INTEGER" property="sort" />
-    <result column="Parent" jdbcType="INTEGER" property="parent" />
-    <result column="Count" jdbcType="INTEGER" property="count" />
+    <result column="Parent" jdbcType="BIGINT" property="parent" />
+    <result column="Count" jdbcType="BIGINT" property="count" />
     <result column="Created" jdbcType="TIMESTAMP" property="created" />
     <result column="Deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="site.iblogs.model.Meta">
-    <result column="Name" jdbcType="LONGVARCHAR" property="name" />
-    <result column="Slug" jdbcType="LONGVARCHAR" property="slug" />
     <result column="Description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -74,10 +74,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Type, Sort, Parent, Count, Created, Deleted
+    Id, Name, Slug, Type, Sort, Parent, Count, Created, Deleted
   </sql>
   <sql id="Blob_Column_List">
-    Name, Slug, Description
+    Description
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="site.iblogs.model.MetaExample" resultMap="ResultMapWithBLOBs">
     select
@@ -131,13 +131,13 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into meta (Type, Sort, Parent, 
-      Count, Created, Deleted, 
-      Name, Slug, Description
+    insert into meta (Name, Slug, Type, 
+      Sort, Parent, Count, 
+      Created, Deleted, Description
       )
-    values (#{type,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{parent,jdbcType=INTEGER}, 
-      #{count,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{name,jdbcType=LONGVARCHAR}, #{slug,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
+    values (#{name,jdbcType=VARCHAR}, #{slug,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{parent,jdbcType=BIGINT}, #{count,jdbcType=BIGINT}, 
+      #{created,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="site.iblogs.model.Meta">
@@ -146,6 +146,12 @@
     </selectKey>
     insert into meta
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="slug != null">
+        Slug,
+      </if>
       <if test="type != null">
         Type,
       </if>
@@ -164,17 +170,17 @@
       <if test="deleted != null">
         Deleted,
       </if>
-      <if test="name != null">
-        Name,
-      </if>
-      <if test="slug != null">
-        Slug,
-      </if>
       <if test="description != null">
         Description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        #{slug,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
@@ -182,22 +188,16 @@
         #{sort,jdbcType=INTEGER},
       </if>
       <if test="parent != null">
-        #{parent,jdbcType=INTEGER},
+        #{parent,jdbcType=BIGINT},
       </if>
       <if test="count != null">
-        #{count,jdbcType=INTEGER},
+        #{count,jdbcType=BIGINT},
       </if>
       <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="slug != null">
-        #{slug,jdbcType=LONGVARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=LONGVARCHAR},
@@ -216,6 +216,12 @@
       <if test="record.id != null">
         Id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slug != null">
+        Slug = #{record.slug,jdbcType=VARCHAR},
+      </if>
       <if test="record.type != null">
         Type = #{record.type,jdbcType=INTEGER},
       </if>
@@ -223,22 +229,16 @@
         Sort = #{record.sort,jdbcType=INTEGER},
       </if>
       <if test="record.parent != null">
-        Parent = #{record.parent,jdbcType=INTEGER},
+        Parent = #{record.parent,jdbcType=BIGINT},
       </if>
       <if test="record.count != null">
-        Count = #{record.count,jdbcType=INTEGER},
+        Count = #{record.count,jdbcType=BIGINT},
       </if>
       <if test="record.created != null">
         Created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.deleted != null">
         Deleted = #{record.deleted,jdbcType=BIT},
-      </if>
-      <if test="record.name != null">
-        Name = #{record.name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.slug != null">
-        Slug = #{record.slug,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.description != null">
         Description = #{record.description,jdbcType=LONGVARCHAR},
@@ -251,14 +251,14 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update meta
     set Id = #{record.id,jdbcType=BIGINT},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Slug = #{record.slug,jdbcType=VARCHAR},
       Type = #{record.type,jdbcType=INTEGER},
       Sort = #{record.sort,jdbcType=INTEGER},
-      Parent = #{record.parent,jdbcType=INTEGER},
-      Count = #{record.count,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=BIGINT},
+      Count = #{record.count,jdbcType=BIGINT},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT},
-      Name = #{record.name,jdbcType=LONGVARCHAR},
-      Slug = #{record.slug,jdbcType=LONGVARCHAR},
       Description = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -267,10 +267,12 @@
   <update id="updateByExample" parameterType="map">
     update meta
     set Id = #{record.id,jdbcType=BIGINT},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Slug = #{record.slug,jdbcType=VARCHAR},
       Type = #{record.type,jdbcType=INTEGER},
       Sort = #{record.sort,jdbcType=INTEGER},
-      Parent = #{record.parent,jdbcType=INTEGER},
-      Count = #{record.count,jdbcType=INTEGER},
+      Parent = #{record.parent,jdbcType=BIGINT},
+      Count = #{record.count,jdbcType=BIGINT},
       Created = #{record.created,jdbcType=TIMESTAMP},
       Deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
@@ -280,6 +282,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="site.iblogs.model.Meta">
     update meta
     <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        Slug = #{slug,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         Type = #{type,jdbcType=INTEGER},
       </if>
@@ -287,22 +295,16 @@
         Sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="parent != null">
-        Parent = #{parent,jdbcType=INTEGER},
+        Parent = #{parent,jdbcType=BIGINT},
       </if>
       <if test="count != null">
-        Count = #{count,jdbcType=INTEGER},
+        Count = #{count,jdbcType=BIGINT},
       </if>
       <if test="created != null">
         Created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="deleted != null">
         Deleted = #{deleted,jdbcType=BIT},
-      </if>
-      <if test="name != null">
-        Name = #{name,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="slug != null">
-        Slug = #{slug,jdbcType=LONGVARCHAR},
       </if>
       <if test="description != null">
         Description = #{description,jdbcType=LONGVARCHAR},
@@ -312,23 +314,25 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="site.iblogs.model.Meta">
     update meta
-    set Type = #{type,jdbcType=INTEGER},
+    set Name = #{name,jdbcType=VARCHAR},
+      Slug = #{slug,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=INTEGER},
       Sort = #{sort,jdbcType=INTEGER},
-      Parent = #{parent,jdbcType=INTEGER},
-      Count = #{count,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=BIGINT},
+      Count = #{count,jdbcType=BIGINT},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT},
-      Name = #{name,jdbcType=LONGVARCHAR},
-      Slug = #{slug,jdbcType=LONGVARCHAR},
       Description = #{description,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="site.iblogs.model.Meta">
     update meta
-    set Type = #{type,jdbcType=INTEGER},
+    set Name = #{name,jdbcType=VARCHAR},
+      Slug = #{slug,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=INTEGER},
       Sort = #{sort,jdbcType=INTEGER},
-      Parent = #{parent,jdbcType=INTEGER},
-      Count = #{count,jdbcType=INTEGER},
+      Parent = #{parent,jdbcType=BIGINT},
+      Count = #{count,jdbcType=BIGINT},
       Created = #{created,jdbcType=TIMESTAMP},
       Deleted = #{deleted,jdbcType=BIT}
     where Id = #{id,jdbcType=BIGINT}
