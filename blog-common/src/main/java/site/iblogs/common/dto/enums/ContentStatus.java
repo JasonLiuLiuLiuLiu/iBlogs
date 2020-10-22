@@ -3,7 +3,7 @@ package site.iblogs.common.dto.enums;
 public enum ContentStatus implements BaseEnum
 {
     Draft(0),
-    Publish(1);
+    Published(1);
 
     private Integer code;
 

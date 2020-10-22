@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import site.iblogs.admin.dto.request.ContentDeleteParam;
 import site.iblogs.admin.dto.request.ContentPageParam;
+import site.iblogs.admin.dto.request.ContentStatusUpdateParam;
 import site.iblogs.admin.service.ContentService;
 import site.iblogs.common.api.ApiResponse;
 
@@ -28,5 +30,19 @@ public class ContentController {
     @ResponseBody
     public ApiResponse page(@RequestBody ContentPageParam param) {
         return ApiResponse.success(contentService.page(param));
+    }
+
+    @ApiOperation("更新文章状态")
+    @RequestMapping(value = "/status", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse status(@RequestBody ContentStatusUpdateParam param) {
+        return ApiResponse.success(contentService.status(param));
+    }
+
+    @ApiOperation("删除文章")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse delete(@RequestBody ContentDeleteParam param) {
+        return ApiResponse.success(contentService.delete(param));
     }
 }

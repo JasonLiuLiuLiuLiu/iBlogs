@@ -695,73 +695,73 @@ public class ContentExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesIsNull() {
-            addCriterion("Categories is null");
+        public Criteria andCategoryIsNull() {
+            addCriterion("Category is null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesIsNotNull() {
-            addCriterion("Categories is not null");
+        public Criteria andCategoryIsNotNull() {
+            addCriterion("Category is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesEqualTo(String value) {
-            addCriterion("Categories =", value, "categories");
+        public Criteria andCategoryEqualTo(String value) {
+            addCriterion("Category =", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesNotEqualTo(String value) {
-            addCriterion("Categories <>", value, "categories");
+        public Criteria andCategoryNotEqualTo(String value) {
+            addCriterion("Category <>", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesGreaterThan(String value) {
-            addCriterion("Categories >", value, "categories");
+        public Criteria andCategoryGreaterThan(String value) {
+            addCriterion("Category >", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesGreaterThanOrEqualTo(String value) {
-            addCriterion("Categories >=", value, "categories");
+        public Criteria andCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("Category >=", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesLessThan(String value) {
-            addCriterion("Categories <", value, "categories");
+        public Criteria andCategoryLessThan(String value) {
+            addCriterion("Category <", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesLessThanOrEqualTo(String value) {
-            addCriterion("Categories <=", value, "categories");
+        public Criteria andCategoryLessThanOrEqualTo(String value) {
+            addCriterion("Category <=", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesLike(String value) {
-            addCriterion("Categories like", value, "categories");
+        public Criteria andCategoryLike(String value) {
+            addCriterion("Category like", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesNotLike(String value) {
-            addCriterion("Categories not like", value, "categories");
+        public Criteria andCategoryNotLike(String value) {
+            addCriterion("Category not like", value, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesIn(List<String> values) {
-            addCriterion("Categories in", values, "categories");
+        public Criteria andCategoryIn(List<String> values) {
+            addCriterion("Category in", values, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesNotIn(List<String> values) {
-            addCriterion("Categories not in", values, "categories");
+        public Criteria andCategoryNotIn(List<String> values) {
+            addCriterion("Category not in", values, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesBetween(String value1, String value2) {
-            addCriterion("Categories between", value1, value2, "categories");
+        public Criteria andCategoryBetween(String value1, String value2) {
+            addCriterion("Category between", value1, value2, "category");
             return (Criteria) this;
         }
 
-        public Criteria andCategoriesNotBetween(String value1, String value2) {
-            addCriterion("Categories not between", value1, value2, "categories");
+        public Criteria andCategoryNotBetween(String value1, String value2) {
+            addCriterion("Category not between", value1, value2, "category");
             return (Criteria) this;
         }
 

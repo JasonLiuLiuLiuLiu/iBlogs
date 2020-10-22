@@ -6,5 +6,5 @@ import site.iblogs.common.dto.enums.ContentType;
 
 @Data
 public class ContentPageParam extends PageRequest {
-    private ContentType contentType;
+    private ContentType type;
 }

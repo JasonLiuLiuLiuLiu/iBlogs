@@ -28,7 +28,7 @@ public class ContentResponse {
     private String FmtType;
     private String ThumbImg;
     private String Tags;
-    private String Categories;
+    private String Category;
     private ContentStatus Status;
     private int CommentsNum;
     private Boolean allowComment;

@@ -23,7 +23,7 @@ public class Content implements Serializable {
 
     private String tags;
 
-    private String categories;
+    private String category;
 
     private Integer status;
 
@@ -119,12 +119,12 @@ public class Content implements Serializable {
         this.tags = tags;
     }
 
-    public String getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategories(String categories) {
-        this.categories = categories;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Integer getStatus() {
@@ -222,7 +222,7 @@ public class Content implements Serializable {
         sb.append(", fmttype=").append(fmttype);
         sb.append(", thumbimg=").append(thumbimg);
         sb.append(", tags=").append(tags);
-        sb.append(", categories=").append(categories);
+        sb.append(", category=").append(category);
         sb.append(", status=").append(status);
         sb.append(", commentsnum=").append(commentsnum);
         sb.append(", allowcomment=").append(allowcomment);
