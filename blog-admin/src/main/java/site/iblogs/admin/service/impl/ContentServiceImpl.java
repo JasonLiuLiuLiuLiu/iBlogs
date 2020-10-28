@@ -2,6 +2,7 @@ package site.iblogs.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.admin.dto.request.*;
@@ -73,11 +74,11 @@ public class ContentServiceImpl implements ContentService {
             throw new Exception("Not found content with id:" + param.getId());
         }
         ContentEditResponse response = contentResponseConverter.domain2EditResponse(content);
-        if (content.getTags() != null && content.getTags().split(",").length > 0) {
+        if (StringUtils.isNotEmpty(content.getTags()) && content.getTags().split(",").length > 0) {
             String[] tags = content.getTags().split(",");
             response.setTags((MetaResponse[]) metaService.getMetaByNames(tags, MetaType.Tag).toArray());
         }
-        if (content.getCategory() != null) {
+        if (StringUtils.isNotEmpty(content.getCategory())) {
             List<MetaResponse> categories = metaService.getMetaByNames(new String[]{content.getCategory()}, MetaType.Category);
             if (categories.size() != 0) {
                 response.setCategory(categories.get(0));
