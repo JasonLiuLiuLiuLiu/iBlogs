@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.iblogs.admin.dto.request.MetaPageRequest;
 import site.iblogs.admin.dto.request.MetaParam;
-import site.iblogs.admin.dto.response.MetaResponse;
+import site.iblogs.common.dto.response.MetaResponse;
 import site.iblogs.admin.service.MetaService;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.dto.enums.MetaType;
@@ -14,6 +14,7 @@ import site.iblogs.mapper.MetaMapper;
 import site.iblogs.model.Meta;
 import site.iblogs.model.MetaExample;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,5 +85,12 @@ public class MetaServiceImpl implements MetaService {
         PageInfo<Meta> pageInfo = new PageInfo<>(metas);
         List<MetaResponse> responses = metas.stream().map(u -> new MetaResponse(u.getId(), u.getName(), MetaType.values()[u.getType()], u.getSlug(), u.getDescription(), u.getCount())).collect(Collectors.toList());
         return PageResponse.restPage(responses, pageInfo);
+    }
+
+    @Override
+    public List<MetaResponse> getMetaByNames(String[] names, MetaType type) {
+        MetaExample example = new MetaExample();
+        example.createCriteria().andTypeEqualTo(type.ordinal()).andDeletedEqualTo(false).andNameIn(Arrays.asList(names));
+        return metaMapper.selectByExampleWithBLOBs(example).stream().map(u -> new MetaResponse(u.getId(), u.getName(), MetaType.values()[u.getType()], u.getSlug(), u.getDescription(), u.getCount())).collect(Collectors.toList());
     }
 }

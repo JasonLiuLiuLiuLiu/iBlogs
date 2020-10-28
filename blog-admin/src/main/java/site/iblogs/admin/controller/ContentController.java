@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.admin.dto.request.ContentDeleteParam;
+import site.iblogs.admin.dto.request.ContentDetailRequest;
 import site.iblogs.admin.dto.request.ContentPageParam;
 import site.iblogs.admin.dto.request.ContentStatusUpdateParam;
 import site.iblogs.admin.service.ContentService;
@@ -44,5 +45,12 @@ public class ContentController {
     @ResponseBody
     public ApiResponse delete(@RequestBody ContentDeleteParam param) {
         return ApiResponse.success(contentService.delete(param));
+    }
+
+    @ApiOperation("文章详情")
+    @RequestMapping(value = "/details", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse details(@RequestBody ContentDetailRequest param) throws Exception {
+        return ApiResponse.success(contentService.details(param));
     }
 }

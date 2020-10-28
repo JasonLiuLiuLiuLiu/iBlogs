@@ -1,4 +1,4 @@
-package site.iblogs.admin.dto.response;
+package site.iblogs.common.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
