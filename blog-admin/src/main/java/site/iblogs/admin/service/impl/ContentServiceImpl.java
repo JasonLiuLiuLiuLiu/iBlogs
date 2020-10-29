@@ -75,14 +75,7 @@ public class ContentServiceImpl implements ContentService {
         }
         ContentEditResponse response = contentResponseConverter.domain2EditResponse(content);
         if (StringUtils.isNotEmpty(content.getTags()) && content.getTags().split(",").length > 0) {
-            String[] tags = content.getTags().split(",");
-            response.setTags((MetaResponse[]) metaService.getMetaByNames(tags, MetaType.Tag).toArray());
-        }
-        if (StringUtils.isNotEmpty(content.getCategory())) {
-            List<MetaResponse> categories = metaService.getMetaByNames(new String[]{content.getCategory()}, MetaType.Category);
-            if (categories.size() != 0) {
-                response.setCategory(categories.get(0));
-            }
+            response.setTags(content.getTags().split(","));
         }
         return response;
     }

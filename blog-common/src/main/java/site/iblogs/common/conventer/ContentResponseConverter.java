@@ -25,7 +25,7 @@ public interface ContentResponseConverter {
             @Mapping(target = "allowFeed", expression = "java(contents.getAllowfeed())"),
             @Mapping(target = "allowPing", expression = "java(contents.getAllowping())"),
             @Mapping(target = "tags", ignore = true),
-            @Mapping(target = "category", ignore = true),
+            @Mapping(target = "fmtType", expression = "java(contents.getFmttype())")
     })
     ContentEditResponse domain2EditResponse(Content contents);
 }

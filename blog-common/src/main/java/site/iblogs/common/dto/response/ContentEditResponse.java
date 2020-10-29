@@ -24,10 +24,10 @@ public class ContentEditResponse {
     private String slug;
     private String content;
     private ContentType type;
-    private String FmtType;
-    private MetaResponse[] Tags;
+    private String fmtType;
+    private String[] tags=new String[0];
     private ContentStatus status;
-    private MetaResponse Category;
+    private String category;
     private Boolean allowComment;
     private Boolean allowPing;
     private Boolean allowFeed;
