@@ -1,4 +1,4 @@
-package site.iblogs.admin.dto.request;
+package site.iblogs.common.dto.request;
 
 
 import lombok.AllArgsConstructor;
@@ -24,10 +24,10 @@ public class ContentSaveRequest {
     private String slug;
     private String content;
     private ContentType type;
-    private String FmtType;
-    private MetaResponse[] Tags;
+    private String fmtType;
+    private String[] tags;
     private ContentStatus status;
-    private MetaResponse Category;
+    private String category;
     private Boolean allowComment;
     private Boolean allowPing;
     private Boolean allowFeed;

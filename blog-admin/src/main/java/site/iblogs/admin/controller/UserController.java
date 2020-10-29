@@ -83,7 +83,7 @@ public class UserController {
     @ApiOperation(value = "退出登录")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse login() {
+    public ApiResponse logOut() {
         userService.logout();
         return ApiResponse.success("登出成功");
     }

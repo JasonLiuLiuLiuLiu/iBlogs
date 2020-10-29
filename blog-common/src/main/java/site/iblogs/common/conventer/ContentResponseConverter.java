@@ -3,6 +3,7 @@ package site.iblogs.common.conventer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import site.iblogs.common.dto.request.ContentSaveRequest;
 import site.iblogs.common.dto.response.ContentEditResponse;
 import site.iblogs.model.Content;
 import site.iblogs.common.dto.response.ContentResponse;
@@ -28,4 +29,15 @@ public interface ContentResponseConverter {
             @Mapping(target = "fmtType", expression = "java(contents.getFmttype())")
     })
     ContentEditResponse domain2EditResponse(Content contents);
+
+    @Mappings({
+            @Mapping(target = "type", expression = "java(request.getType().ordinal())"),
+            @Mapping(target = "status", expression = "java(request.getStatus().ordinal())"),
+            @Mapping(target = "allowcomment", expression = "java(request.getAllowComment())"),
+            @Mapping(target = "allowfeed", expression = "java(request.getAllowFeed())"),
+            @Mapping(target = "allowping", expression = "java(request.getAllowPing())"),
+            @Mapping(target = "tags", expression = "java(String.join(\",\", request.getTags()))"),
+            @Mapping(target = "fmttype", expression = "java(request.getFmtType())")
+    })
+    Content saveRequest2Domain(ContentSaveRequest request);
 }

@@ -4,21 +4,22 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import site.iblogs.admin.dto.request.*;
 import site.iblogs.admin.service.MetaService;
-import site.iblogs.common.dto.enums.MetaType;
+import site.iblogs.admin.service.UserService;
+import site.iblogs.common.dto.request.ContentSaveRequest;
 import site.iblogs.common.dto.response.ContentEditResponse;
 import site.iblogs.admin.service.ContentService;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.conventer.ContentResponseConverter;
 import site.iblogs.common.dto.response.ContentResponse;
-import site.iblogs.common.dto.response.MetaResponse;
 import site.iblogs.mapper.ContentMapper;
 import site.iblogs.model.Content;
 import site.iblogs.model.ContentExample;
 
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class ContentServiceImpl implements ContentService {
     @Autowired
     private ContentResponseConverter contentResponseConverter;
     @Autowired
-    private MetaService metaService;
+    private UserService userService;
 
     @Override
     public PageResponse<ContentResponse> page(ContentPageParam pageParam) {
@@ -82,6 +83,21 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Boolean save(ContentSaveRequest param) {
-        return null;
+        Content content = contentResponseConverter.saveRequest2Domain(param);
+        content.setDeleted(false);
+        content.setModified(new Date());
+        content.setAuthorid(userService.info().getId());
+        if (content.getId() == null) {
+            Content oldContent = contentMapper.selectByPrimaryKey(content.getId());
+            content.setHits(oldContent.getHits());
+            content.setThumbimg(oldContent.getThumbimg());
+            content.setCommentsnum(oldContent.getCommentsnum());
+            contentMapper.insertSelective(content);
+        } else {
+            content.setHits(0);
+            content.setCommentsnum(0);
+            contentMapper.updateByPrimaryKeyWithBLOBs(content);
+        }
+        return true;
     }
 }

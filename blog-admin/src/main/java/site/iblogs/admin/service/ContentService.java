@@ -1,6 +1,7 @@
 package site.iblogs.admin.service;
 
 import site.iblogs.admin.dto.request.*;
+import site.iblogs.common.dto.request.ContentSaveRequest;
 import site.iblogs.common.dto.response.ContentEditResponse;
 import site.iblogs.common.api.PageResponse;
 import site.iblogs.common.dto.response.ContentResponse;

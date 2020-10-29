@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import site.iblogs.admin.dto.request.ContentDeleteParam;
-import site.iblogs.admin.dto.request.ContentDetailRequest;
-import site.iblogs.admin.dto.request.ContentPageParam;
-import site.iblogs.admin.dto.request.ContentStatusUpdateParam;
+import site.iblogs.admin.dto.request.*;
 import site.iblogs.admin.service.ContentService;
 import site.iblogs.common.api.ApiResponse;
+import site.iblogs.common.dto.request.ContentSaveRequest;
 
 /**
  * @author: liuzhenyulive@live.com
@@ -52,5 +50,12 @@ public class ContentController {
     @ResponseBody
     public ApiResponse details(@RequestBody ContentDetailRequest param) throws Exception {
         return ApiResponse.success(contentService.details(param));
+    }
+
+    @ApiOperation("保存文章")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse details(@RequestBody ContentSaveRequest param) {
+        return ApiResponse.success(contentService.save(param));
     }
 }
