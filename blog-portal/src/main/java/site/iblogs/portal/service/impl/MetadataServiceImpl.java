@@ -29,6 +29,6 @@ public class MetadataServiceImpl implements MetadataService {
         example.setOrderByClause("count desc");
         List<Meta> metas = metasMapper.selectByExampleWithBLOBs(example);
         PageInfo<Meta> pageInfo=new PageInfo<>(metas);
-        return PageResponse.restPage(metas.stream().map(u->new MetaDataResponse(u.getName(),u.getCount())).collect(Collectors.toList()),pageInfo);
+        return PageResponse.restPage(metas.stream().map(u->new MetaDataResponse(u.getName(), Math.toIntExact(u.getCount()))).collect(Collectors.toList()),pageInfo);
     }
 }
