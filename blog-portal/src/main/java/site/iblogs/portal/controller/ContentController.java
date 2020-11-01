@@ -9,11 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.model.Contents;
-import site.iblogs.portal.model.params.MetaDataType;
+import site.iblogs.common.dto.enums.MetaType;
 import site.iblogs.portal.model.request.content.ContentMetaPageRequest;
 import site.iblogs.portal.model.response.ArchivesResponse;
-import site.iblogs.portal.model.response.ContentResponse;
+import site.iblogs.common.dto.response.ContentResponse;
 import site.iblogs.portal.service.ContentService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -54,14 +53,14 @@ public class ContentController {
     @RequestMapping(value = "tag", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> tag(@RequestBody ContentMetaPageRequest request) {
-        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Tag.ordinal(), request.getMeta(), request.getPageNum(), request.getPageSize()));
+        return ApiResponse.success(contentService.getContentByMetaData(MetaType.Tag.ordinal(), request.getMeta(), request.getPageNum(), request.getPageSize()));
     }
 
     @ApiOperation("通过通过分类获取文章")
     @RequestMapping(value = "category", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<PageResponse<ContentResponse>> category(@RequestBody ContentMetaPageRequest request) {
-        return ApiResponse.success(contentService.getContentByMetaData(MetaDataType.Category.ordinal(), request.getMeta(), request.getPageNum(), request.getPageSize()));
+        return ApiResponse.success(contentService.getContentByMetaData(MetaType.Category.ordinal(), request.getMeta(), request.getPageNum(), request.getPageSize()));
     }
 
     @ApiOperation("文章归档")

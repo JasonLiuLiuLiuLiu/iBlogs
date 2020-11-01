@@ -2,29 +2,27 @@ package site.iblogs.portal.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import site.iblogs.common.model.ConfigKey;
-import site.iblogs.mapper.OptionsMapper;
-import site.iblogs.model.Options;
-import site.iblogs.model.OptionsExample;
+import site.iblogs.mapper.OptionMapper;
+import site.iblogs.model.Option;
+import site.iblogs.model.OptionExample;
 import site.iblogs.portal.service.OptionService;
-import site.iblogs.portal.service.RedisService;
+import site.iblogs.common.service.RedisService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 @Service
 public class OptionServiceImpl implements OptionService {
 
-    private OptionsMapper optionsMapper;
+    private OptionMapper optionsMapper;
 
-    private RedisService<Options> redisService;
+    private RedisService<Option> redisService;
 
     private static boolean initializedOptionsToRedis = false;
     private static String optionsPreKey = "IBLOGS.SITE.OPTIONS-";
 
-    public OptionServiceImpl(OptionsMapper optionsMapper, RedisService<Options> redisService) {
+    public OptionServiceImpl(OptionMapper optionsMapper, RedisService<Option> redisService) {
         this.optionsMapper = optionsMapper;
         this.redisService = redisService;
         if (!initializedOptionsToRedis) {
@@ -36,7 +34,7 @@ public class OptionServiceImpl implements OptionService {
         if (initializedOptionsToRedis) {
             return;
         }
-        List<Options> allOptions = getAllOption();
+        List<Option> allOptions = getAllOption();
         allOptions.forEach(u -> {
             if (!StringUtils.isEmpty(u.getValue())) {
                 redisService.set(optionsPreKey + u.getName(), u);
@@ -46,14 +44,14 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public Options getOption(String key) {
-        Options value = redisService.get(optionsPreKey + key);
+    public Option getOption(String key) {
+        Option value = redisService.get(optionsPreKey + key);
         if (value == null || StringUtils.isEmpty(value.getValue())) {
-            OptionsExample example = new OptionsExample();
-            OptionsExample.Criteria criteria=example.createCriteria();
+            OptionExample example = new OptionExample();
+            OptionExample.Criteria criteria=example.createCriteria();
             criteria.andDeletedEqualTo(false);
             criteria.andNameEqualTo(key.toString());
-            List<Options> options = optionsMapper.selectByExample(example);
+            List<Option> options = optionsMapper.selectByExample(example);
             if (options.size() > 0) {
                 value = options.get(0);
                 redisService.set(optionsPreKey + value.getName(), value);
@@ -71,7 +69,7 @@ public class OptionServiceImpl implements OptionService {
 
         for (String key : keys) {
             try {
-                Options option = getOption(key);
+                Option option = getOption(key);
                 if (option == null || !option.getVisible()) {
                     result.put(key, null);
                 } else {
@@ -86,8 +84,8 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public List<Options> getAllOption() {
-        OptionsExample example=new OptionsExample();
+    public List<Option> getAllOption() {
+        OptionExample example=new OptionExample();
         example.createCriteria().andDeletedEqualTo(false);
         return optionsMapper.selectByExample(example);
     }

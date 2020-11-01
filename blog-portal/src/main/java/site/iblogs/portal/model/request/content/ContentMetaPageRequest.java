@@ -2,7 +2,7 @@ package site.iblogs.portal.model.request.content;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import site.iblogs.portal.model.request.PageRequest;
+import site.iblogs.common.api.PageRequest;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

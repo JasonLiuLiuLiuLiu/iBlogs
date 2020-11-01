@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.iblogs.common.api.ApiResponse;
 import site.iblogs.common.api.PageResponse;
-import site.iblogs.portal.model.request.CommentRequest;
-import site.iblogs.portal.model.response.CommentResponse;
+import site.iblogs.common.dto.request.CommentRequest;
+import site.iblogs.common.dto.response.CommentResponse;
 import site.iblogs.portal.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class CommentController {
     @ApiOperation("通过文章Id获取评论")
     @RequestMapping(value = "/getComments", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<PageResponse<CommentResponse>> GetComments(int cid, int pageNum, int pageSize){
+    public ApiResponse<PageResponse<CommentResponse>> GetComments(Long cid, int pageNum, int pageSize){
         return ApiResponse.success(commentService.getComment(cid,pageNum,pageSize));
     }
 

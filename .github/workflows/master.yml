@@ -54,9 +54,11 @@ jobs:
             cd $DIR/iBlogs
             git checkout master
           fi
-          docker build -t registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} .
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+          docker build -t registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} -f ./blog-portal/Dockerfile .
           docker push registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
+          docker build -t registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_ADMIN_REPO }}:prod-${{ github.run_number }} -f ./blog-admin/Dockerfile .
+          docker push registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_ADMIN_REPO }}:prod-${{ github.run_number }}
           rm -rf $DIR/inProgress
 
   deploy:
@@ -74,7 +76,11 @@ jobs:
           port: ${{ secrets.PRODPORT }}
           command_timeout: 30m
           script: |
-            docker registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
+            docker pull registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }}
             docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker run --restart always --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_REPO }}:prod-${{ github.run_number }} --nacos.config.namespace=${{ secrets.NACOS_NAMESPCE }} --nacos.config.server-addr="${{ secrets.NACOS_SERVER_ADDR }}"
+            docker pull registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_ADMIN_REPO }}:prod-${{ github.run_number }}
+            docker stop ${{ secrets.DOCKER_ADMIN_CONTAINER_NAME }}
+            docker rm ${{ secrets.DOCKER_ADMIN_CONTAINER_NAME }}
+            docker run --restart always --name ${{ secrets.DOCKER_ADMIN_CONTAINER_NAME }} -d -p 8081:8081 registry.cn-hangzhou.aliyuncs.com/${{ secrets.DOCKER_ADMIN_REPO }}:prod-${{ github.run_number }} --nacos.config.namespace=${{ secrets.NACOS_NAMESPCE }} --nacos.config.server-addr="${{ secrets.NACOS_SERVER_ADDR }}"

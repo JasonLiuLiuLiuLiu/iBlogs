@@ -9,11 +9,10 @@ import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.stream.StreamListener;
 import org.springframework.stereotype.Component;
-import site.iblogs.common.model.BoolResultWithMessage;
+import site.iblogs.common.dto.BoolResultWithMessage;
 import site.iblogs.common.utils.SFTPUtil;
 import site.iblogs.portal.model.params.FtpFileInfo;
 import site.iblogs.portal.model.params.FtpRssFileInfo;
-import site.iblogs.portal.service.OptionService;
 
 @Component
 public class RssTaskConsumer implements StreamListener<String, ObjectRecord<String, FtpRssFileInfo>> {

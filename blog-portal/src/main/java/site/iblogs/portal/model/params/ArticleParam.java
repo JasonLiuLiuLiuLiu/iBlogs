@@ -1,5 +1,8 @@
 package site.iblogs.portal.model.params;
 
+import site.iblogs.common.dto.enums.ContentStatus;
+import site.iblogs.common.dto.enums.ContentType;
+
 public class ArticleParam {
 
     public String getTitle() {
