@@ -7,7 +7,7 @@
     </resultMap>
     <select id="getContentByMetaData" resultMap="site.iblogs.mapper.ContentMapper.ResultMapWithBLOBs">
         SELECT c.*
-        FROM Content c
+        FROM content c
                  LEFT JOIN Relationships r ON c.id = r.Cid
                  LEFT JOIN Metas m ON r.Mid = m.Id
         WHERE m.`Name` = #{name}
@@ -21,7 +21,7 @@
         SELECT
             *
         FROM
-            Content
+            content
         WHERE
             Deleted = 0
           AND DATE( Created )= #{date}
@@ -30,16 +30,16 @@
     </select>
     <select id="getPre" resultType="java.lang.Long">
         SELECT Id
-        FROM Content
-        WHERE Created &lt; (SELECT Created FROM Content WHERE Id = #{id})
+        FROM content
+        WHERE Created &lt; (SELECT Created FROM content WHERE Id = #{id})
           AND Deleted = 0
         ORDER BY Created DESC
         LIMIT 1
     </select>
     <select id="getNext" resultType="java.lang.Long">
         SELECT Id
-        FROM Content
-        WHERE Created &gt; (SELECT Created FROM Content WHERE Id = #{id})
+        FROM content
+        WHERE Created &gt; (SELECT Created FROM content WHERE Id = #{id})
           AND Deleted = 0
         ORDER BY Created
         LIMIT 1
@@ -49,7 +49,7 @@
 			DATE( Created ) AS date,
 			Count( 1 ) AS count
 		FROM
-			Content
+			content
 		WHERE
 			Deleted = 0
 		GROUP BY
