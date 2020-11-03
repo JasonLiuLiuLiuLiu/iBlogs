@@ -3,8 +3,8 @@ server:
 
 nacos:
   config:
-    server-addr: 192.168.101.1:8848
-    namespace: f1426bb3-51c1-487e-8e0a-c33c7c31fad3
+    server-addr: omv:8848
+    namespace: 03b6dc11-e91a-4545-afec-c1db99fa705a
     group: DEFAULT_GROUP
     auto-refresh: true
     data-id: admin
@@ -13,3 +13,13 @@ nacos:
       log-enable: false
     max-retry: 10
     type: yaml
+
+logging:
+  level:
+    site:
+      iblogs:
+        mapper:
+          CommentMapper: debug
+          ContentMapper: debug
+          MetaMapper: debug
+  config: classpath:logback-spring.xml
