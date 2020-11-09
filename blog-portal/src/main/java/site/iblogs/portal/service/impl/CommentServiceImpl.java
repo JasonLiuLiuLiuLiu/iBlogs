@@ -33,8 +33,7 @@ public class CommentServiceImpl implements CommentService {
     public PageResponse<CommentResponse> getComment(Long cid, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         CommentExample example = new CommentExample();
-        example.createCriteria().andDeletedEqualTo(false);
-        example.createCriteria().andCidEqualTo(cid);
+        example.createCriteria().andDeletedEqualTo(false).andCidEqualTo(cid);
         List<Comment> comments = commentsMapper.selectByExampleWithBLOBs(example);
         PageInfo<Comment> pageInfo = new PageInfo<>(comments);
         return PageResponse.restPage(comments.stream().map(u -> {
